@@ -12,6 +12,7 @@ user_measures <- colnames(td[-1])
 
 ## column headings: syntax standardisation
 user_measures <- gsub("-", "_", user_measures)
+user_measures <- gsub(" ", "_", user_measures)
 user_measures <- tolower(user_measures)
 user_measures <- gsub("(^|[[:space:]])([[:alpha:]])","\\1\\U\\2",user_measures,perl=TRUE)
 
