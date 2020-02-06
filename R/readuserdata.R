@@ -1,12 +1,22 @@
+# Provide tabled user data as standardised list of measures for sizAAR calculation 
+
+# librarys needed
 library(reshape2)
+
 # read user table
 td<-read.table('testdata.tab',sep='\t', head=T)
 td
+
 # check variable name / column headings
-# measures <- colnames(td[-1])
 user_measures <- colnames(td[-1])
 
-wrong_measures <- NULL
+## column headings: syntax standardisation
+user_measures <- gsub("-", "_", user_measures)
+user_measures <- tolower(user_measures)
+user_measures <- gsub("(^|[[:space:]])([[:alpha:]])","\\1\\U\\2",user_measures,perl=TRUE)
+
+## column headings: check for non specified labels
+  wrong_measures <- NULL
 
 for (i in user_measures){
   if (!(i %in% measures)) {
@@ -15,5 +25,5 @@ for (i in user_measures){
 }
 wrong_measures
 
-# transform user data
+# transform user data into list
 td_<-na.omit(melt(td,id="Individual"))
