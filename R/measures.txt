@@ -1,0 +1,17 @@
+# liste of valid measures, one label each line 
+Individual
+H1
+H1_r
+H1_l
+H2
+H2_r
+H2_l
+R1
+R_r
+R1_l
+R1b
+R1b_r
+R1b_l
+R2
+R2_r
+R2_l
