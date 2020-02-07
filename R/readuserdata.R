@@ -14,6 +14,7 @@ user_measures <- colnames(td[-1])
 user_measures <- gsub("-", "_", user_measures)
 user_measures <- gsub(" ", "_", user_measures)
 user_measures <- tolower(user_measures)
+#Uppercase first character
 user_measures <- gsub("(^|[[:space:]])([[:alpha:]])","\\1\\U\\2",user_measures,perl=TRUE)
 
 ## column headings: check for non specified labels
@@ -28,3 +29,5 @@ wrong_measures
 
 # transform user data into list
 td_<-na.omit(melt(td,id="Individual"))
+
+# Check values
