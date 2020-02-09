@@ -48,42 +48,32 @@ prep.body.hight = function (x, ds = 'table') {
   # check variable name / column headings
   # variable names: <blank> and "-" have been converted to "."
   tdl[[2]]<-gsub("\\.", "_", tdl[[2]])
+  tdl[[2]]<- tolower(tdl[[2]])
+  # first character to upper case
   tdl[[2]]<-gsub("(^|[[:space:]])([[:alpha:]])","\\1\\U\\2",tdl[[2]],perl=TRUE)
   
+  
+  ## column headings: check for non specified labels
   user_measures<-unique(tdl[[2]])
+  measures<-scan("./R/measures.txt", what="character", sep = "\n", skip=1)  
+  wrong_measures <- NULL
   
+  for (i in user_measures){
+    if (!(i %in% measures)) {
+      wrong_measures <- c(wrong_measures,i)
+    }
+  }
   
+  if (length(wrong_measures)>=1) {
+    stop (paste("The following column headings do not match the requirements:", wrong_measures, sep="\n"))
+  }
   
-}
-user_measures
-
-
-test<-c('h1', 'H1', 'H1', 'T1', 'T1', 'T1_r')
-
-# check variable name / column headings
-user_measures <- colnames(td)
-
-## column headings: syntax standardisation
-user_measures <- tolower(user_measures)
-#Uppercase first character
-user_measures <- 
-
-#for test purposes only
-# user_measures <- c(user_measures, "test")
-
-## column headings: check for non specified labels
-measures<-scan("./R/measures.txt", what="character", sep = "\n", skip=1)  
-wrong_measures <- NULL
-
-for (i in user_measures){
-  if (!(i %in% measures)) {
-    wrong_measures <- c(wrong_measures,i)
+ # aggegate statistics for data check
+  # in work, result should be a table with: n, Min., 1st Qu., Median, Mean, 3rd Qu., Max. 
+  for (var in user_measures) {
+   length(subset(tdl[[3]],tdl[[2]]==var))
+   as.vector(summary(subset(tdl[[3]],tdl[[2]]==var)))
   }
 }
 
-if (length(wrong_measures)>=1) {
-  stop (paste("The following column headings do not match the requirements:", wrong_measures, sep="\n"))
-}
-  
 
-# Check values
