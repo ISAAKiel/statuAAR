@@ -69,11 +69,13 @@ prep.body.hight = function (x, ds = 'table') {
   }
   
  # aggegate statistics for data check
-  # in work, result should be a table with: n, Min., 1st Qu., Median, Mean, 3rd Qu., Max. 
+# in work!!!, result should be a table with: n, Min., 1st Qu., Median, Mean, 3rd Qu., Max. 
+  agg_measures<-tibble(measure=character(), n=integer(), MinM=numeric(), Quart1=numeric(), MedianM=numeric(), MeanM=numeric(), Quart3=numeric(), MaxM=numeric())
   for (var in user_measures) {
-   length(subset(tdl[[3]],tdl[[2]]==var))
-   as.vector(summary(subset(tdl[[3]],tdl[[2]]==var)))
+   add_row(agg_measures,
+    measure = var,
+    n = length(subset(tdl[[3]],tdl[[2]]==var)))#,
+    #MinM:MaxM = as.vector(summary(subset(tdl[[3]],tdl[[2]]==var))))
   }
 }
-
 
