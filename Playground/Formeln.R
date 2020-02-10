@@ -8,9 +8,15 @@ vec_indv <- unique(tbl$Individual)
 
 # Nach Vercellotti u.a. 2009
 
+# Initialize data frame for later storage of different Ks
+df_K <- setNames(data.frame(matrix(ncol = 12, nrow = length(vec_indv))), c("K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12"))
+df_K[is.na(df_K)] <- 0
+
+# Initialize data frame for later storage of different mean body heights
 val_indv <- as.data.frame(matrix(ncol=2, nrow=length(vec_indv)), row.names=vec_indv)
 colnames(val_indv) <-c("male","female")
 
+# check available values for different variables needed for 
 for (i in 1:length(vec_indv)){
   df_knochen <- subset(tbl, subset=tbl$Individual == vec_indv[i])
   
@@ -69,68 +75,56 @@ for (i in 1:length(vec_indv)){
     T1 <- (((df_knochen$value[df_knochen$variable == "T1_l"])+(df_knochen$value[df_knochen$variable == "T1_r"]))/2)
     }  
 
-  # check if values were present and if so insert them in respective function
-  
   c_k <- 0
-  K1 <- 0
-  K2 <- 0
-  K3 <- 0
-  K4 <- 0
-  K5 <- 0
-  K6 <- 0
-  K7 <- 0
-  K8 <- 0
-  K9 <- 0
-  K10 <- 0
-  K11 <- 0
-  K12 <- 0
+  
+# check if values were present and if so insert them in respective function
   
   if (exists("F2")){
-    K2 <- (F2 * 2.70) + 481
-    K8 <- (F2 * 2.89) + 365
+    df_K$K2[i] <- (F2 * 2.70) + 481
+    df_K$K8[i] <- (F2 * 2.89) + 365
     c_k <- c_k+1
     } 
   
   if (exists("F2") & exists("T1")){
-    K1 <- ((F2+T1) * 1.50) + 469
-    K7 <- ((F2+T1) * 1.55) + 390
+    df_K$K1[i] <- ((F2+T1) * 1.50) + 469
+    df_K$K7[i] <- ((F2+T1) * 1.55) + 390
     c_k <- c_k+1
     }
 
   if (exists("F1")){
-    K3 <- (F1 * 2.61) + 515
-    K9 <- (F1 * 2.89) + 353
+    df_K$K3[i] <- (F1 * 2.61) + 515
+    df_K$K9[i] <- (F1 * 2.89) + 353
     c_k <- c_k+1
     } 
   
   if (exists("T1")){
-    K4 <- (T1 * 2.91) + 631
-    K10 <- (T1 * 2.79) + 614
+    df_K$K4[i] <- (T1 * 2.91) + 631
+    df_K$K10[i] <- (T1 * 2.79) + 614
     c_k <- c_k+1
    } 
   
   if (exists("H1")){
-    K5 <- (H1 * 3.11) + 677
-    K11 <- (H1 * 3.11) + 630
+    df_K$K5[i] <- (H1 * 3.11) + 677
+    df_K$K11[i] <- (H1 * 3.11) + 630
     c_k <- c_k+1
     } 
   
   if (exists("R1")){
-    K6 <- (R1 * 1.92) + 1230
-    K12 <- (R1 * 3.45) + 785
+    df_K$K6[i] <- (R1 * 1.92) + 1230
+    df_K$K12[i] <- (R1 * 3.45) + 785
     c_k <- c_k+1
     } 
 
   # Results are added up for male and female indviduals and the arithmetic mean is calculated. Values have to be divided by 1000 for m. Meter are chosen here for not implying an accurancy (as would be the case with mm or cm) that is not available by these calculations.  
-    K_vercellotti_2009_m <- round((((K1+K2+K3+K4+K5+K6)/c_k)/1000),2)
-    K_vercellotti_2009_f <- round((((K7+K8+K9+K10+K11+K12)/c_k)/1000),2)
+    K_vercellotti_2009_m <- round((((rowSums(df_K[i,1:6]))/c_k)/1000),2)
+    K_vercellotti_2009_f <- round((((rowSums(df_K[i,7:12]))/c_k)/1000),2)
 
   # Store results in data frame for every individual
+    
     val_indv$male[i] <- K_vercellotti_2009_m
     val_indv$female[i] <- K_vercellotti_2009_f
-  
-  # Store Ks in additional data frame -> to be done
     
   }
-  
+
+df_K <- df_K[order(as.numeric(row.names(df_K))), ]  
 val_indv <- val_indv[order(as.numeric(row.names(val_indv))), ]
