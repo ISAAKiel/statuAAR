@@ -20,7 +20,7 @@
 #' }
 
 # librarys needed
-library(reshape2)
+#library(reshape2)
 library(tidyverse)
 library (dplyr)
 
@@ -41,7 +41,7 @@ prep.body.hight = function (x, ds = 'table') {
 
   # transform tabled user data into a list
   if (ds=='table') {
-    tdl<-as_tibble(melt(td, na.rm=TRUE, id=1))
+    tdl<-as_tibble(reshape2::melt(td, na.rm=TRUE, id=1))
   } else {
     tdl<-as_tibble(na.omit(td))
   }
@@ -66,12 +66,12 @@ prep.body.hight = function (x, ds = 'table') {
   }
   
   if (length(wrong_measures)>=1) {
-    stop (paste("The following column headings do not match the requirements:", wrong_measures, sep="\n"))
-  }
+    stop (paste("The following column headings do not match the requirements:",  
+                paste(wrong_measures, collapse=", "), sep = "\n"))
+   }
   
  # aggegate statistics for data check
-# in work!!!, result should be a table with: n, Min., 1st Qu., Median, Mean, 3rd Qu., Max.
-agg_measures<-data.frame(measure=character(), 
+  agg_measures<-data.frame(measure=character(), 
                          n=integer(), 
                          MinM=numeric(), 
                          Quart1=numeric(), 
@@ -81,14 +81,22 @@ agg_measures<-data.frame(measure=character(),
                          MaxM=numeric(),
                          stringsAsFactors = FALSE)
   
-#  agg_measures<-NULL
-#  i<-null
-  #for (var in user_measures) {
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
            length(subset(tdl[[3]],tdl[[2]]==user_measures[i])),
            as.vector(summary(subset(tdl[[3]],tdl[[2]]==user_measures[i])))))
   }
-  
+  for (cn in colnames(agg_measures[3:8])) {
+     
+  }
+  agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
+  agg_measures<-as_tibble(agg_measures)
+  agg_measures<- mutate(agg_measures, 
+                        maxDiff2Mean = (agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
+  if (any(agg_measures[,9]>1)) {
+    warning (paste('We calculatet the max. Diff. for each measurement in relation to its mean.',
+                  'At least one value differs by more than 2%. Please consider to check your data', sep = '\n'))
+             print (agg_measures)
+  }
 }
 
