@@ -69,13 +69,31 @@ prep.body.hight = function (x, ds = 'table') {
   }
   
  # aggegate statistics for data check
-# in work!!!, result should be a table with: n, Min., 1st Qu., Median, Mean, 3rd Qu., Max. 
-  agg_measures<-tibble(measure=character(), n=integer(), MinM=numeric(), Quart1=numeric(), MedianM=numeric(), MeanM=numeric(), Quart3=numeric(), MaxM=numeric())
+# in work!!!, result should be a table with: n, Min., 1st Qu., Median, Mean, 3rd Qu., Max.
+#agg_measures<-tibble(measure=character(), n=integer(), MinM=numeric(), Quart1=numeric(), MedianM=numeric(), MeanM=numeric(), Quart3=numeric(), MaxM=numeric())
+  
+  agg_measures<-NULL
   for (var in user_measures) {
-   add_row(agg_measures,
-    measure = var,
-    n = length(subset(tdl[[3]],tdl[[2]]==var)))#,
-    #MinM:MaxM = as.vector(summary(subset(tdl[[3]],tdl[[2]]==var))))
+   agg_measures<-rbind(agg_measures, 
+         c(var,
+           length(subset(tdl[[3]],tdl[[2]]==var)),
+           as.vector(summary(subset(tdl[[3]],tdl[[2]]==var))))
+   )
   }
+  colnames(agg_measures)<-c('measure', 'n', 'MinM', 'Quart1', 'MedianM', 'MeanM', 'Quart3', 'MaxM')
+  m<-as_tibble(agg_measures, 
+               measure=character(), 
+               n=integer(), 
+               MinM=numeric(), 
+               Quart1=numeric(), 
+               MedianM=numeric(), 
+               MeanM=numeric(), 
+               Quart3=numeric(), 
+               MaxM=numeric())
 }
 
+#rq_fit %>%
+#  predict(newdata = PredictionData) %>%
+#  as_tibble() %>%
+#  bind_cols(PredictionData) %>%
+#  select(x, everything())
