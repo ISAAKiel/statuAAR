@@ -1,13 +1,13 @@
 #' Calculate body height indices and mean body height based on Vercellotti et al. 2009
 #' 
-#' Based on the available measurements of different bones of different individuums, the body height indices for males and females are calculated according to Vercelotti et al. 2009. Additionally the mean body height for female or male individuals are calculated on all usable indices.
+#' Based on the available measurements of different bones of different individuals, the body height indices for males and females are calculated according to Vercelotti et al. 2009. Additionally the mean body height for female or male individuals are calculated on all usable indices.
 #'
 #' 
 #' @title vercellotti_et_al_2009
 #' 
-#' @param df data.frame, containing informations on individuum, bone and measurement
+#' @param df data.frame, containing informations on individual, bone and measurement
 #'  
-#' @return list, containing one data.frame with all claculated indices for every individuum and a second data.frame with the mean body height for all individuals
+#' @return list, containing one data.frame with all calculated indices for every individual and a second data.frame with the mean body height for all individuals
 #'           
 #' @author Anna Loy <\email{aloy@@roots.uni-kiel.de}>
 #' @author Nils Müller-Scheeßel <\email{nils.mueller-scheessel@@ufg.uni-kiel.de}>
@@ -137,7 +137,7 @@ vercellotti_et_al_2009 <- function(df){
       c_k <- c_k+1
     } 
     
-    # Results are added up for male and female indviduals and the arithmetic mean is calculated. Values have to be divided by 1000 for showing results in meter. Meter are chosen here to not imply an accurancy (as would be the case with mm or cm) that is not available by these calculations.  
+    # Results are added up for male and female individuals and the arithmetic mean is calculated. Values have to be divided by 1000 for showing results in meter. Meter are chosen here to not imply an accuracy (as would be the case with mm or cm) that is not available by these calculations.  
     K_vercellotti_2009_m <- round((((rowSums(df_K[i,1:6]))/c_k)/1000),2)
     K_vercellotti_2009_f <- round((((rowSums(df_K[i,7:12]))/c_k)/1000),2)
     
