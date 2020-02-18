@@ -1,5 +1,5 @@
 # liste of valid measures, one label each line 
-Individual
+ind
 F1
 F2
 F2_l

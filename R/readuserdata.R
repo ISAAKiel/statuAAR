@@ -31,6 +31,8 @@ library (dplyr)
 x<-read.table('testdata.tab',sep='\t', head=T)
 ds<-'table'
 ind<-'Individual'
+grp<- NA
+tdl-> td
 
 # read user table
 prep.body.hight = function (x, ds = 'table', ind, grp) {
@@ -43,22 +45,22 @@ prep.body.hight = function (x, ds = 'table', ind, grp) {
     stop("Please indicate the data structure ds='table' (standard) or ds='list'")
   }
 
-  # chang the column names to 'ind' and 'grp' for further processing
+  # change the column names to 'ind' and 'grp' for further processing
   names(td)[which(names(td)==ind)]<-'ind'
   names(td)[which(names(td)==grp)]<-'grp'
   
-  # not finished !!!!!!!!!!!!!!!!!!!!!!!!!!!
   # check for duplicated identifiers (individuals)
   if (ds == 'table') {
     dupl_ind<-td$ind[duplicated(td$ind)]
   } else if (ds == 'list') {
-   id<-gsub('l', '', tdl$variable)
+   id<-gsub('l', '', td$variable)
    id<-gsub('r', '', id)
    id<-gsub('_', '', id)
    id<-paste(tdl$ind, id, sep = '_')
+   dupl_ind<-names(table(id)[table(id)>2])
   }
   
-  if (lengt(dupl_ind)>0) {
+  if (length(dupl_ind)>0) {
     stop(paste("Identifier for Individuals is not unique for:", 
                paste(dupl_ind, collapse=", "), 
                sep=" "))
@@ -118,9 +120,9 @@ prep.body.hight = function (x, ds = 'table', ind, grp) {
   agg_measures<-as_tibble(agg_measures)
   agg_measures<- mutate(agg_measures, 
                         maxDiff2Mean = (agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
-  if (any(agg_measures[,9]>1)) {
+  if (any(agg_measures[,9]>1.5)) {
     warning (paste('We calculatet the max. Diff. for each measurement in relation to its mean.',
-                  'At least one value differs by more than 2%. Please consider to check your data', sep = '\n'))
+                  'At least one value differs by more than 1.5%. Please consider to check your data', sep = '\n'))
              print (agg_measures)
   }
 }
