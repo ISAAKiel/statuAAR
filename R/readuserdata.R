@@ -10,11 +10,14 @@
 #'  @param ds A string defining the data.frame structure.
 #'    * ds=`table` for a data.frame with individuals (rows) and measurements (columns)
 #'    * ds=`list`  for a data.frame with three columns: individual, measurement, value
+#'  @param ind A variable / columname with an identifier for each individual.  
+#'  @param grp A string defining a optional grouping variable, e.g. sex.
 #'    
 #'    @return A list of parameters needed for the function \code{body.hight}.
 #'    
 #' \itemize{
-#'   \item \bold{Ind} or \bold{Individual}:  Individual identifyer
+#'   \item \bold{Ind} or \bold{Individual}:  Individual identifyer.
+#'   \item \bold{group}: a grouping variable (e.g. sex).
 #'   \item \bold{measure}:  abbreviation of the measure (e.g. H1_r) for \bold{value} 
 #'   \item \bold{value}: measurement in millimeters (mm) for \bold{measure}
 #' }
@@ -27,9 +30,10 @@ library (dplyr)
 # for test resons
 x<-read.table('testdata.tab',sep='\t', head=T)
 ds<-'table'
+ind<-'Individual'
 
 # read user table
-prep.body.hight = function (x, ds = 'table') {
+prep.body.hight = function (x, ds = 'table', ind, grp) {
   td<-x
   if (!is.data.frame(td)) {
     stop("Please provide a data.frame with measurements per individual")
@@ -39,6 +43,27 @@ prep.body.hight = function (x, ds = 'table') {
     stop("Please indicate the data structure ds='table' (standard) or ds='list'")
   }
 
+  # chang the column names to 'ind' and 'grp' for further processing
+  names(td)[which(names(td)==ind)]<-'ind'
+  names(td)[which(names(td)==grp)]<-'grp'
+  
+  # not finished !!!!!!!!!!!!!!!!!!!!!!!!!!!
+  # check for duplicated identifiers (individuals)
+  if (ds == 'table') {
+    dupl_ind<-td$ind[duplicated(td$ind)]
+  } else if (ds == 'list') {
+   id<-gsub('l', '', tdl$variable)
+   id<-gsub('r', '', id)
+   id<-gsub('_', '', id)
+   id<-paste(tdl$ind, id, sep = '_')
+  }
+  
+  if (lengt(dupl_ind)>0) {
+    stop(paste("Identifier for Individuals is not unique for:", 
+               paste(dupl_ind, collapse=", "), 
+               sep=" "))
+  }
+  
   # transform tabled user data into a list
   if (ds=='table') {
     tdl<-as_tibble(reshape2::melt(td, na.rm=TRUE, id=1))
