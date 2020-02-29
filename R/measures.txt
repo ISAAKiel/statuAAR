@@ -1,5 +1,6 @@
 # liste of valid measures, one label each line 
 ind
+grp
 F1
 F2
 F2_l
