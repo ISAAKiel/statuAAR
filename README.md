@@ -1,4 +1,4 @@
-# sizAAR
+# statuAAR
 
 Approximation of body hight of humans according to several conveniant estimation formula.
 
