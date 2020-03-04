@@ -1,6 +1,6 @@
 # statuAAR
 
-Approximation of body hight of humans according to several conveniant estimation formula.
+Human stature approximation according to several conveniant estimation formula.
 
 For a general introduction:
 
