@@ -10,14 +10,16 @@
 #'  @param ds A string defining the data.frame structure.
 #'    * ds=`table` for a data.frame with individuals (rows) and measurements (columns)
 #'    * ds=`list`  for a data.frame with three columns: individual, measurement, value
-#'  @param ind A variable / columname with an identifier for each individual.  
-#'  @param grp A string defining a optional grouping variable, e.g. sex.
+#'  @param ind A variable / columname with an identifier for each individual.
+#'  @param ind A variable / columname with an identifier for each sex.
+#'  @param grp A string defining a optional grouping variable, e.g. population.
 #'    
 #'    @return A list of parameters needed for the function \code{body.hight}.
 #'    
 #' \itemize{
 #'   \item \bold{Ind} or \bold{Individual}:  Individual identifyer.
-#'   \item \bold{group}: a grouping variable (e.g. sex).
+#'   \item \bold{sex}: sex of the individual (f or m), ? will be ignored (m? -> m). 
+#'   \item \bold{group}: a grouping variable (e.g. population).
 #'   \item \bold{measure}:  abbreviation of the measure (e.g. H1_r) for \bold{value} 
 #'   \item \bold{value}: measurement in millimeters (mm) for \bold{measure}
 #' }
@@ -29,7 +31,7 @@ library (dplyr)
 
 # for test reasons, will be deleted
 x<-read.table('testdata.tab',sep='\t', head=T)
-x<-read.table('testdata_indgrp.tab',sep='\t', head=T)
+x<-read.table('testdata_ind_grp.tab',sep='\t', head=T)
 x<-read.table('testdata_input.tab',sep='\t', head=T)
 x<-rbind(x,x)
 ds<-'table'
@@ -37,10 +39,11 @@ ds<-'list'
 ind<-'Individual'
 ind<-NULL
 grp<- NULL
+grp<-'sex'
 tdl-> td
 
 # read user table
-prep.body.hight = function (x, ds = 'table', ind, grp) {
+prep.body.hight = function (x, ds = 'table', ind=NA, sex= NA, grp=NA) {
   td<-x
   if (!is.data.frame(td)) {
     stop("Please provide a data.frame with measurements per individual")
@@ -71,12 +74,12 @@ prep.body.hight = function (x, ds = 'table', ind, grp) {
                sep=" "))
   }
   # if grouping (grp) is NULL all measures a set to group "all"
-  if (is.null(grp)) {
+  if (is.na(grp)) {
     td<-cbind(grp=rep('all', nrow(td)),td)
   } 
   
   # if individual identifyer (ind) is NULL all measures a set to ind "all"
-  if (is.null(ind)) {
+  if (is.na(ind)) {
     td<-cbind(ind=rep('all', nrow(td)),td)
   } 
   
@@ -135,6 +138,8 @@ prep.body.hight = function (x, ds = 'table', ind, grp) {
     warning (paste('We calculatet the max. Diff. for each measurement in relation to its mean.',
                   'At least one value differs by more than 1.5%. Please consider to check your data', sep = '\n'))
              print (agg_measures)
+  } else{
+    print (agg_measures)
   }
 }
 
