@@ -1,6 +1,6 @@
 
 
-tbl <- read.csv("../testdata_input", sep = "")
+tbl <- read.csv("testdata_formula.csv", sep = ",")
 
 vec_indv <- unique(tbl$Individual)
 

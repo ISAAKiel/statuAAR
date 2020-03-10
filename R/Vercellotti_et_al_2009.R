@@ -33,8 +33,8 @@ vercellotti_et_al_2009 <- function(df){
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
-    df_knochen <- subset(tbl, subset=tbl$Individual == vec_indv[i])
-    
+    df_knochen <- subset(df, subset=df$Individual == vec_indv[i])
+  
     # F2 
     if ("F2" %in% df_knochen$variable){
       F2 <- df_knochen$value[df_knochen$variable == "F2"]
@@ -56,7 +56,13 @@ vercellotti_et_al_2009 <- function(df){
     } else if (("T1_l" %in% df_knochen$variable) & ("T1_r" %in% df_knochen$variable)){
       T1 <- (((df_knochen$value[df_knochen$variable == "T1_l"])+(df_knochen$value[df_knochen$variable == "T1_r"]))/2)
     }  
-        
+ 
+    if (exists("F2") & exists("T1")){
+      K_vercellotti_2009_m <- ((F2+T1) * 1.50) + 469
+      K_vercellotti_2009_f <- ((F2+T1) * 1.55) + 390
+      rm(T1, F2)
+    } # Check if values were present and if so insert them in respective function
+           
      # F1 
     if ("F1" %in% df_knochen$variable){
       F1 <- df_knochen$value[df_knochen$variable == "F1"]
@@ -68,7 +74,6 @@ vercellotti_et_al_2009 <- function(df){
       F1 <- (((df_knochen$value[df_knochen$variable == "F1_l"])+(df_knochen$value[df_knochen$variable == "F1_r"]))/2)
     }
     
-
     
     # H1 
     if ("H1" %in% df_knochen$variable){
@@ -95,13 +100,7 @@ vercellotti_et_al_2009 <- function(df){
 
     
     
-    # Check if values were present and if so insert them in respective function
-    
-    if (exists("F2") & exists("T1")){
-      K_vercellotti_2009_m <- ((F2+T1) * 1.50) + 469
-      K_vercellotti_2009_f <- ((F2+T1) * 1.55) + 390
-      rm(T1, F2)
-    }
+
     
       else if (exists("F2")){
         K_vercellotti_2009_m <- (F2 * 2.70) + 481
