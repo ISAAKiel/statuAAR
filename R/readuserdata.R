@@ -30,33 +30,72 @@ library(tidyverse)
 library (dplyr)
 
 # for test reasons, will be deleted
-x<-read.table('testdata.tab',sep='\t', head=T)
+x<-read.table('Rollet1888.csv',sep=',', head=T)
 x<-read.table('testdata_ind_grp.tab',sep='\t', head=T)
 x<-read.table('testdata_input.tab',sep='\t', head=T)
 x<-rbind(x,x)
 ds<-'table'
 ds<-'list'
-ind<-'Individual'
+ind<-'Nr'
 ind<-NULL
 grp<- NULL
-grp<-'sex'
+sex<-'Sex'
 tdl-> td
 
 # read user table
-prep.body.hight = function (x, ds = 'table', ind=NA, sex= NA, grp=NA) {
+prep.body.hight = function (x, ds='table', ind=NA, sex= NA, grp=NA) {
   td<-x
+  
+  # basic check of data format
   if (!is.data.frame(td)) {
     stop("Please provide a data.frame with measurements per individual")
   }
 
+  # check the parameters provided by the user
   if (!(ds %in% c('table', 'list'))) {
     stop("Please indicate the data structure ds='table' (standard) or ds='list'")
   }
 
-  # change the column names to 'ind' and 'grp' for further processing
+  # change the column names to 'ind', 'sex' and 'grp' for further processing
+  # ind
+  if ((!is.na(ind)) & !(ind %in% names(td))) {
+    stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
+  }
   names(td)[which(names(td)==ind)]<-'ind'
+  if (!is.factor(td$ind)){
+    td$ind<-factor(td$ind)
+  }
+  
+  # sex
+  if ((!is.na(sex)) & !(sex %in% names(td))) {
+    stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
+  }
+  names(td)[which(names(td)==sex)]<-'sex'
+  
+  user_sex <- unique(td$sex)
+  wrong_sex <- NULL
+  for (i in user_sex){
+    if (!(i %in% c('1', '2', '3', 'm', 'f', 'indet'))) {
+      wrong_sex <- c(wrong_sex,i)
+    }
+  }
+  if (length(wrong_sex)>0) {
+    stop("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.")
+  }
+  
+  if (is.numeric(td$sex)){
+    td$sex<-factor(td$sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
+  }
+  
+############################## hier geht es weiter
+ # gouping variable 
+  if ((!is.na(grp)) & !(grp %in% names(td))) {
+    stop(paste ("Your grouping variable '",ind,"' is not part of the data provided.", sep = ""))
+  }
+  #rename the columns for individual identifier and grouping in td
   names(td)[which(names(td)==grp)]<-'grp'
   
+
   # check for duplicated identifiers (individuals)
   dupl_ind<-NULL
   if (!is.null(ind)) {
