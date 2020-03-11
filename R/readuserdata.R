@@ -60,19 +60,27 @@ prep.body.hight = function (x, ds='table', ind=NA, sex= NA, grp=NA) {
   # ind
   if ((!is.na(ind)) & !(ind %in% names(td))) {
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
-  }
-  names(td)[which(names(td)==ind)]<-'ind'
-  if (!is.factor(td$ind)){
-    td$ind<-factor(td$ind)
+  } 
+  if (is.null(ind)) {
+    td<-cbind(Ind=rep('all', nrow(td)),td)
+  } else {
+    names(td)[which(names(td)==ind)]<-'Ind'
+    if (!is.factor(td$Ind)){
+      td$Ind<-factor(td$Ind)
+    }
   }
   
   # sex
   if ((!is.na(sex)) & !(sex %in% names(td))) {
     stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
+  } 
+  if (is.na(sex)) {
+    td<-cbind(Sex=rep('indet', nrow(td)),td)
+  } else {
+    names(td)[which(names(td)==sex)]<-'Sex'
   }
-  names(td)[which(names(td)==sex)]<-'sex'
   
-  user_sex <- unique(td$sex)
+  user_sex <- unique(td$Sex)
   wrong_sex <- NULL
   for (i in user_sex){
     if (!(i %in% c('1', '2', '3', 'm', 'f', 'indet'))) {
@@ -83,19 +91,66 @@ prep.body.hight = function (x, ds='table', ind=NA, sex= NA, grp=NA) {
     stop("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.")
   }
   
-  if (is.numeric(td$sex)){
-    td$sex<-factor(td$sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
+  if (!is.factor(td$Sex)){
+    td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
   }
   
-############################## hier geht es weiter
  # gouping variable 
   if ((!is.na(grp)) & !(grp %in% names(td))) {
-    stop(paste ("Your grouping variable '",ind,"' is not part of the data provided.", sep = ""))
+    stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
   }
-  #rename the columns for individual identifier and grouping in td
-  names(td)[which(names(td)==grp)]<-'grp'
+  if (is.null(grp)){
+    td<-cbind(Group=rep('all', nrow(td)),td)
+  } else {
+    names(td)[which(names(td)==grp)]<-'Group'
+  }
   
+  datainfos<-"Information on data provided:"
+  dataproblems<-"Problems with the data provided:"
+  
+ # check variable names
+  
+  if (ds='table'){
+    # for tabled data
+    orig_names<-names(td)
+    new_names<-orig_names
+    new_names<-gsub("[\\._ -]", "", new_names)
+    new_names<- tolower(new_names)
+    # first character to upper case
+    new_names<-gsub("(^|[[:space:]])([[:alpha:]])","\\1\\U\\2",new_names,perl=TRUE)
+    # append short names to three letters
+    new_names<-gsub("H([12])","Hum\\1", new_names)
+    new_names<-gsub("R([12])","Rad\\1", new_names)
+    new_names<-gsub("U([12])","Uln\\1", new_names)
+    new_names<-gsub("F([12])","Fem\\1", new_names)
+    new_names<-gsub("T([12])","Tib\\1", new_names)
+    names(td)<-new_names
+    if (!all(new_names == orig_names)){
+      datainfos<-rbind(datainfos, paste("Columns renamed:", 
+                       paste(new_names, collapse=", "), sep = " "))
+    }
+    # check if column names are known
+    accepted_names<-scan("./R/measures.txt", what=list("",""), skip=2)[[1]]
+    wrong_names <- NULL
+    measure_names <- NULL
+    for (i in new_names){
+      if (i %in% accepted_names) {
+        measure_names <- c(measure_names, i)
+        } else {
+        wrong_names <- c(wrong_names,i)
+        }
+      }
+    }
+    if (length(wrong_names > 0)){
+      datainfos<-rbind(datainfos, paste("Unkown columns will be skiped:", 
+                                        paste(wrong_names, collapse=", "), sep = " "))
+    }
+  dl<-reshape2::melt(td, id=c('Ind','Sex', 'Group'), na.rm=TRUE, measure=measure_names[!measure_names %in% c('Ind','Sex', 'Group')])
+} else {
+  # data provides as list do the check column names and measures
+  ###################### hier geht es weiter ############################
 
+} 
   # check for duplicated identifiers (individuals)
   dupl_ind<-NULL
   if (!is.null(ind)) {
