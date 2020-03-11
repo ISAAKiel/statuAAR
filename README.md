@@ -1,9 +1,3 @@
----
-title: "stutAAR"
-output: html_document
-bibliography: statuAAR.bib
-csl: "`r library(RCurl); ifelse(url.exists('https://www.zotero.org/styles/journal-of-archaeological-science'), 'https://www.zotero.org/styles/journal-of-archaeological-science', '')`" 
----
 # statuAAR
 
 Estimation of human stature from long bone measurements according to several well established estimation formula.
