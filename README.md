@@ -12,4 +12,4 @@ Martin, R. (1928). Lehrbuch der Anthropologie in systematischer Darstellung: mit
 
 ## References for the formulas
 
-s. bibliography file ([BibTeX](bibstatuAAR.bib), [html](bibstatuAAR.html))
+s. bibliography file ([md](bibstatuAAR.md), [BibTeX](bibstatuAAR.bib))
