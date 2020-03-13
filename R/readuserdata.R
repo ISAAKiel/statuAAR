@@ -86,7 +86,7 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   }
   if (measures.names == 'own'){
     if(!(exists('measures.list'))){
-      measures.list<-read.delim("./lokal/measures.tab", 
+      measures.list<-read.delim("./R/measures.tab", 
                  skip = 1, 
                  quote = "\"",
                  colClasses = c(rep("character",3)))
@@ -147,8 +147,6 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   }
 
   # make a data list
-  datainfos<-"Information on data provided:"
-  dataproblems<-"Problems with the data provided:"
 
   # bring columns 'Ind', 'Sex', 'Group' to the front
   idcols<-c('Ind','Sex', 'Group')
@@ -170,20 +168,24 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   if (!is.null(ind)){
     dupl_ind<-NULL
     # any combination of Ind and variable more than 1
-    test<-data.frame(cbind(Ind=result$Ind,
+    test<-data.frame(cbind(Ind=as.character(result$Ind),
                            variable=gsub("[rl]$", "", result$variable),
-                           r.l=gsub(".*([rl])$", "\\1", result$variable)))
+                           r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", result$variable)),
+                     stringsAsFactors = FALSE)
+    # This schould match 2 x left or 2 x right for one measure.
+    # But for 1 x left, 1 x right and 1 x NA for one measure it will fail. 
+    dupl_ind<-which(plyr::count(test, c('Ind', 'variable', 'r.l'))[,4]>1)
     
-    any(plyr::count(test, c('Ind', 'variable', 'r.l'))[,3]>1)
-  ############## hier gehts weiter  
+    # This should find any measure occuring more than twice per Ind.
+    dupl_ind<-c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[,3]>2))
+    
+    if(!is.null(dupl_ind)){
+      warning(paste("Likely duplicate individuals encountered:",
+                    paste(unique(test$Ind[dupl_ind]), collapse= ", "), sep = "\n ")
+      )
+    }
   }
-  
-  if (length(dupl_ind)>0) {
-    stop(paste("Identifier for Individuals is not unique for:", 
-               paste(dupl_ind, collapse=", "), 
-               sep=" "))
-  }
-
+  ############ hier geht es weiter
   # aggegate statistics for data check
   agg_measures<-data.frame(measure=character(), 
                          n=integer(), 
@@ -194,11 +196,11 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
                          Quart3=numeric(), 
                          MaxM=numeric(),
                          stringsAsFactors = FALSE)
-  
+  user_measures<-unique(dl$variable)
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
-           length(subset(tdl[[4]],tdl[[3]]==user_measures[i])),
-           as.vector(summary(subset(tdl[[4]],tdl[[3]]==user_measures[i])))))
+           length(subset(dl[[4]],dl[[3]]==user_measures[i])),
+           as.vector(summary(subset(dl[[4]],dl[[3]]==user_measures[i])))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
   agg_measures<-dplyr::as_tibble(agg_measures)
