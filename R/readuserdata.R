@@ -7,36 +7,31 @@
 #'  Checks data consitency: 
 #'    * uniqueness of individual identifyer,
 #'    * accepted values for Sex
-#'    * accepted measure names.
+#'    * accepted measures names.
 #'  Provides a data.frame with summarised statistics for each measure across the sample 
 #'     to check for data inconsitancy.
 #'   
 #'  @param x A simple data.frame containing the measurements per individual.
 #'  @param ds A string defining the data.frame structure.
-#'    * ds=`table` for a data.frame with individuals (rows) and measurements (columns)
-#'    * ds=`list`  for a data.frame with at least two columns: variable, value
+#'    * ds=`table` for a data.frame with individuals (rows) and measurements (columns).
+#'    * ds=`list`  for a data.frame with at least two columns: 
+#'      `variable`(character), `value` (numeric).
 #'  @param ind A string defining the column with identifiers for each individual.
-#'    If ind = NA a column `Ind` with `all` will be added. 
+#'    If ind = NA a column `Ind` with `NA` will be added. 
 #'  @param sex A string defining the column identifying the sex.
-#'    Accepts 1 (male), 2 (female), 3 (indet) or m(ale), f(emale), indet.
+#'    Accepts 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
 #'    If sex = NA a column `Sex` with `indet` will be added.  
 #'  @param grp A string defining a optional grouping variable, e.g. population.
-#'    If grp = NA a column `Group` with `all` will be added. 
-#'  @param measure.names A string defining the set of predefined measure names used.
-#'    These are the columne names of tabled data or measure names in the column `variable`.
+#'    If grp = NA a column `Group` with `NA` will be added. 
+#'  @param measures.names A string defining the set of predefined or own measure names used.
+#'    For `own` a data.frame `measures.list` for correlation (merge) is needed. 
+#'    This will be created when missing and opend for editing.
 #'    * measures=`short`: Bone (3 letters), measure acc. Martin 1928, 
 #'      laterality (1 letter) without any separation
 #'      (e.g. Hum1, Hum1l, Hum1r, Hum1a, Hum1al, Hum1ar etc.).
 #'    * measures=`long`: Bone, measure acc. Martin 1928, laterality separated by `.`
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).
-#'    Before checking these labes following changes will be performed:
-#'    * All measures will be set in 'Propper Case'.
-#'    * Short forms H1, H1l, F1 etc. will be renamed to Hum1, Hum1l, Fem1 etc  
-#'    * Humerus, Humerus.left etc. will be converted to Humerus.1, Humerus.1.left
-#'      making Martins measure 1 (Caput humeri - Trochlea) explicit.
-#'    * Undesired punctuation (".", "_", "-", " ") will be deleted.
-#'    * Any combination of ri..., le..., li... or re... to the end of the name,
-#'      will be replaced by the first letter r or l respectivly. 
+#'    * measures=`own`: A data.frame `measures.list` with own names to be merged is needed. 
 #'          
 #'  @return A list of parameters needed for the function \code{body.hight}.
 #'    
@@ -48,26 +43,27 @@
 #'   \item \bold{value}: measurement for \bold{measure}.
 #' }
 
-# librarys needed
+#librarys needed
 #library(reshape2)
 #library(tidyverse)
-library (dplyr)
+#library (dplyr)
 
 # for test reasons, will be deleted
 x<-read.table('Rollet1888.csv',sep=',', head=T)
-x<-read.table('TrotterGleserTbl13.csv',sep=',', head=T)
+x<-read.table('TrotterGleser1952.csv',sep=',', head=T)
 ds<-'table'
-ds<-'list'
 ind<-'Appendix_row'
-ind<-NULL
 grp<-"Race"
-grp<- NULL
 sex<-'Sex'
+measures.names<-'own'
+
+ds<-'list'
+ind<-NULL
+grp<- NULL
 tdl-> td
-measure.names<-'long'
 
 # read user table
-prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measure.names='long') {
+prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.names='long') {
   td<-x
   
   # basic check of data format
@@ -79,8 +75,23 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measure.names
   if (!(ds %in% c('table', 'list'))) {
     stop("Please indicate the data structure ds='table' (standard) or ds='list'")
   }
-  if (!(measure.names %in% c('short', 'long'))) {
-    stop("Please indicate the measure.names format 'short' or 'long' (standard)")
+  if (ds == 'list'){
+    if (any(which(colnames(dl)=='variable')==0, 
+            which(colnames(dl)=='value')==0)){
+      stop("Please provide a column 'variable' with measures and 'value' with values")
+    }
+  }
+  if (!(measures.names %in% c('short', 'long', 'own'))) {
+    stop("Please indicate the measure.names format 'short', 'long' (standard), 'own'")
+  }
+  if (measures.names == 'own'){
+    if(!(exists('measures.list'))){
+      measures.list<-read.delim("./lokal/measures.tab", 
+                 skip = 1, 
+                 quote = "\"",
+                 colClasses = c(rep("character",3)))
+      fix(measures.list)
+    }
   }
   
   # change the column names to 'ind', 'sex' and 'grp' for further processing
@@ -89,7 +100,7 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measure.names
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
   } 
   if (is.null(ind)) {
-    td<-cbind(Ind=rep('all', nrow(td)),td)
+    td<-cbind(Ind=rep(NA, nrow(td)),td)
   } else {
     names(td)[which(names(td)==ind)]<-'Ind'
     if (!is.factor(td$Ind)){
@@ -115,9 +126,9 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measure.names
       wrong_sex <- c(wrong_sex,i)
     }
   }
-
   if (length(wrong_sex)>0) {
-    stop("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.")
+    stop(paste("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.",
+               paste(wrong_sex, collapse = ", "), sep = "\n "))
   }
   if (is.na(as.numeric(td$Sex[1]))){
     td$Sex<-factor(td$Sex, levels= c('m', 'f', 'indet'))
@@ -125,139 +136,48 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measure.names
     td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
   }
   
- # gouping variable 
+  # gouping variable 
   if ((!is.na(grp)) & !(grp %in% names(td))) {
     stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
   }
   if (is.null(grp)){
-    td<-cbind(Group=rep('all', nrow(td)),td)
+    td<-cbind(Group=rep(NA, nrow(td)),td)
   } else {
     names(td)[which(names(td)==grp)]<-'Group'
   }
 
-# check variable names
-
+  # make a data list
   datainfos<-"Information on data provided:"
   dataproblems<-"Problems with the data provided:"
-  
-  
-  if (ds='table'){
-    # for tabled data
-    orig_names<-names(td)
-    new_names<-orig_names
-    new_names<- tolower(new_names)
-    # first character to upper case
-    new_names<-gsub("(^|[[:space:]])([[:alpha:]])","\\1\\U\\2",new_names,perl=TRUE)
-    if(measure.names=='short'){
-      # append short names to three letters
-      new_names<-gsub("H([12])","Hum\\1", new_names)
-      new_names<-gsub("R([12])","Rad\\1", new_names)
-      new_names<-gsub("U([12])","Uln\\1", new_names)
-      new_names<-gsub("F([12])","Fem\\1", new_names)
-      new_names<-gsub("T([12])","Tib\\1", new_names)
-      #delete obsolet signs
-      new_names<-gsub("[\\._ -]", "", new_names)
-      #replace any variation of re(echts), ri(ght), le(ft), li(nks) by the first matching letter
-      new_names<-gsub("([rl])[ei].*$","\\1", new_names)
-    } else {
-      # add measure "1" if not explicit in the name
-      new_names<-gsub("Humerus$|Humerus(\\.[rl])","Humerus.1\\1", new_names)
-      new_names<-gsub("Radius$|Radius(\\.[rl])","Radius.1\\1", new_names)
-      new_names<-gsub("Ulna$|Ulna(\\.[rl])","Ulna.1\\1", new_names)
-      new_names<-gsub("Femur$|Femur(\\.[rl])","Femur.1\\1", new_names)
-      new_names<-gsub("Tibia$|Tibia(\\.[rl])","Tibia.1\\1", new_names)
-      new_names<-gsub("Fibula$|Fibula(\\.[rl])","Fibula.1\\1", new_names)
-      #delete obsolet signs
-      new_names<-gsub("[_ -]?", "", new_names)
-    }
 
-    names(td)<-new_names
-    if (!all(new_names == orig_names)){
-      datainfos<-paste(datainfos, paste("Columns renamed:", 
-                       paste(new_names, collapse=", "), sep = "\n "), 
-                       sep = "\n ")
-    }
-    
-    # bring columns 'Ind', 'Sex', 'Group' to the front
-    idcols<-c('Ind','Sex', 'Group')
-    newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])
-    td<-td[newcolorder]
-    
-    # check if  measure_names are known
-    if (measure.names=='long') {
-      accepted_names<-scan("./R/measures.txt", what=list("",""), skip=2)[[2]]
-    } else {
-      accepted_names<-scan("./R/measures.txt", what=list("",""), skip=2)[[1]]
-    }
-    
-    all_names<-names(td)[4:ncol(td)]
-    wrong_names <- NULL
-    measure_names <- NULL
-    for (i in all_names){
-      if (i %in% accepted_names) {
-        measure_names <- c(measure_names, i)
-      } else {
-        wrong_names <- c(wrong_names,i)
-      }
-    }
-    if (length(wrong_names > 0)){
-      datainfos<-paste(datainfos, paste("Unkown columns will be skiped:", 
-                                        paste(wrong_names, collapse=", "), sep = "\n "),
-                       sep = "\n ")
-    }
-  dl<-reshape2::melt(td, id=idcols, na.rm=TRUE, measure=measure_names)
+  # bring columns 'Ind', 'Sex', 'Group' to the front
+  idcols<-c('Ind','Sex', 'Group')
+  newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])
+  td<-td[newcolorder]
+
+  # for tabled data
+  if (ds=='table'){
+    dl<-reshape2::melt(td, id=idcols, na.rm=TRUE)
   } else {
-    # data provided as list: check measure names and measures
-    
-    # bring columns 'Ind', 'Sex', 'Group' to the front
-    idcols<-c('Ind','Sex', 'Group')
-    newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])
-    td<-td[newcolorder]
-    all_names<-NULL
-    column_numeric<-NULL
+    dl<-td
+  }
 
-    # look for further variables
-    for (i in names(td[4:ncol(td)])){
-      all_names<-c(all_names, i)
-    }
-    for (i in td[4:ncol(td)]){
-      column_numeric <- c(column_numeric, is.numeric(i))
-    }
-    # if there is no column 'variable'
-    if (which('variable' %in% all_names) != 1){
-      if (length(all_names) - (sum(column_numeric))>1){
-        datainfos<-paste(datainfos, "There is more than on non integer column, we select the first as variable.",
-                         sep = "\n ")
-      }
-      names(td[3 + min(which(column_numeric == FALSE))])<-'variable'
-    }
-    # if there is no column 'value'
-    if (which('value' %in% all_names) != 1){
-      if (sum(column_numeric)>1){
-        datainfos<-paste(datainfos, "There is more than on integer column, we select the first as value.",
-                         sep = "\n ")
-      }
-      names(td[3 + min(which(column_numeric == TRUE))])<-'variable'
-    }
-  }
-  
-  ############### hier geht es weiter ##########################
-  # now check the measure names in column variable
-  if (nchar(datainfos)>30){
-    warning(datainfos)
-  }
-  
+  result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
+  result<-result[c('Ind','Sex', 'Group','short','value')]
+  names(result)[which(names(result)=='short')]<-'variable'
+
   # check for duplicated identifiers (individuals)
-  dupl_ind<-NULL
-  if (!is.null(ind)) {
-    if (ds == 'table') {
-      dupl_ind<-td$ind[duplicated(td$ind)]
-    } else if (ds == 'list'){
-      id<-gsub('_[LlRr]','',td$variable)
-     id<-paste(td$ind, id, sep = '_')
-     dupl_ind<-names(table(id)[table(id)>2])
-    }
+  if (!is.null(ind)){
+    dupl_ind<-NULL
+    # any combination of Ind and variable more than 1
+    test<-data.frame(cbind(Ind=result$Ind,
+                           variable=gsub("[rl]$", "", result$variable),
+                           r.l=gsub(".*([rl])$", "\\1", result$variable)))
+    
+    any(plyr::count(test, c('Ind', 'variable', 'r.l'))[,3]>1)
+  ############## hier gehts weiter  
   }
+  
   if (length(dupl_ind)>0) {
     stop(paste("Identifier for Individuals is not unique for:", 
                paste(dupl_ind, collapse=", "), 

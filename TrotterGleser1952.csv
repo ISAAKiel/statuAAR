@@ -1,6 +1,6 @@
 # resource: Trotter & Gleser 1952, Appendix 1-4
-# description: Data as given but with additional columns related to appendix heading and stature in millimeters. 
-Appendix_row,Sex,Race,stature,Humerus,Radius,Ulna,Femur,Tibia,Fibula,Femur+Tibia
+# description: Data as given but with additional columns related to appendix heading, and stature in millimeters. 
+Appendix_row,Sex,Race,stature,Hum,Rad,Ulna,Fem,Tib,Fib,Fem+Tib
 1_1,m,White,1520,265,193,211,381,291,299,685
 1_2,m,White,1530,268,196,213,385,295,303,693
 1_3,m,White,1540,271,198,216,389,299,307,701
