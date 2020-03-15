@@ -48,22 +48,8 @@
 #library(tidyverse)
 #library (dplyr)
 
-# for test reasons, will be deleted
-x<-read.table('Rollet1888.csv',sep=',', head=T)
-x<-read.table('TrotterGleser1952.csv',sep=',', head=T)
-ds<-'table'
-ind<-'Appendix_row'
-grp<-"Race"
-sex<-'Sex'
-measures.names<-'own'
-
-ds<-'list'
-ind<-NULL
-grp<- NULL
-tdl-> td
-
 # read user table
-prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.names='long') {
+prep.body.hight <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.names='long') {
   td<-x
   
   # basic check of data format
@@ -185,7 +171,6 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
       )
     }
   }
-  ############ hier geht es weiter
   # aggegate statistics for data check
   agg_measures<-data.frame(measure=character(), 
                          n=integer(), 
@@ -196,22 +181,14 @@ prep.body.hight = function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
                          Quart3=numeric(), 
                          MaxM=numeric(),
                          stringsAsFactors = FALSE)
-  user_measures<-unique(dl$variable)
+  user_measures<-unique(result$variable)
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
-           length(subset(dl[[4]],dl[[3]]==user_measures[i])),
-           as.vector(summary(subset(dl[[4]],dl[[3]]==user_measures[i])))))
+           length(subset(result[[5]],result[[4]]==user_measures[i])),
+           as.vector(summary(subset(result[[5]],result[[4]]==user_measures[i])))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
-  agg_measures<-dplyr::as_tibble(agg_measures)
-  agg_measures<- dplyr::mutate(agg_measures, 
-                        maxDiff2Mean = (agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
-  if (any(agg_measures[,9]>1.5)) {
-    warning (paste('We calculatet the max. Diff. for each measurement in relation to its mean.',
-                  'At least one value differs by more than 1.5%. Please consider to check your data', sep = '\n'))
-             print (agg_measures)
-  } else{
-    print (agg_measures)
-  }
+  agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
+  print (agg_measures)
 }
 
