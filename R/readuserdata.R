@@ -48,8 +48,16 @@
 #library(tidyverse)
 #library (dplyr)
 
+open.measures.list<- function(){
+  measures.list<-read.delim("./R/measures.tab", 
+                            skip = 1, 
+                            quote = "\"",
+                            colClasses = c(rep("character",3)))
+  fix(measures.list)
+}
+
 # read user table
-prep.body.hight <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.names='long') {
+prep.user.data <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
   td<-x
   
   # basic check of data format
@@ -72,11 +80,8 @@ prep.body.hight <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.nam
   }
   if (measures.names == 'own'){
     if(!(exists('measures.list'))){
-      measures.list<-read.delim("./R/measures.tab", 
-                 skip = 1, 
-                 quote = "\"",
-                 colClasses = c(rep("character",3)))
-      fix(measures.list)
+      open.measures.list()
+      stop("Please edit and save the data.frame measures.list. Afterwards run the function again.")
     }
   }
   
@@ -116,7 +121,7 @@ prep.body.hight <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.nam
     stop(paste("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.",
                paste(wrong_sex, collapse = ", "), sep = "\n "))
   }
-  if (is.na(as.numeric(td$Sex[1]))){
+  if (typeof(td$Sex)=='character'){
     td$Sex<-factor(td$Sex, levels= c('m', 'f', 'indet'))
   } else { 
     td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
@@ -165,7 +170,7 @@ prep.body.hight <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.nam
     # This should find any measure occuring more than twice per Ind.
     dupl_ind<-c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[,3]>2))
     
-    if(!is.null(dupl_ind)){
+    if(length(dupl_ind)>0){
       warning(paste("Likely duplicate individuals encountered:",
                     paste(unique(test$Ind[dupl_ind]), collapse= ", "), sep = "\n ")
       )
@@ -188,7 +193,8 @@ prep.body.hight <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.nam
            as.vector(summary(subset(result[[5]],result[[4]]==user_measures[i])))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
-  agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
+  #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
   print (agg_measures)
+  statuaar.list<<-result
 }
 
