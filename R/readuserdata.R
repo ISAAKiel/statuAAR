@@ -2,7 +2,7 @@
 #' 
 #' @description 
 #' Checks tabled user data and provides a data.frame of standardised measurements 
-#' for body hight calculation with five columns: 
+#' for body statuar calculation with five columns: 
 #'     Ind(ividual), Sex, Group, variable, value.
 #'  Checks data consitency: 
 #'    * uniqueness of individual identifyer,
@@ -12,9 +12,9 @@
 #'     to check for data inconsitancy.
 #'   
 #'  @param x A simple data.frame containing the measurements per individual.
-#'  @param ds A string defining the data.frame structure.
-#'    * ds=`table` for a data.frame with individuals (rows) and measurements (columns).
-#'    * ds=`list`  for a data.frame with at least two columns: 
+#'  @param d.form A string defining the data.frame structure.
+#'    * d.form=`table` for a data.frame with individuals (rows) and measurements (columns).
+#'    * d.form=`list`  for a data.frame with at least two columns: 
 #'      `variable`(character), `value` (numeric).
 #'  @param ind A string defining the column with identifiers for each individual.
 #'    If ind = NA a column `Ind` with `NA` will be added. 
@@ -38,16 +38,12 @@
 #' \itemize{
 #'   \item \bold{Ind} or \bold{Individual}:  individual identifyer.
 #'   \item \bold{Sex}: sex of the individual. 
-#'   \item \bold{Group}: a grouping variable (e.g. population).
+#'   \item \bold{grp}: a grouping variable (e.g. population).
 #'   \item \bold{variable}:  short name of the measure for \bold{value} 
 #'   \item \bold{value}: measurement for \bold{measure}.
 #' }
 
-#librarys needed
-#library(reshape2)
-#library(tidyverse)
-#library (dplyr)
-
+# function to create a correlation table for userspecific (own) measure.names
 open.measures.list<- function(){
   measures.list<-read.delim("./R/measures.tab", 
                             skip = 1, 
@@ -56,8 +52,8 @@ open.measures.list<- function(){
   fix(measures.list)
 }
 
-# read user table
-prep.user.data <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
+# read user data
+prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
   td<-x
   
   # basic check of data format
@@ -66,10 +62,10 @@ prep.user.data <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   }
 
   # check the parameters provided by the user
-  if (!(ds %in% c('table', 'list'))) {
-    stop("Please indicate the data structure ds='table' (standard) or ds='list'")
+  if (!(d.form %in% c('table', 'list'))) {
+    stop("Please indicate the data structure d.form='table' (standard) or d.form='list'")
   }
-  if (ds == 'list'){
+  if (d.form == 'list'){
     if (any(which(colnames(dl)=='variable')==0, 
             which(colnames(dl)=='value')==0)){
       stop("Please provide a column 'variable' with measures and 'value' with values")
@@ -131,7 +127,7 @@ prep.user.data <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   if ((!is.na(grp)) & !(grp %in% names(td))) {
     stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
   }
-  if (is.null(grp)){
+  if (any(is.null(grp),is.na(grp))){
     td<-cbind(Group=rep(NA, nrow(td)),td)
   } else {
     names(td)[which(names(td)==grp)]<-'Group'
@@ -145,7 +141,7 @@ prep.user.data <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   td<-td[newcolorder]
 
   # for tabled data
-  if (ds=='table'){
+  if (d.form=='table'){
     dl<-reshape2::melt(td, id=idcols, na.rm=TRUE)
   } else {
     dl<-td
@@ -197,4 +193,3 @@ prep.user.data <- function (x, ds='table', ind=NA, sex=NA, grp=NA, measures.name
   print (agg_measures)
   statuaar.list<<-result
 }
-
