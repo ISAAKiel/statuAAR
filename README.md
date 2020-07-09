@@ -1,3 +1,5 @@
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
 # statuAAR
 
 Estimation of human stature from long bone measurements according to several well established estimation formula.
@@ -13,3 +15,7 @@ Estimation of human stature from long bone measurements according to several wel
 ## References for the formulas
 
 s. bibliography file ([md](bibstatuAAR.md), [BibTeX](bibstatuAAR.bib))
+
+### License
+
+For the code in this project apply the terms and conditions of GNU GENERAL PUBLIC LICENSE Version 3.
