@@ -12,7 +12,7 @@
 #' @author Anna Loy <\email{aloy@@roots.uni-kiel.de}>
 #' @author Nils Müller-Scheeßel <\email{nils.mueller-scheessel@@ufg.uni-kiel.de}>
 #' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
-#' @author Christoph Rinne <\email{	crinne@@ufg.uni-kiel.de}>
+#' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
 #' 
 #' @examples
 #' 
@@ -57,11 +57,25 @@ vercellotti_et_al_2009 <- function(df){
       T1 <- (((df_knochen$value[df_knochen$variable == "T1_l"])+(df_knochen$value[df_knochen$variable == "T1_r"]))/2)
     }  
  
+    # Check if values F2 and/or T1 were present and if so insert them in respective function
+    
     if (exists("F2") & exists("T1")){
       K_vercellotti_2009_m <- ((F2+T1) * 1.50) + 469
       K_vercellotti_2009_f <- ((F2+T1) * 1.55) + 390
       rm(T1, F2)
-    } # Check if values were present and if so insert them in respective function
+      # Store results in data frame for every individual
+      val_indv$male[i] <- K_vercellotti_2009_m
+      val_indv$female[i] <- K_vercellotti_2009_f
+      next
+    } else if (exists("F2")){
+      K_vercellotti_2009_m <- (F2 * 2.70) + 481
+      K_vercellotti_2009_f <- (F2 * 2.89) + 365
+      rm(F2)
+      # Store results in data frame for every individual
+      val_indv$male[i] <- K_vercellotti_2009_m
+      val_indv$female[i] <- K_vercellotti_2009_f
+      next
+    }
            
      # F1 
     if ("F1" %in% df_knochen$variable){
@@ -74,6 +88,27 @@ vercellotti_et_al_2009 <- function(df){
       F1 <- (((df_knochen$value[df_knochen$variable == "F1_l"])+(df_knochen$value[df_knochen$variable == "F1_r"]))/2)
     }
     
+    # Check if value F1 was present and if so insert it in respective function
+    if (exists("F1")){
+      K_vercellotti_2009_m <- (F1 * 2.61) + 515
+      K_vercellotti_2009_f <- (F1 * 2.89) + 353
+      rm(F1)
+      # Store results in data frame for every individual
+      val_indv$male[i] <- K_vercellotti_2009_m
+      val_indv$female[i] <- K_vercellotti_2009_f
+      next
+    } 
+    
+    # Check if value T1 was present and if so insert it in respective function
+    if (exists("T1")){
+      K_vercellotti_2009_m <- (T1 * 2.91) + 631
+      K_vercellotti_2009_f <- (T1 * 2.79) + 614
+      rm(T1)
+      # Store results in data frame for every individual
+      val_indv$male[i] <- K_vercellotti_2009_m
+      val_indv$female[i] <- K_vercellotti_2009_f
+      next
+    } 
     
     # H1 
     if ("H1" %in% df_knochen$variable){
@@ -86,6 +121,17 @@ vercellotti_et_al_2009 <- function(df){
       H1 <- (((df_knochen$value[df_knochen$variable == "H1_l"])+(df_knochen$value[df_knochen$variable == "H1_r"]))/2)
     }
     
+    # Check if value H1 was present and if so insert it in respective function
+    if (exists("H1")){
+      K_vercellotti_2009_m <- (H1 * 3.11) + 677
+      K_vercellotti_2009_f <- (H1 * 3.11) + 630
+      rm(H1)
+      # Store results in data frame for every individual
+      val_indv$male[i] <- K_vercellotti_2009_m
+      val_indv$female[i] <- K_vercellotti_2009_f
+      next
+    } 
+    
     # R1 
     if ("R1" %in% df_knochen$variable){
       R1 <- df_knochen$value[df_knochen$variable == "R1"]
@@ -97,49 +143,16 @@ vercellotti_et_al_2009 <- function(df){
       R1 <- (((df_knochen$value[df_knochen$variable == "R1_l"])+(df_knochen$value[df_knochen$variable == "R1_r"]))/2)
     }
     
+    # Check if value R1 was present and if so insert it in respective function
+    if (exists("R1")){
+      K_vercellotti_2009_m <- (R1 * 1.92) + 1230
+      K_vercellotti_2009_f <- (R1 * 3.45) + 785
+      rm(R1)
+      # Store results in data frame for every individual
+      val_indv$male[i] <- K_vercellotti_2009_m
+      val_indv$female[i] <- K_vercellotti_2009_f
+    } 
 
-    
-    
-
-    
-      else if (exists("F2")){
-        K_vercellotti_2009_m <- (F2 * 2.70) + 481
-        K_vercellotti_2009_f <- (F2 * 2.89) + 365
-        rm(F2)
-      } 
-    
-      else if (exists("F1")){
-        K_vercellotti_2009_m <- (F1 * 2.61) + 515
-        K_vercellotti_2009_f <- (F1 * 2.89) + 353
-        rm(F1)
-      } 
-    
-      else if (exists("T1")){
-        K_vercellotti_2009_m <- (T1 * 2.91) + 631
-        K_vercellotti_2009_f <- (T1 * 2.79) + 614
-        rm(T1)
-      } 
-    
-      else if (exists("H1")){
-        K_vercellotti_2009_m <- (H1 * 3.11) + 677
-        K_vercellotti_2009_f <- (H1 * 3.11) + 630
-        rm(H1)
-      } 
-    
-      else if (exists("R1")){
-        K_vercellotti_2009_m <- (R1 * 1.92) + 1230
-        K_vercellotti_2009_f <- (R1 * 3.45) + 785
-        rm(R1)
-      } 
-    
-    # Results are added up for male and female individuals and the arithmetic mean is calculated. Values have to be divided by 1000 for showing results in meter. Meter are chosen here to not imply an accuracy (as would be the case with mm or cm) that is not available by these calculations.  
-#    K_vercellotti_2009_m <- round((((rowSums(df_K[i,1:6]))/c_k)/1000),2)
-#    K_vercellotti_2009_f <- round((((rowSums(df_K[i,7:12]))/c_k)/1000),2)
-    
-    # Store results in data frame for every individual
-    val_indv$male[i] <- K_vercellotti_2009_m
-    val_indv$female[i] <- K_vercellotti_2009_f
-    
   }
   
 #  df_K <- df_K[order(as.numeric(row.names(df_K))), ]  
