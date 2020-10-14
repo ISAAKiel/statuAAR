@@ -172,6 +172,10 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
       )
     }
   }
+  # check for inconsistent sex or grouping
+  
+  # to be done ... plyr::count bla
+  
   # aggegate statistics for data check
   agg_measures<-data.frame(measure=character(), 
                          n=integer(), 
@@ -193,3 +197,4 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   print (agg_measures)
   statuaar.list<<-result
 }
+prep.user.data()
