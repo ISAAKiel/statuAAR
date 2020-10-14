@@ -23,13 +23,9 @@ vercellotti_et_al_2009 <- function(df){
   
   vec_indv <- unique(df$Individual) # extract names and quantity of unique individuals
   
-  #  Initialize data frame for later storage of different Ks
- # df_K <- setNames(data.frame(matrix(ncol = 12, nrow = length(vec_indv))), c("K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12"))
-#  df_K[is.na(df_K)] <- 0
-  
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=2, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("male","female")
+  val_indv <- as.data.frame(matrix(ncol=3, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("male","female","indice")
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
@@ -66,10 +62,12 @@ vercellotti_et_al_2009 <- function(df){
       # Store results in data frame for every individual
       val_indv$male[i] <- K_vercellotti_2009_m
       val_indv$female[i] <- K_vercellotti_2009_f
+      val_indv$indice[i] <- "F2/T1"
       next
     } else if (exists("F2")){
       K_vercellotti_2009_m <- (F2 * 2.70) + 481
       K_vercellotti_2009_f <- (F2 * 2.89) + 365
+      val_indv$indice[i] <- "F2"
       rm(F2)
       # Store results in data frame for every individual
       val_indv$male[i] <- K_vercellotti_2009_m
@@ -96,6 +94,7 @@ vercellotti_et_al_2009 <- function(df){
       # Store results in data frame for every individual
       val_indv$male[i] <- K_vercellotti_2009_m
       val_indv$female[i] <- K_vercellotti_2009_f
+      val_indv$indice[i] <- "F1"
       next
     } 
     
@@ -107,6 +106,7 @@ vercellotti_et_al_2009 <- function(df){
       # Store results in data frame for every individual
       val_indv$male[i] <- K_vercellotti_2009_m
       val_indv$female[i] <- K_vercellotti_2009_f
+      val_indv$indice[i] <- "T1"
       next
     } 
     
@@ -129,6 +129,7 @@ vercellotti_et_al_2009 <- function(df){
       # Store results in data frame for every individual
       val_indv$male[i] <- K_vercellotti_2009_m
       val_indv$female[i] <- K_vercellotti_2009_f
+      val_indv$indice[i] <- "H1"
       next
     } 
     
@@ -151,14 +152,15 @@ vercellotti_et_al_2009 <- function(df){
       # Store results in data frame for every individual
       val_indv$male[i] <- K_vercellotti_2009_m
       val_indv$female[i] <- K_vercellotti_2009_f
+      val_indv$indice[i] <- "R1"
     } 
-
   }
   
-#  df_K <- df_K[order(as.numeric(row.names(df_K))), ]  
-  val_indv <- val_indv[order(as.numeric(row.names(val_indv))), ]
-
-  verc_2009 <- list("indices"=df_K, "height"=val_indv)
+  if (dim(val_indv)[1] == 0) {
+    print("There is no usable bone measurement / indice available for the chosen formula")
+  }
+  
+  verc_2009 <- val_indv[order(as.numeric(row.names(val_indv))), ]
   
   rm(c_k, i, K_vercellotti_2009_f,K_vercellotti_2009_m, vec_indv, df_K, df_knochen, val_indv)
   
