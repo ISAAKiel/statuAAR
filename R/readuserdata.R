@@ -44,7 +44,7 @@
 #' }
 
 # function to create a correlation table for userspecific (own) measure.names
-open.measures.list<- function(){
+create.measures.list<- function(){
   measures.list<-read.delim("./R/measures.tab", 
                             skip = 1, 
                             quote = "\"",
@@ -65,21 +65,33 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   if (!(d.form %in% c('table', 'list'))) {
     stop("Please indicate the data structure d.form='table' (standard) or d.form='list'")
   }
+  # if data is list check if column names variable and value exist
   if (d.form == 'list'){
     if (any(which(colnames(dl)=='variable')==0, 
             which(colnames(dl)=='value')==0)){
       stop("Please provide a column 'variable' with measures and 'value' with values")
     }
   }
+  # check if user decided on measure.names format 
   if (!(measures.names %in% c('short', 'long', 'own'))) {
     stop("Please indicate the measure.names format 'short', 'long' (standard), 'own'")
   }
+  # if user selected to use "own" measure.names: 
+  #     1. check if df measures list exists 
+  #     2. run function to import standard data from csv into df and open for data input
   if (measures.names == 'own'){
     if(!(exists('measures.list'))){
-      open.measures.list()
-      stop("Please edit and save the data.frame measures.list. Afterwards run the function again.")
+      tcltk::tk_messageBox(caption = "Data import", 
+                          message = paste("Please fill in your corresponding values in the column 'own'.", 
+                                          "Or provide a corresponding table: own.table -> measures.list.",
+                                          "Or run fix(measures.list) to edit the data frame of the concordance list.",
+                                          "Afterwards run the function again.", sep = "\n"), 
+                          icon = "info", type = "okcancel")
+      create.measures.list()
     }
   }
+  
+  # check for corresponding measure.names of column own and data provided will be done after conversion to a list format
   
   # change the column names to 'ind', 'sex' and 'grp' for further processing
   # ind
@@ -147,6 +159,9 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
     dl<-td
   }
 
+  # Ich glaube, das hier muss noch überdacht werden. Es macht nur Sinn, wenn der Nutzer own bei den measure.names gewählt hat.
+  #if measures.names ="own" then ...
+  
   result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
   result<-result[c('Ind','Sex', 'Group','short','value')]
   names(result)[which(names(result)=='short')]<-'variable'
