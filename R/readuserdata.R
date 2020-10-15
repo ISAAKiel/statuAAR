@@ -69,7 +69,7 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   if (d.form == 'list'){
     if (any(which(colnames(dl)=='variable')==0, 
             which(colnames(dl)=='value')==0)){
-      stop("Please provide a column 'variable' with measures and 'value' with values")
+      stop("Please provide a column 'variable' with measures.names and 'value' with values")
     }
   }
   # check if user decided on measure.names format 
@@ -98,7 +98,7 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   if ((!is.na(ind)) & !(ind %in% names(td))) {
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
   } 
-  if (is.null(ind)) {
+  if (is.na(ind)) {
     td<-cbind(Ind=rep(NA, nrow(td)),td)
   } else {
     names(td)[which(names(td)==ind)]<-'Ind'
@@ -162,6 +162,7 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   # Ich glaube, das hier muss noch überdacht werden. Es macht nur Sinn, wenn der Nutzer own bei den measure.names gewählt hat.
   #if measures.names ="own" then ...
   
+  # merges the listed measures with the list of measure.names, filters on the columns needed.  
   result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
   result<-result[c('Ind','Sex', 'Group','short','value')]
   names(result)[which(names(result)=='short')]<-'variable'
