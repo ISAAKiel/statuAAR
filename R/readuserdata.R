@@ -49,6 +49,7 @@ create.measures.list<- function(){
                             skip = 1, 
                             quote = "\"",
                             colClasses = c(rep("character",3)))
+  measures.list<-measures.list[order(measures.list$short),]
   fix(measures.list)
 }
 
@@ -91,7 +92,7 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
     }
   }
   
-  # check for corresponding measure.names of column own and data provided will be done after conversion to a list format
+  # check for corresponding measure.names of the column 'own' and data provided by the user will be done after conversion to a list format
   
   # change the column names to 'ind', 'sex' and 'grp' for further processing
   # ind
@@ -107,7 +108,7 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
     }
   }
   
-  # sex
+  # check variable sex
   if ((!is.na(sex)) & !(sex %in% names(td))) {
     stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
   } 
@@ -116,8 +117,10 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   } else {
     names(td)[which(names(td)==sex)]<-'Sex'
   }
+  # replace ? or . by nothing 
   td$Sex<-gsub("[\\?\\.]", "", td$Sex)
   td$Sex<-tolower(td$Sex)
+  # check if there is any other value but ...
   user_sex <- unique(td$Sex)
   wrong_sex <- NULL
   for (i in user_sex){
