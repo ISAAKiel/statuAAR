@@ -15,11 +15,10 @@
 #'  @param d.form A string defining the data.frame structure.
 #'    * d.form=`table` for a data.frame with individuals (rows) and measurements (columns).
 #'    * d.form=`list`  for a data.frame with at least two columns: 
-#'      `variable`(character), `value` (numeric).
+#'      `variable`(character, measure name e.g. hum1), `value` (numeric, length (mm)).
 #'  @param ind A string defining the column with identifiers for each individual.
-#'    If ind = NA a column `Ind` with `NA` will be added. 
+#'    If ind = NA a column `Ind` with rownumbers will be added. 
 #'  @param sex A string defining the column identifying the sex.
-#'    Accepts 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
 #'    If sex = NA a column `Sex` with `indet` will be added.  
 #'  @param grp A string defining a optional grouping variable, e.g. population.
 #'    If grp = NA a column `Group` with `NA` will be added. 
@@ -37,7 +36,7 @@
 #'    
 #' \itemize{
 #'   \item \bold{Ind} or \bold{Individual}:  individual identifyer.
-#'   \item \bold{Sex}: sex of the individual. 
+#'   \item \bold{Sex}: sex of the individual. Accept values 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
 #'   \item \bold{grp}: a grouping variable (e.g. population).
 #'   \item \bold{variable}:  short name of the measure for \bold{value} 
 #'   \item \bold{value}: measurement for \bold{measure}.
@@ -96,16 +95,17 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   
   # change the column names to 'ind', 'sex' and 'grp' for further processing
   # ind
-  if ((!is.na(ind)) & !(ind %in% names(td))) {
+  if (!(ind %in% names(td))) {
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
-  } 
-  if (is.na(ind)) {
-    td<-cbind(Ind=rep(NA, nrow(td)),td)
   } else {
     names(td)[which(names(td)==ind)]<-'Ind'
-    if (!is.factor(td$Ind)){
-      td$Ind<-factor(td$Ind)
-    }
+  }
+  
+  if (all(is.na(td$Ind))){
+    warning('No individual identifier provided, each record (row) will be counted as one individual.')
+    td<-cbind(td$Ind=rownames(td),td)
+  } else if (any(is.na(td$Ind))) {
+      stop('At least one idividual is not labeled. Please check and edit data.')
   }
   
   # check variable sex
@@ -132,12 +132,13 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
     stop(paste("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.",
                paste(wrong_sex, collapse = ", "), sep = "\n "))
   }
-  if (typeof(td$Sex)=='character'){
-    td$Sex<-factor(td$Sex, levels= c('m', 'f', 'indet'))
-  } else { 
-    td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
-  }
-  
+  # be shure to have only 1, 2, 3
+  td$Sex[td$Sex=='m'] <- '1'
+  td$Sex[td$Sex=='w'] <- '2'
+  td$Sex[td$Sex=='indet'] <- '3'
+  td$Sex<-as.character(td$Sex)
+  td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
+
   # gouping variable 
   if ((!is.na(grp)) & !(grp %in% names(td))) {
     stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
@@ -162,11 +163,17 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
     dl<-td
   }
 
-  # Ich glaube, das hier muss noch überdacht werden. Es macht nur Sinn, wenn der Nutzer own bei den measure.names gewählt hat.
-  #if measures.names ="own" then ...
+  # merges the listed measures with the list of measure.names, filters on the columns needed.
+  if (measures.names == 'own'){
+      result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
+    }
+    else if (measures.names == 'short'){
+      result<-merge (dl, measures.list, by.x = 'variable', by.y = 'short')
+    }
+    else (measures.names == 'long'){
+    result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
+    }
   
-  # merges the listed measures with the list of measure.names, filters on the columns needed.  
-  result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
   result<-result[c('Ind','Sex', 'Group','short','value')]
   names(result)[which(names(result)=='short')]<-'variable'
 
