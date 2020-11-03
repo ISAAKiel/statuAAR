@@ -53,7 +53,7 @@ create.measures.list<- function(){
 }
 
 # read user data
-prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
+prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, measures.names='own') {
   td<-x
   
   # basic check of data format
@@ -109,22 +109,23 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   }
   
   # check variable sex
-  if ((!is.na(sex)) & !(sex %in% names(td))) {
+  if (!(sex %in% names(td))) {
     stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
   } 
-  if (is.na(sex)) {
-    td<-cbind(Sex=rep('indet', nrow(td)),td)
-  } else {
-    names(td)[which(names(td)==sex)]<-'Sex'
-  }
-  # replace ? or . by nothing 
-  td$Sex<-gsub("[\\?\\.]", "", td$Sex)
+    else {
+      names(td)[which(names(td)==sex)]<-'Sex'
+  
+  td$Sex[is.na(td$Sex)] <- 'indet'    
+  
+  # replace ? or . by nothing
+  td$Sex<-as.character(td$Sex)
   td$Sex<-tolower(td$Sex)
+  td$Sex<-gsub("([mfi123])(.*)","\\1", td$Sex)
   # check if there is any other value but ...
   user_sex <- unique(td$Sex)
   wrong_sex <- NULL
   for (i in user_sex){
-    if (!(i %in% c('1', '2', '3', 'm', 'f', 'indet'))) {
+    if (!(i %in% c('1', '2', '3', 'm', 'f', 'i'))) {
       wrong_sex <- c(wrong_sex,i)
     }
   }
@@ -134,20 +135,23 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
   }
   # be shure to have only 1, 2, 3
   td$Sex[td$Sex=='m'] <- '1'
-  td$Sex[td$Sex=='w'] <- '2'
-  td$Sex[td$Sex=='indet'] <- '3'
-  td$Sex<-as.character(td$Sex)
+  td$Sex[td$Sex=='f'] <- '2'
+  td$Sex[td$Sex=='i'] <- '3'
   td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
 
   # gouping variable 
-  if ((!is.na(grp)) & !(grp %in% names(td))) {
-    stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
+  if (is.na(grp)){
+    td<-cbind(Group=grp,td)
   }
-  if (any(is.null(grp),is.na(grp))){
-    td<-cbind(Group=rep(NA, nrow(td)),td)
-  } else {
-    names(td)[which(names(td)==grp)]<-'Group'
-  }
+    else if (!(grp %in% names(td))) {
+      stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
+    }
+    else {
+      names(td)[which(names(td)==grp)]<-'Group'
+    }
+  if (any(!is.na(grp)) & any(is.na(grp))){
+    warning('One mor more individuals have no grouping parameter.')
+  } 
 
   # make a data list
 
