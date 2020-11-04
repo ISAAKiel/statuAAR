@@ -95,17 +95,17 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   
   # change the column names to 'ind', 'sex' and 'grp' for further processing
   # ind
-  if (!(ind %in% names(td))) {
+  if (!(ind %in% names(td) | (is.na(ind)))) {
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
-  } else {
-    names(td)[which(names(td)==ind)]<-'Ind'
-  }
+  } 
   
-  if (all(is.na(td$Ind))){
+  if (ind %in% names(td)) {
+    names(td)[which(names(td)==ind)]<-'Ind'
+  } else if (all(is.na(td$Ind))){
     warning('No individual identifier provided, each record (row) will be counted as one individual.')
-    td<-cbind(td$Ind<-rownames(td),td)
+    td$Ind <- rownames(td)
   } else if (any(is.na(td$Ind))) {
-      stop('At least one idividual is not labeled. Please check and edit data.')
+    stop('At least one idividual is not labeled. Please check and edit data.')
   }
   
   # check variable sex
@@ -114,12 +114,12 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
     } else {
       names(td)[which(names(td)==sex)]<-'Sex'
     }
-
+  
+  td$Sex<-as.character(td$Sex)
   td$Sex[is.na(td$Sex)] <- 'indet'    
   
   # reduce every value starting with m, f, i, 1, 2, 3 to this character
   # cutting of female, female?, fem., male, indet.  etc.
-  td$Sex<-as.character(td$Sex)
   td$Sex<-tolower(td$Sex)
   td$Sex<-gsub("([mfi123])(.*)","\\1", td$Sex)
   # check if there is any other value but ...
@@ -175,33 +175,31 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
     result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
   } else {
     # This should not happen
-    Warning('Unexpected value in variable measure.names appeared.')
+    stop('Unexpected value in variable measure.names appeared.')
   }
   dl<-result[c('Ind','Sex', 'Group','short','value')]
   names(dl)[which(names(dl)=='short')]<-'variable'
 
   # check for duplicated identifiers (individuals)
-  if (!is.null(ind)){
-    dupl_ind<-NULL
-    # any combination of Ind and variable occuring more than 1
-    test<-data.frame(cbind(Ind=as.character(dl$Ind),
-                           # cut off trailing r or l
-                           variable=gsub("[rl]$", "", dl$variable),
-                           # new variable for left or right
-                           r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", dl$variable)),
-                     stringsAsFactors = FALSE)
-    # This schould match 2 x left or 2 x right for one measure.
-    # But for 1 x left, 1 x right and 1 x NA for one measure it will fail. 
-    dupl_ind<-which(plyr::count(test, c('Ind', 'variable', 'r.l'))[,4]>1)
-    
-    # This should find any measure occuring more than twice per Ind.
-    dupl_ind<-c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[,3]>2))
-    
-    if(length(dupl_ind)>0){
-      warning(paste("Likely duplicate individuals encountered:",
-                    paste(sort(unique(test$Ind[dupl_ind])), collapse= ", "), sep = "\n ")
-      )
-    }
+  dupl_ind<-NULL
+  # any combination of Ind and variable occuring more than 1
+  test<-data.frame(cbind(Ind=as.character(dl$Ind),
+                         # cut off trailing r or l
+                         variable=gsub("[rl]$", "", dl$variable),
+                         # new variable for left or right
+                         r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", dl$variable)),
+                         stringsAsFactors = FALSE)
+  # This schould match 2 x left or 2 x right for one measure.
+  # But for 1 x left, 1 x right and 1 x NA for one measure it will fail. 
+  dupl_ind<-which(plyr::count(test, c('Ind', 'variable', 'r.l'))[,4]>1)
+  
+  # This should find any measure occuring more than twice per Ind.
+  dupl_ind<-c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[,3]>2))
+  
+  if(length(dupl_ind)>0){
+    stop(paste("Likely duplicate individuals encountered:",
+                  paste(sort(unique(test$Ind[dupl_ind])), collapse= ", "), sep = "\n ")
+    )
   }
   # check for inconsistent sex or grouping
   
@@ -209,9 +207,16 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   if (d.form=='list'){
     test<-data.frame(cbind(Ind=as.character(dl$Ind),
                            Sex=as.character(dl$Sex)),
-                           IndSex=as.character(paste(dl$Ind,dl$Sex)),collapse="_")
+                           IndSex=as.character(paste(dl$Ind,dl$Sex,sep ="_")),
                            stringsAsFactors = FALSE)
-    dupl_sex<-which(plyr::count(test, c('Ind', 'Sex'))[,3]>2)
+    dupl_sex <- plyr::count(test, c("Ind","Sex"))[1]
+    dupl_sex<-which(plyr::count(dupl_sex$Ind)[,2]>1)
+    
+    if(length(dupl_sex)>0){
+      stop(paste("Likely inconsistent sex for individuals encountered:",
+                 paste(sort(unique(test$Ind[dupl_sex])), collapse= ", "), sep = "\n ")
+      )
+    }
   }
   
   # aggegate statistics for data check
@@ -227,13 +232,14 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   user_measures<-unique(dl$variable)
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
-           length(subset(result[[5]],result[[4]]==user_measures[i])),
-           as.vector(summary(subset(result[[5]],result[[4]]==user_measures[i])))))
+           length(subset(dl[[5]],dl[[4]]==user_measures[i])),
+           as.vector(summary(subset(dl[[5]],dl[[4]]==user_measures[i])))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
   #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
   print (agg_measures)
-  statuaar.list<-dl
-    }
-}
+
+return(dl)
+  }
+
 prep.user.data()
