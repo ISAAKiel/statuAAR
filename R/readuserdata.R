@@ -177,18 +177,18 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
     # This should not happen
     Warning('Unexpected value in variable measure.names appeared.')
   }
-  result<-result[c('Ind','Sex', 'Group','short','value')]
-  names(result)[which(names(result)=='short')]<-'variable'
+  dl<-result[c('Ind','Sex', 'Group','short','value')]
+  names(dl)[which(names(dl)=='short')]<-'variable'
 
   # check for duplicated identifiers (individuals)
   if (!is.null(ind)){
     dupl_ind<-NULL
     # any combination of Ind and variable occuring more than 1
-    test<-data.frame(cbind(Ind=as.character(result$Ind),
+    test<-data.frame(cbind(Ind=as.character(dl$Ind),
                            # cut off trailing r or l
-                           variable=gsub("[rl]$", "", result$variable),
+                           variable=gsub("[rl]$", "", dl$variable),
                            # new variable for left or right
-                           r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", result$variable)),
+                           r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", dl$variable)),
                      stringsAsFactors = FALSE)
     # This schould match 2 x left or 2 x right for one measure.
     # But for 1 x left, 1 x right and 1 x NA for one measure it will fail. 
@@ -206,6 +206,13 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   # check for inconsistent sex or grouping
   
   # to be done ... plyr::count bla
+  if (d.form=='list'){
+    test<-data.frame(cbind(Ind=as.character(dl$Ind),
+                           Sex=as.character(dl$Sex)),
+                           IndSex=as.character(paste(dl$Ind,dl$Sex)),collapse="_")
+                           stringsAsFactors = FALSE)
+    dupl_sex<-which(plyr::count(test, c('Ind', 'Sex'))[,3]>2)
+  }
   
   # aggegate statistics for data check
   agg_measures<-data.frame(measure=character(), 
@@ -217,7 +224,7 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
                          Quart3=numeric(), 
                          MaxM=numeric(),
                          stringsAsFactors = FALSE)
-  user_measures<-unique(result$variable)
+  user_measures<-unique(dl$variable)
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
            length(subset(result[[5]],result[[4]]==user_measures[i])),
@@ -226,7 +233,7 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
   #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
   print (agg_measures)
-  statuaar.list<<-result
+  statuaar.list<-dl
     }
 }
 prep.user.data()
