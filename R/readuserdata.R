@@ -183,9 +183,11 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   # check for duplicated identifiers (individuals)
   if (!is.null(ind)){
     dupl_ind<-NULL
-    # any combination of Ind and variable more than 1
+    # any combination of Ind and variable occuring more than 1
     test<-data.frame(cbind(Ind=as.character(result$Ind),
+                           # cut off trailing r or l
                            variable=gsub("[rl]$", "", result$variable),
+                           # new variable for left or right
                            r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", result$variable)),
                      stringsAsFactors = FALSE)
     # This schould match 2 x left or 2 x right for one measure.
@@ -197,7 +199,7 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
     
     if(length(dupl_ind)>0){
       warning(paste("Likely duplicate individuals encountered:",
-                    paste(unique(test$Ind[dupl_ind]), collapse= ", "), sep = "\n ")
+                    paste(sort(unique(test$Ind[dupl_ind])), collapse= ", "), sep = "\n ")
       )
     }
   }
