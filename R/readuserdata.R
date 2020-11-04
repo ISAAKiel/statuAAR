@@ -103,7 +103,7 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   
   if (all(is.na(td$Ind))){
     warning('No individual identifier provided, each record (row) will be counted as one individual.')
-    td<-cbind(td$Ind=rownames(td),td)
+    td<-cbind(td$Ind<-rownames(td),td)
   } else if (any(is.na(td$Ind))) {
       stop('At least one idividual is not labeled. Please check and edit data.')
   }
@@ -111,13 +111,14 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   # check variable sex
   if (!(sex %in% names(td))) {
     stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
-  } 
-    else {
+    } else {
       names(td)[which(names(td)==sex)]<-'Sex'
-  
+    }
+
   td$Sex[is.na(td$Sex)] <- 'indet'    
   
-  # replace ? or . by nothing
+  # reduce every value starting with m, f, i, 1, 2, 3 to this character
+  # cutting of female, female?, fem., male, indet.  etc.
   td$Sex<-as.character(td$Sex)
   td$Sex<-tolower(td$Sex)
   td$Sex<-gsub("([mfi123])(.*)","\\1", td$Sex)
@@ -133,7 +134,7 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
     stop(paste("Please provide sex only with 1 alias 'm', 2 alias 'f' or 3 alias 'indet'.",
                paste(wrong_sex, collapse = ", "), sep = "\n "))
   }
-  # be shure to have only 1, 2, 3
+  # be shure to have only 1, 2, 3 and make it a factor
   td$Sex[td$Sex=='m'] <- '1'
   td$Sex[td$Sex=='f'] <- '2'
   td$Sex[td$Sex=='i'] <- '3'
@@ -142,15 +143,13 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   # gouping variable 
   if (is.na(grp)){
     td<-cbind(Group=grp,td)
-  }
-    else if (!(grp %in% names(td))) {
+    } else if (!(grp %in% names(td))) {
       stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
-    }
-    else {
+    } else {
       names(td)[which(names(td)==grp)]<-'Group'
     }
   if (any(!is.na(grp)) & any(is.na(grp))){
-    warning('One mor more individuals have no grouping parameter.')
+    warning('One or more individuals have no grouping value.')
   } 
 
   # make a data list
@@ -170,14 +169,14 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   # merges the listed measures with the list of measure.names, filters on the columns needed.
   if (measures.names == 'own'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
-    }
-    else if (measures.names == 'short'){
+  } else if (measures.names == 'short'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'short')
-    }
-    else (measures.names == 'long'){
+  } else if (measures.names == 'long'){
     result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
-    }
-  
+  } else {
+    # This should not happen
+    Warning('Unexpected value in variable measure.names appeared.')
+  }
   result<-result[c('Ind','Sex', 'Group','short','value')]
   names(result)[which(names(result)=='short')]<-'variable'
 
@@ -226,5 +225,6 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
   print (agg_measures)
   statuaar.list<<-result
+    }
 }
 prep.user.data()
