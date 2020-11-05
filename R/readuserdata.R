@@ -201,22 +201,32 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
                   paste(sort(unique(test$Ind[dupl_ind])), collapse= ", "), sep = "\n ")
     )
   }
-  # check for inconsistent sex or grouping
-  
-  # to be done ... plyr::count bla
+  # check for inconsistent sex and grouping
   if (d.form=='list'){
     test<-data.frame(cbind(Ind=as.character(dl$Ind),
                            Sex=as.character(dl$Sex)),
                            IndSex=as.character(paste(dl$Ind,dl$Sex,sep ="_")),
                            stringsAsFactors = FALSE)
     dupl_sex <- plyr::count(test, c("Ind","Sex"))[1]
-    dupl_sex<-which(plyr::count(dupl_sex$Ind)[,2]>1)
+    dupl_sex <- dupl_sex$Ind[duplicated(dupl_sex$Ind)]
+
+    test <- data.frame(cbind(Ind=as.character(dl$Ind),
+                             Group=as.character(dl$Group)),
+                       IndGroup=as.character(paste(dl$Ind,dl$Sex,sep ="_")),
+                       stringsAsFactors = FALSE)
+    dupl_group <- plyr::count(test, c("Ind","Group"))[1]
+    dupl_group <- dupl_group$Ind[duplicated(dupl_group$Ind)]
     
-    if(length(dupl_sex)>0){
-      stop(paste("Likely inconsistent sex for individuals encountered:",
-                 paste(sort(unique(test$Ind[dupl_sex])), collapse= ", "), sep = "\n ")
+    if ((length(dupl_sex)>0) | (length(dupl_group)>0)){
+      stop(paste("\nLikely inconsistent sex for individual(s) encountered:",
+                 paste(dupl_sex, collapse= ", "),
+                 "Likely inconsistent grouping for individual(s) encountered:",
+                 paste(dupl_group, collapse= ", "), sep = "\n ")
       )
     }
+  }
+  # check for inconsistent grouping
+  if (d.form=='list'){
   }
   
   # aggegate statistics for data check
