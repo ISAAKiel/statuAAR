@@ -107,7 +107,7 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   } else if (any(is.na(td$Ind))) {
     stop('At least one idividual is not labeled. Please check and edit data.')
   }
-  if (any(duplicated(td$Ind))) {
+  if ((d.form=='table') & (any(duplicated(td$Ind)))) {
     stop(paste("Duplicate individuals (Ind) ecountered:", paste(td$Ind[duplicated(td$Ind)], collapse=", "), sep="\n"))
   }
   
