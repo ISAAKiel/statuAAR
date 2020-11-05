@@ -93,28 +93,30 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   
   # check for corresponding measure.names of the column 'own' and data provided by the user will be done after conversion to a list format
   
-  # change the column names to 'ind', 'sex' and 'grp' for further processing
+  # change the column names to 'Ind', 'Sex' and 'Group' for further processing
   # ind
-  if (!(ind %in% names(td) | (is.na(ind)))) {
-    stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
-  } 
-  
   if (ind %in% names(td)) {
     names(td)[which(names(td)==ind)]<-'Ind'
-  } else if (all(is.na(td$Ind))){
+  } else {
+    stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
+  }
+  
+  if (all(is.na(td$Ind))){
     warning('No individual identifier provided, each record (row) will be counted as one individual.')
     td$Ind <- rownames(td)
   } else if (any(is.na(td$Ind))) {
     stop('At least one idividual is not labeled. Please check and edit data.')
   }
+  if ((d.form=='table') & (any(duplicated(td$Ind)))) {
+    stop(paste("Duplicate individuals (Ind) ecountered:", paste(td$Ind[duplicated(td$Ind)], collapse=", "), sep="\n"))
+  }
   
   # check variable sex
-  if (!(sex %in% names(td))) {
-    stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
-    } else {
-      names(td)[which(names(td)==sex)]<-'Sex'
-    }
-  
+  if (sex %in% names(td)) {
+    names(td)[which(names(td)==sex)]<-'Sex'
+  } else {
+      stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
+  }
   td$Sex<-as.character(td$Sex)
   td$Sex[is.na(td$Sex)] <- 'indet'    
   
