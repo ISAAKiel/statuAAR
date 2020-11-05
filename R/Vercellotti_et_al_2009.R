@@ -24,8 +24,8 @@ vercellotti_et_al_2009 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
   
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=3, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("male","female","indice")
+  val_indv <- as.data.frame(matrix(ncol=4, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("male","female","indet", "indice")
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
@@ -60,8 +60,11 @@ vercellotti_et_al_2009 <- function(df){
       K_vercellotti_2009_f <- ((Fem2+Tib1) * 1.55) + 390
       rm(Tib1, Fem2)
       # Store results in data frame for every individual
+      if (df_knochen$Sex == "m"){ 
       val_indv$male[i] <- K_vercellotti_2009_m
+    } else if (df_knochen$Sex == "f"){
       val_indv$female[i] <- K_vercellotti_2009_f
+    } else {val_indv$indet[i] <- (K_vercellotti_2009_f+K_vercellotti_2009_m)/2}
       val_indv$indice[i] <- "Fem2/Tib1"
       next
     } else if (exists("Fem2")){
@@ -69,7 +72,7 @@ vercellotti_et_al_2009 <- function(df){
         val_indv$male[i] <- (Fem2 * 2.70) + 481
       } else if (df_knochen$Sex == "f"){
         val_indv$female[i] <- (Fem2 * 2.89) + 365
-      }
+      } else {val_indv$indet[i] <- (((Fem2 * 2.70) + 481)+((Fem2 * 2.89) + 365))/2}
       val_indv$indice[i] <- "Fem2"
       rm(Fem2)
       next
