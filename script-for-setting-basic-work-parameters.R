@@ -14,6 +14,8 @@ measures.list <- read.delim("./R/measures.tab",
                             skip = 1, 
                             quote = "\"",
                             colClasses = c(rep("character",3)))
+dl<-read.csv("statuaar.list.csv", header = T, sep = ',')
+
 
 idcols<-c('Ind','Sex', 'Group')
 newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])

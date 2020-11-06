@@ -33,6 +33,7 @@ vercellotti_et_al_2009 <- function(df){
     
     # Fem2 
     if ("Fem2" %in% df_knochen$variable){
+      # alternativ zu den vielen variationen: substr(df_knochen$variable, 1, 4)
       Fem2 <- df_knochen$value[df_knochen$variable == "Fem2"]
     } else if (("Fem2r" %in% df_knochen$variable) & !("Fem2l" %in% df_knochen$variable)){
       Fem2 <- df_knochen$value[df_knochen$variable == "Fem2r"]
