@@ -7,6 +7,9 @@ grp=NA
 measures.names='own'
 
 td<- x
+
+measures.list<-read.csv("measures.list.rollet1888.csv",header = T, sep = ",")
+
 measures.list <- read.delim("./R/measures.tab", 
                             skip = 1, 
                             quote = "\"",
