@@ -38,7 +38,7 @@ vercellotti_et_al_2009 <- function(df){
   
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol=6, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("statuar", "sex", "indice", "female", "male", "indet")
+  colnames(val_indv) <-c("sex", "statuar", "indice", "female", "male", "indet")
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
