@@ -46,7 +46,7 @@ vercellotti_et_al_2009 <- function(df){
     
     # Fem2 
     if ("Fem2" %in% df_knochen$variable){
-      # alternativ zu den vielen variationen: substr(df_knochen$variable, 1, 4)
+      # alternativ zu den vielen variationen eventuell: substr(df_knochen$variable, 1, 4)
       Fem2 <- df_knochen$value[df_knochen$variable == "Fem2"]
     } else if (("Fem2r" %in% df_knochen$variable) & !("Fem2l" %in% df_knochen$variable)){
       Fem2 <- df_knochen$value[df_knochen$variable == "Fem2r"]
@@ -104,16 +104,33 @@ vercellotti_et_al_2009 <- function(df){
     }
     
     # Check if value Fem1 was present and if so insert it in respective function
+#    if (exists("Fem1")){
+#      K_vercellotti_2009_m <- (Fem1 * 2.61) + 515
+#      K_vercellotti_2009_f <- (Fem1 * 2.89) + 353
+#      rm(Fem1)
+#      # Store results in data frame for every individual
+#      val_indv$male[i] <- K_vercellotti_2009_m
+#      val_indv$female[i] <- K_vercellotti_2009_f
+#      val_indv$indice[i] <- "Fem1"
+#      next
+#    } 
+    # Check if value Fem1 is present and if so calculate and write data
     if (exists("Fem1")){
-      K_vercellotti_2009_m <- (Fem1 * 2.61) + 515
-      K_vercellotti_2009_f <- (Fem1 * 2.89) + 353
-      rm(Fem1)
-      # Store results in data frame for every individual
-      val_indv$male[i] <- K_vercellotti_2009_m
-      val_indv$female[i] <- K_vercellotti_2009_f
-      val_indv$indice[i] <- "Fem1"
-      next
-    } 
+      val_indv$female[i] <- (Fem1 * 2.89) + 353
+      val_indv$male[i] <- (Fem1 * 2.61) + 515
+      val_indv$indet[i] <- mean(c(((Fem1 * 2.61) + 515), ((Fem1 * 2.89) + 353)))
+      val_indv$sex[i] <- vec_indv$Sex # get Sex from the vector of individual data!
+      if (val_indv$Sex == 'f'){
+        val_indv$statuar[i] <- val_indv$female[i]
+      } else if (val_indv$Sex == 'm') {
+        val_indv$statuar[i] <- val_indv$male[i]
+      } else {
+        val_indv$statuar[i] <- val_indv$indet[i]
+      }
+    }
+    rm(Fem1)
+    next
+  }
     
     # Check if value Tib1 was present and if so insert it in respective function
     if (exists("Tib1")){
