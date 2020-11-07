@@ -4,6 +4,19 @@
 #'
 #' 
 #' @title vercellotti_et_al_2009
+#'
+#' @description 
+#' Based on the available measurements of different bones of 
+#' different individuals, the body height indices for  
+#' males and females are calculated according to Vercelotti et al. 2009.
+#' Returns a data.frame with: 
+#'     * Ind: Individual identifyer (rownames), 
+#'     * Sex: 
+#'     * Statuar: estimated on the provided sex and bone measures, 
+#'     * Bone (measure(s)): bones used for calculation, 
+#'     * female (statuar): columns with alternative statuar for three sex classes, 
+#'     * male (statuar), 
+#'     * indet. (statuar)
 #' 
 #' @param df data.frame, containing informations on individual, bone and measurement
 #'  
@@ -24,8 +37,8 @@ vercellotti_et_al_2009 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
   
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=4, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("male","female","indet", "indice")
+  val_indv <- as.data.frame(matrix(ncol=6, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("statuar", "sex", "indice", "female", "male", "indet")
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
