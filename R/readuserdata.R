@@ -1,5 +1,7 @@
 #' Reorganises and checks tabled data for function body.hight
 #' 
+#' @title readuserdata
+#' 
 #' @description 
 #' Checks tabled user data and provides a data.frame of standardised measurements 
 #' for body statuar calculation with five columns: 
@@ -41,6 +43,13 @@
 #'   \item \bold{variable}:  short name of the measure for \bold{value} 
 #'   \item \bold{value}: measurement for \bold{measure}.
 #' }
+#' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
+#' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
+#'
+#' @examples
+#' 
+#' @export
+
 
 # function to create a correlation table for userspecific (own) measure.names
 create.measures.list<- function(){
