@@ -62,7 +62,7 @@ create.measures.list<- function(){
 }
 
 # read user data
-prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, measures.names='own') {
+prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
   td<-x
   
   # basic check of data format
@@ -106,6 +106,8 @@ prep.user.data <- function (x, d.form='table', ind='Ind', sex='Sex', grp=NA, mea
   # ind
   if (ind %in% names(td)) {
     names(td)[which(names(td)==ind)]<-'Ind'
+  } else if ((is.na(ind)) & (!any(names(td)=='Ind'))) {
+    td['Ind']<-rep(NA, nrow(td))
   } else {
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
   }
