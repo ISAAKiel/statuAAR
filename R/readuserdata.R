@@ -52,7 +52,7 @@
 
 
 # function to create a correlation table for userspecific (own) measure.names
-create.measures.list<- function(){
+create.measures.list<- function (){
   measures.list<-read.delim("./R/measures.tab", 
                             skip = 1, 
                             quote = "\"",
@@ -62,8 +62,8 @@ create.measures.list<- function(){
 }
 
 # read user data
-prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
-  td<-x
+prep.statuar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
+  td <- x
   
   # basic check of data format
   if (!is.data.frame(td)) {
@@ -264,5 +264,3 @@ prep.user.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.
 
 return(dl)
   }
-
-prep.user.data()
