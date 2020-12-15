@@ -14,7 +14,7 @@ Estimation of human stature from long bone measurements according to several wel
 
 ## References for the formulas
 
-s. bibliography file ([md](bibstatuAAR.md), [BibTeX](bibstatuAAR.bib))
+s. bibliography file ([md](./inst/bibstatuAAR.md), [BibTeX](./inst/bibstatuAAR.bib))
 
 ### License
 
