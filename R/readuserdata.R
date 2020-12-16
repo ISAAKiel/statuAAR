@@ -62,7 +62,7 @@ create.measures.list<- function (){
 }
 
 # read user data
-prep.statuar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
+prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
   td <- x
   
   # basic check of data format
@@ -262,5 +262,7 @@ prep.statuar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measur
   #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
   print (agg_measures)
 
-return(list(dl,agg_measures))
+  statuaar.data<-list(dl,agg_measures)
+  
+return(statuaar.data)
   }
