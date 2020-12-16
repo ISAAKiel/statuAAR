@@ -262,7 +262,5 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
   print (agg_measures)
 
-  statuaar.data<-list(dl,agg_measures)
-  
-return(statuaar.data)
+  return(list(agg_measures,dl))
   }
