@@ -34,7 +34,7 @@
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).
 #'    * measures=`own`: A data.frame `measures.list` with own names to be merged is needed. 
 #'          
-#'  @return A list of parameters needed for the function \code{body.hight}.
+#'  @return A list with basic statistics and a dataframe with measures to be processed.
 #'    
 #' \itemize{
 #'   \item \bold{Ind} or \bold{Individual}:  individual identifyer.
@@ -43,11 +43,21 @@
 #'   \item \bold{variable}:  short name of the measure for \bold{value} 
 #'   \item \bold{value}: measurement for \bold{measure}.
 #' }
-#' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
 #' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
+#' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
 #'
 #' @examples
-#' 
+#' # read example dataset into a data frame
+#' x <- read.csv("./data-raw/TrotterGleser1952.csv", header = TRUE, skip=2)
+#' # if not yet existent create a list of measure names to be used
+#' measures.list <- create.measures.list()
+#' # edit the measures.list (not needed for this dataset
+#' fix(measures.list)
+#' # get a list with [[1]] basic statistics and [[2]] a long dataframe with measures
+#' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
+#' # for a simple long list of measures call basic statistics to check for errors
+#' measures.statistics(my.list[[2]])
+
 #' @export
 
 
@@ -57,8 +67,29 @@ create.measures.list<- function (){
                             skip = 1, 
                             quote = "\"",
                             colClasses = c(rep("character",3)))
-  measures.list<-measures.list[order(measures.list$short),]
-  fix(measures.list)
+  return(measures.list[order(measures.list$short),])
+}
+
+# function to calculate basic statistics for a list of measures
+# with $variable for the measure name and $value for the corresponding value
+measures.statistics <- function (dl) {
+  agg_measures<-data.frame(measure=character(), 
+                           n=integer(), 
+                           MinM=numeric(), 
+                           Quart1=numeric(), 
+                           MedianM=numeric(), 
+                           MeanM=numeric(), 
+                           Quart3=numeric(), 
+                           MaxM=numeric(),
+                           stringsAsFactors = FALSE)
+  user_measures<-unique(dl$variable)
+  for (i in 1:length(user_measures)) {
+    agg_measures[i,] <- as.list(c(user_measures[i],
+                                  length(subset(dl[[5]],dl[[4]]==user_measures[i])),
+                                  as.vector(summary(subset(dl[[5]],dl[[4]]==user_measures[i])))))
+  }
+  agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
+  return(agg_measures)
 }
 
 # read user data
@@ -90,13 +121,8 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   #     2. run function to import standard data from csv into df and open for data input
   if (measures.names == 'own'){
     if(!(exists('measures.list'))){
-      tcltk::tk_messageBox(caption = "Data import", 
-                          message = paste("Please fill in your corresponding values in the column 'own'.", 
-                                          "Or provide a corresponding table: own.table -> measures.list.",
-                                          "Or run fix(measures.list) to edit the data frame of the concordance list.",
-                                          "Afterwards run the function again.", sep = "\n"), 
-                          icon = "info", type = "okcancel")
       create.measures.list()
+      fix(measures.list)
     }
   }
   
@@ -238,28 +264,11 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       )
     }
   }
-  # check for inconsistent grouping
-  if (d.form=='list'){
-  }
+#  # check for inconsistent grouping
+#  if (d.form=='list'){
+#  }
   
-  # aggegate statistics for data check
-  agg_measures<-data.frame(measure=character(), 
-                         n=integer(), 
-                         MinM=numeric(), 
-                         Quart1=numeric(), 
-                         MedianM=numeric(), 
-                         MeanM=numeric(), 
-                         Quart3=numeric(), 
-                         MaxM=numeric(),
-                         stringsAsFactors = FALSE)
-  user_measures<-unique(dl$variable)
-  for (i in 1:length(user_measures)) {
-    agg_measures[i,] <- as.list(c(user_measures[i],
-           length(subset(dl[[5]],dl[[4]]==user_measures[i])),
-           as.vector(summary(subset(dl[[5]],dl[[4]]==user_measures[i])))))
-  }
-  agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
-  #agg_measures<- cbind(agg_measures, maxDiff2Mean=(agg_measures$MaxM - agg_measures$MinM) * 100/agg_measures$MedianM)
+  agg_measures <- measures.statistics(dl)
   print (agg_measures)
 
   return(list(agg_measures,dl))
