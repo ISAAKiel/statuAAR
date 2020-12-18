@@ -47,15 +47,15 @@
 #' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
 #'
 #' @examples
-#' # read example dataset into a data frame
-#' x <- read.csv("./data-raw/TrotterGleser1952.csv", header = TRUE, skip=2)
-#' # if not yet existent create a list of measure names to be used
+#' # Read example dataset into a data frame
+#' x <- read.csv("./data-raw/TrotterGleser1952.csv", header=TRUE, skip=2)
+#' # If not yet existent create a list of measure names to be used
 #' measures.list <- create.measures.list()
-#' # edit the measures.list (not needed for this dataset
+#' # Edit the measures.list (not needed for this dataset)
 #' fix(measures.list)
 #' # get a list with [[1]] basic statistics and [[2]] a long dataframe with measures
 #' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
-#' # for a simple long list of measures call basic statistics to check for errors
+#' # With a simple long list of measures call basic statistics to check for errors
 #' measures.statistics(my.list[[2]])
 
 #' @export
@@ -266,6 +266,17 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   }
 #  # check for inconsistent grouping
 #  if (d.form=='list'){
+#    #grp <- unique(dl$Group)
+#    list.groups<-length(unique(dl$Group))
+#    i<-1
+#    #grp <- paste(rep('ind', length(grp)), unique(dl$Group), sep='_')
+#    #assign(paste('ind',grp, sep='_'), unique(dl$Ind[dl$Group == grp]))
+#    for (grp in unique(dl$Group)) {
+#      list.groups[[i]] <- assign(paste('ind',grp, sep='_'), unique(dl$Ind[dl$Group == grp]))
+#      i<-i+1
+#    } 
+#    Reduce(intersect, )
+#    } 
 #  }
   
   agg_measures <- measures.statistics(dl)
