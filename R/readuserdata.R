@@ -264,21 +264,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       )
     }
   }
-#  # check for inconsistent grouping
-#  if (d.form=='list'){
-#    #grp <- unique(dl$Group)
-#    list.groups<-length(unique(dl$Group))
-#    i<-1
-#    #grp <- paste(rep('ind', length(grp)), unique(dl$Group), sep='_')
-#    #assign(paste('ind',grp, sep='_'), unique(dl$Ind[dl$Group == grp]))
-#    for (grp in unique(dl$Group)) {
-#      list.groups[[i]] <- assign(paste('ind',grp, sep='_'), unique(dl$Ind[dl$Group == grp]))
-#      i<-i+1
-#    } 
-#    Reduce(intersect, )
-#    } 
-#  }
-  
+
   agg_measures <- measures.statistics(dl)
   print (agg_measures)
 
