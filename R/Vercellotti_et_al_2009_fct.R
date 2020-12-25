@@ -79,7 +79,7 @@ calc.Hum1 <- function(df_knochen) {
   return (round(statuars, 0))
 }
 
-calc.Hum1 <- function(df_knochen) {
+calc.Rad1 <- function(df_knochen) {
   a <- df_knochen$mean.value[df_knochen$variable == "Rad1"]
   statuar.m <- (a * 1.92) + 1230
   statuar.f <- (a * 3.45) + 785
