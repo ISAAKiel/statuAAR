@@ -181,7 +181,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
 
   # gouping variable 
   if (is.na(grp)){
-    td<-cbind(Group=grp,td)
+    td<-cbind(Group=0,td)
     } else if (!(grp %in% names(td))) {
       stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
     } else {
