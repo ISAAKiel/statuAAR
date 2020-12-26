@@ -4,17 +4,17 @@
 #' the body height indices for males and females are calculated.
 #'
 #' 
-#' @title vercellotti_et_al_2009
+#' @title pearson_1899
 #'
 #' @description 
 #' Based on the available measurements of different bones of 
 #' different individuals, the body height indices for  
 #' males and females are calculated.
 #' Returns a data.frame with: 
-#'     * Ind: Individual identifyer (rownames), 
-#'     * Sex: 
-#'     * Statuar: estimated on the provided sex and bone measures, 
-#'     * Bone (measure(s)): bones used for calculation, 
+#'     * ind: individual identifyer (rownames), 
+#'     * sex: 
+#'     * statuar: estimated on the provided sex and bone measures, 
+#'     * bone (measure(s)): bones used for calculation, 
 #'     * female (statuar): columns with alternative statuar for three sex classes, 
 #'     * male (statuar), 
 #'     * indet. (statuar) and
