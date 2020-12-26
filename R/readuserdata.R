@@ -208,16 +208,16 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   # merges the listed measures with the list of measure.names, filters on the columns needed.
   if (measures.names == 'own'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
+      dl<-result[c('Ind','Sex', 'Group','short','value')]
+      names(dl)[which(names(dl)=='short')]<-'variable'
   } else if (measures.names == 'short'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'short')
+      dl<-result[c('Ind','Sex', 'Group','variable','value')]
   } else if (measures.names == 'long'){
-    result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
-  } else {
-    # This should not happen
-    stop('Unexpected value in variable measure.names appeared.')
+      result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
+      dl<-result[c('Ind','Sex', 'Group','short','value')]
+      names(dl)[which(names(dl)=='short')]<-'variable'
   }
-  dl<-result[c('Ind','Sex', 'Group','short','value')]
-  names(dl)[which(names(dl)=='short')]<-'variable'
 
   # check for duplicated identifiers (individuals)
   dupl_ind<-NULL
