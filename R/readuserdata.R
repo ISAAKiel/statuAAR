@@ -218,6 +218,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       dl<-result[c('Ind','Sex', 'Group','short','value')]
       names(dl)[which(names(dl)=='short')]<-'variable'
   }
+  dl$variable <- as.character(dl$variable)
 
   # check for duplicated identifiers (individuals)
   dupl_ind<-NULL
