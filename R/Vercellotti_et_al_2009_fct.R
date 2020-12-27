@@ -112,7 +112,8 @@ vercellotti_et_al_2009 <- function(df){
         length(df_knochen$mean.value[df_knochen$variable == "Tib1"])>0){
       statures <- calc.Fem2.Tib1(df_knochen) # function to do caclculation
       indice <- "Fem2&Tib1"
-      n_measures <- df_knochen$n[df_knochen$variable=="Fem2"] + n[df_knochen$variable=="Tib1"]
+      n_measures <- df_knochen$n[df_knochen$variable=="Fem2"] + 
+        df_knochen$n[df_knochen$variable=="Tib1"]
     # Fem2
     } else if (length(df_knochen$mean.value[df_knochen$variable == "Fem2"])>0) {
       statures <- calc.Fem2(df_knochen) # function to do caclculation
