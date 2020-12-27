@@ -45,7 +45,8 @@ measures.list$own[measures.list$short=="Rad1l"]<-"Radius.left"
 measures.list$own[measures.list$short=="Uln1r"]<-"Ulna.right"
 measures.list$own[measures.list$short=="Uln1l"]<-"Ulna.left"
 
-#create identifyer
+# create identifyer
 rollet1888$ind<-paste(rollet1888$Nr, rollet1888$Sex, sep = "_")
 
+# prep.statuaar.data
 rollet1888.list<-prep.statuaar.data(rollet1888, ind = "ind", sex = "Sex", measures.names = "own")
