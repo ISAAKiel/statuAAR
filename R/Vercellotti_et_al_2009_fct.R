@@ -120,7 +120,7 @@ vercellotti_et_al_2009 <- function(df){
       indice <- "Fem2"
       n_measures <- df_knochen$n[df_knochen$variable=="Fem2"]
     # Fem1
-    } else if (is.numeric(df_knochen$mean.value[df_knochen$variable == "Fem1"])>0) {
+    } else if (length(df_knochen$mean.value[df_knochen$variable == "Fem1"])>0) {
       statures <- calc.Fem1(df_knochen) # function to do caclculation
       indice <- "Fem1"
       n_measures <- df_knochen$n[df_knochen$variable=="Fem1"]
