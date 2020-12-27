@@ -26,3 +26,26 @@ td<-td[newcolorder]
 dl<-reshape2::melt(td, id=c("Nr","Sex"), na.rm=TRUE)
 
 result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
+
+# Tranformation of Rollet 1888
+load("./data/rollet1888.rda")
+# create measures.list
+measures.list <- create.measures.list()
+# set Rollets measure names in column "own"
+measures.list$own[measures.list$short=="Fem1r"]<-"Femur.right"
+measures.list$own[measures.list$short=="Fem1l"]<-"Femur.left"
+measures.list$own[measures.list$short=="Tib1r"]<-"Tibia.right"
+measures.list$own[measures.list$short=="Tib1l"]<-"Tibia.left"
+measures.list$own[measures.list$short=="Fib1r"]<-"Fibula.right"
+measures.list$own[measures.list$short=="Fib1l"]<-"Fibula.left"
+measures.list$own[measures.list$short=="Hum1r"]<-"Humerus.right"
+measures.list$own[measures.list$short=="Hum1l"]<-"Humerus.left"
+measures.list$own[measures.list$short=="Rad1r"]<-"Radius.right"
+measures.list$own[measures.list$short=="Rad1l"]<-"Radius.left"
+measures.list$own[measures.list$short=="Uln1r"]<-"Ulna.right"
+measures.list$own[measures.list$short=="Uln1l"]<-"Ulna.left"
+
+#create identifyer
+rollet1888$ind<-paste(rollet1888$Nr, rollet1888$Sex, sep = "_")
+
+rollet1888.list<-prep.statuaar.data(rollet1888, ind = "ind", sex = "Sex", measures.names = "own")
