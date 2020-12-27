@@ -15,16 +15,16 @@
 #' (see Siegmund 2010, p. 112). In contrast, Bach (1965) gives both equations.
 #'  In addition, Bach (1965, 20) states to use only one of the Humeri measures 
 #'  for estimation (Hum1 or Hum2 or the mean of both) to avoid inadmissable 
-#'  multiplication of the bone within the statuar estimation. 
+#'  multiplication of the bone within the stature estimation. 
 #'
 #' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
 #'     * sex: 
-#'     * statuar: estimated on the provided sex and bone measures, 
+#'     * stature: estimated on the provided sex and bone measures, 
 #'     * bone (measure(s)): bones used for calculation, 
-#'     * female (statuar): columns with alternative statuar for three sex classes, 
-#'     * male (statuar), 
-#'     * indet. (statuar) and
+#'     * female (stature): columns with alternative stature for three sex classes, 
+#'     * male (stature), 
+#'     * indet. (stature) and
 #'     * n_measures: number of bonemeasures included, e.g. (left + right)/2
 #' 
 #' @param df data.frame, containing informations on individual, bone and measurement
@@ -51,7 +51,7 @@ breitinger_bach_1965 <- function(df){
   
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "statuar", "bone", "female", "male", "indet", "n_measures")
+  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, levels = c("m", "f", "i"))
   
   # check available values for different variables needed for 
@@ -110,18 +110,18 @@ breitinger_bach_1965 <- function(df){
     # Calculate the different indices for indet.
     measures.i <-(measures.m + measures.f)/2
     
-    # calculate mean of each measures group for statuars
+    # calculate mean of each measures group for statures
     # as the regression equations are calculated in cm the result is converted to mm
 
-    statuars <- round(10 * c(mean(measures.m), mean(measures.f), mean(measures.i)), 0)
+    statures <- round(10 * c(mean(measures.m), mean(measures.f), mean(measures.i)), 0)
 
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_knochen$Sex)
-    val_indv$statuar[i] <- statuars[as.integer(unique(df_knochen$Sex))]
+    val_indv$stature[i] <- statures[as.integer(unique(df_knochen$Sex))]
     val_indv$bone <- paste(bone, collapse = ", ")
-    val_indv$female[i] <- statuars[2]
-    val_indv$male[i] <- statuars[1]
-    val_indv$indet[i] <- statuars[3]
+    val_indv$female[i] <- statures[2]
+    val_indv$male[i] <- statures[1]
+    val_indv$indet[i] <- statures[3]
     val_indv$n_measures[i] <- n_measures
   }
   

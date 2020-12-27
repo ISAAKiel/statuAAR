@@ -1,7 +1,7 @@
 # resource: Bach 1965 tables p. 18, 19
-# description: Data as given in millimeters, but statuar converted to millimeters as well.
+# description: Data as given in millimeters, but stature converted to millimeters as well.
 # Sex added according to table subscription. 
-sex,Hum1,Hum2,Rad1b,statuar,Fem1,Tib1b
+sex,Hum1,Hum2,Rad1b,stature,Fem1,Tib1b
 f,220,215,146,1450,292,281
 f,224,219,151,1460,299,287
 f,229,224,156,1470,307,293

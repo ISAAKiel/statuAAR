@@ -4,7 +4,7 @@
 #' 
 #' @description 
 #' Checks tabled user data and provides a data.frame of standardised measurements 
-#' for body statuar calculation with five columns: 
+#' for body stature calculation with five columns: 
 #'     Ind(ividual), Sex, Group, variable, value.
 #'  Checks data consitency: 
 #'    * uniqueness of individual identifyer,

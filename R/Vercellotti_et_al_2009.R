@@ -31,14 +31,21 @@
 #' 
 #'@export
 
+library(dplyr)
 
 vercellotti_et_al_2009 <- function(df){
+  
+  df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+  # aggregate values for each measure an Individual
+  df %>%  
+    group_by(Ind, Sex, Group, variable) %>% 
+    summarise(mean.value = mean(value), n = n()) -> df
   
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
   
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=6, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "statuar", "indice", "female", "male", "indet")
+  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "statuar", "indice", "female", "male", "indet", "n_measures")
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
@@ -46,7 +53,6 @@ vercellotti_et_al_2009 <- function(df){
     
     # Fem2 
     if ("Fem2" %in% df_knochen$variable){
-      # alternativ zu den vielen variationen eventuell: substr(df_knochen$variable, 1, 4)
       Fem2 <- df_knochen$value[df_knochen$variable == "Fem2"]
     } else if (("Fem2r" %in% df_knochen$variable) & !("Fem2l" %in% df_knochen$variable)){
       Fem2 <- df_knochen$value[df_knochen$variable == "Fem2r"]
