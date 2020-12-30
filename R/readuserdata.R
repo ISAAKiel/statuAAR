@@ -269,5 +269,5 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   agg_measures <- measures.statistics(dl)
   print (agg_measures)
 
-  return(list(agg_measures,dl))
+  return(list("statistic"=agg_measures,"data"=dl))
   }
