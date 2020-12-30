@@ -52,3 +52,15 @@ rollet1888$ind<-paste(rollet1888$Nr, rollet1888$Sex, sep = "_")
 rollet1888.list<-prep.statuaar.data(rollet1888, ind = "ind", sex = "Sex", measures.names = "own")
 
 df<-rollet1888.list[[2]]
+
+
+# Read example dataset into a data frame
+x <- read.csv("./data-raw/TrotterGleser1952.csv", header=TRUE, skip=2)
+# If not yet existent create a list of measure names to be used
+measures.list <- create.measures.list()
+# Edit the measures.list (not needed for this dataset)
+fix(measures.list)
+# get a list with [[1]] basic statistics and [[2]] a long dataframe with measures
+my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
+# With a simple long list of measures call basic statistics to check for errors
+measures.statistics(my.list[[2]])
