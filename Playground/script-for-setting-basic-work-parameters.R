@@ -50,3 +50,5 @@ rollet1888$ind<-paste(rollet1888$Nr, rollet1888$Sex, sep = "_")
 
 # prep.statuaar.data
 rollet1888.list<-prep.statuaar.data(rollet1888, ind = "ind", sex = "Sex", measures.names = "own")
+
+df<-rollet1888.list[[2]]
