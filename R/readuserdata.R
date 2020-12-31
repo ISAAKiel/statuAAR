@@ -151,6 +151,8 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   # check variable sex
   if (sex %in% names(td)) {
     names(td)[which(names(td)==sex)]<-'Sex'
+  } else if (is.na(sex)) {
+    td$Sex <- 3
   } else {
       stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
   }
@@ -219,6 +221,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       names(dl)[which(names(dl)=='short')]<-'variable'
   }
   dl$variable <- as.character(dl$variable)
+  dl$value <- as.numeric(dl$value)
 
   # check for duplicated identifiers (individuals)
   dupl_ind<-NULL
