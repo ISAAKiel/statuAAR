@@ -1,0 +1,52 @@
+# M.R. Feldesman/J.G. Kleckner/J.K. Lundy, Femur/stature ratio and estimates of stature in mid- and late-pleistocene fossil hominids. American Journal of Physical Anthropology 83/3, 1990, 359–372.
+# TABLE 6. Raw data, femur/stature estimates, and Trotter-Gleser estimates for sample of mid-to late-pleistocene fossil hominids.
+# (1) 'Gender according to published criteria: (a) pubic morphology or (b) cranial capacity and skeletal robusticity.
+"Site","Type","Probable.gender","Gender.reference","Femur.length","Femur.stature","Trotter-Gleser.stature"
+"OH34","H. erectus","","",43.2,161.8,164.9
+"OH28","H. erectus","M","",45.6,170.8,171.3
+"Peking IV","H. erectus","","",40.7,152.4,158.9
+"Trinil II","H. erectus","","",50.0,187.3,181.2
+"WT 15000","H. erectus","M(b)","(Day, 1986)",43.2,161.8,165.8
+"La Chappelle","Eur. Nean.","M(a)","(Trinkaus, 1983)",43.0,161.1,165.3
+"LaFerrassie 1","Eur. Nean.","M(a)","(Trinkaus, 1983)",45.8,171.5,171.8
+"LaFerrassie 2","Eur Nean.","F(a)","(Trinkaus, 1983)",40.7,152.4,157.9
+"Neanderthal 1","Eur. Nean.","M(a)","(Trinkaus, 1983)",44.0,164.8,167.6
+"SPY 2","Eur. Nean.","M(b)","(Stringer et al., 1984)",42.3,158.6,163.8
+"Font de foret I","EUI Kcan.","M","",42.4,158.8,163.9
+"Amud I","N.E. Nean.","M(a)","(Trinkaus, 1983)",48.2,180.5,177.4
+"Shanidar 1","N.E. Nean.","M(a)","(Trinkaus, 1983)",45.8,171.5,171.8
+"Shanidar 4","N.E. Nean.","M(a)","(Trinkaus, 1983)",42.2,158.1,163.4
+"Shanidar 5","N.E. Nean.","M(b)","(Trinkaus, 1983)",44.7,167.4,169.2
+"Shanidar 6","N.E. Nean.","F(b)","(Trinkaus, 1983)",38.4,143.8,152.2
+"Tabun I","N.E. Nean.","F(a)","(Trinkaus, 1983)",41.0,153.6,158.6
+"Qafzeh 9","Skhul-Qafzeh","","",46.9,175.8,173.9
+"Skhul4","Skhul-Qafzeh","M(b)","(McCown and Keith, 1939)",48.6,182.0,178.3
+"Skhul5","Skhul-Qafzeh","M(a)","(McCown and Keith, 1939)",51.5,192.9,185.0
+"Skhul7","Skhul-Qafzeh","F(b)","(McCown and Keith, 1939)",43.8,164.1,165.6
+"Skhul6","Skhul-Qafzeh","M(b)","(McCown and Keith.1939)",47.5,177.9,175.7
+"Cromagnon 3","EAMHS","M(b)","(Stringer et al., 1984)",48.5,181.7,178.1
+"Chancellade","EAMHS","M","",40.8,152.8,160.2
+"Combe-Capelle","EAMHS","M(b)","(Stringer et al., 1984)",42.3,158.4,163.7
+"Obercassel 1","EAMHS","M(a)","(Stringer et al., 1984)",44.4,166.3,168.5
+"Baousso de Torre 1","EAMHS","","",53.5,200.4,189.6
+"Baousso de Torre 2","EAMHS","M","",50.4,188.8,182.5
+"Barma Grande 1","EAMHS","M","",53.2,199.3,189.0
+"Barma Grande 2","EAMHS","M","(Day, 1986)",49.1,183.9,179.4
+"Barma Grande 5","EAMHS","M","(Day, 1986)",49.5,185.4,180.4
+"Caviglione I","EAMHS","M","",47.0,176.0,174.6
+"Grotte des Enfant 4","EAMHS","M(a)","(Day, 1986)",52.3,195.9,186.9
+"Grotte des Enfant 5","EAMHS","F(a)","(Day, 1986)",43.4,162.6,164.6
+"Predmost 3","EAMHS","M(a)","(Smith, 1982: Day, 1986)",48.4,181.3,177.8
+"Predmost 4","EAMHS","F(a)","(Smith, 1982; Day, 1986)",41.8,156.6,160.6
+"Predmost 9","EAMHS","M(a)","(Smith, 1982; Day, 1986)",44.7,167.4,169.2
+"Predmost 10","EAMHS","F(a)","(Smith, 1982; Day, 1986)",40.7,152.4,157.9
+"Predmost 14","EAMHS","M(a)","(Smith, 1982; Day, 1986)",44.9,168.2,169.7
+"Bruniquel 24","EAMHS","F(a)","(Day, 1986)",40.9,153.2,158.4
+"Cap Blanc I","EAMHS","F(b)","(Day, 1986)",41.9,157.1,161.0
+"La Madelaine","EAMHS","","",46.0,172.3,171.6
+"Ohercassel 2","EAMHS","F(a)","(Day, 1986)",43.0,161.1,163.6
+"Paglicci I","EAMHS","M(a)","(Stringer et al., 1984; Day, 1986)",45.2,169.3,170.4
+"Paviland I","EAMHS","M(a)","(Stringer et al., 1984; Day, 1986)",47.6,178.3,176.0
+"St Germain la Rive","EAMHS","F(a)","(Day, 1986)",40.8,171.9,158.1
+"Tagliente I","EAMHS","M","(Day, 1986)",43.1,152.8,165.5
+"Veryier","EAMHS","Ma","",45.9,161.4,172.0
