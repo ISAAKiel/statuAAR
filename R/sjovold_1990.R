@@ -1,34 +1,35 @@
-#' Calculate body height indices and mean body height based on Sjøvold 1990.
-#' 
-#' Based on the available measurements of different bones of different individuals, 
-#' the body height indices for males and females are calculated.
-#'
+#' Calculate stature estimation according to:
+#' Sjøvold 1990.
 #' 
 #' @title sjovold_1990
 #'
 #' @description 
-#' Based on the available measurements of different bones of 
-#' different individuals, the body height indices for  
-#' males and females are calculated.
-#' The average length from bones of both sides are calculated.  
-#' The regression formula of Sjøvold (1990) calculate the body length. Allthough
-#' not explained in the text estimated stature is derived from the mean of all 
-#' bones. To not multiply significance i the case of two measures per bone 
-#' (e.g. Fem 1, Fem2) only one of both will be used.
+#' Stature estimation (mm) based on the mean of different regression calculations,
+#' not separated  by sex (Sjøvold 1990).
+#' Bone measures used: Hum1, Rad1 (alt. Rad1b), Uln1, Fem1 (alt. Fem2), 
+#'  Tib1 (alt. Tib1b), Fib1
+
+#' If bone measures for left and right are provided the mean value will be used,
+#' but for statistic information 2 bones will be counted (n_measures).
+#' Allthough not explained in the text estimated stature is derived from the mean 
+#' of all calculations from the bone measures. To not multiply significance in the 
+#' case of two measures per bone (e.g. Fem 1, Fem2) only one of both will be 
+#' calculated.
 #'
 #' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
-#'     * sex: 
+#'     * sex: as provided for calculation: m, f, indet.
 #'     * stature: estimated on the provided sex and bone measures, 
 #'     * bone (measure(s)): bones used for calculation, 
 #'     * female (stature): columns with alternative stature for three sex classes, 
 #'     * male (stature), 
 #'     * indet. (stature) and
-#'     * n_measures: number of bone measures included, e.g. (left + right)/2
-#' 
-#' @param df data.frame, containing informations on individual, bone and measurement
+#'     * n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1
+#'
+#' @param df data.frame containing informations on individual, bone and measurement.
 #'  
-#' @return data.frame, containing one data.frame with all calculated indices for every individual
+#' @return data.frame with calculated stature and related information per individual.
 #'           
 #' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
 #' 

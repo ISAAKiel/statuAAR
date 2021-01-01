@@ -1,26 +1,27 @@
-#' Calculate body height indices and mean body height based on Vercellotti et al. 2009
-#' 
-#' Based on the available measurements of different bones of different individuals, the body height indices for males and females are calculated according to Vercelotti et al. 2009.
-#'
+#' Calculate stature estimation according to:
+#' Vercellotti et al. 2009
 #' 
 #' @title vercellotti_et_al_2009
 #'
 #' @description 
-#' Based on the available measurements of different bones of 
-#' different individuals, the body height indices for  
-#' males and females are calculated according to Vercelotti et al. 2009.
+#' Stature estimation (mm) based on the hierarchy of different regression calculations,
+#' separated  by sex (Vercellotti et al. 2009).
+#' Bone measures used: Fem2+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1
+#' 
 #' Returns a data.frame with: 
-#'     * Ind: Individual identifyer (rownames), 
-#'     * Sex: 
-#'     * Stature: estimated on the provided sex and bone measures, 
-#'     * Bone (measure(s)): bones used for calculation, 
+#'     * ind: individual identifyer (rownames), 
+#'     * sex: as provided for calculation: m, f, indet.
+#'     * stature: estimated on the provided sex and bone measures, 
+#'     * bone (measure(s)): bones used for calculation, 
 #'     * female (stature): columns with alternative stature for three sex classes, 
 #'     * male (stature), 
-#'     * indet. (stature)
-#' 
-#' @param df data.frame, containing informations on individual, bone and measurement
+#'     * indet. (stature) and
+#'     * n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1
+#'
+#' @param df data.frame containing informations on individual, bone and measurement.
 #'  
-#' @return data.frame, containing one data.frame with all calculated indices for every individual
+#' @return data.frame with calculated stature and related information per individual.
 #'           
 #' @author Anna Loy <\email{aloy@@roots.uni-kiel.de}>
 #' @author Nils Müller-Scheeßel <\email{nils.mueller-scheessel@@ufg.uni-kiel.de}>

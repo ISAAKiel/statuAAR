@@ -1,31 +1,35 @@
-#' Calculate body height indices and mean body height based on Trotter & Gleser 1952, 1977 series 'American Negro'.
+#' Calculate stature estimation according to:
+#' Trotter & Gleser 1952, 1977 series 'American Negro'.
 #' 
-#' Based on the available measurements of different bones of different individuals, the body height indices for males and females are calculated according to Vercelotti et al. 2009.
-#'
-#' 
-#' @title trotter_gleser_1952aw
+#' @title trotter_gleser_1952an
 #'
 #' @description 
-#' Based on the available measurements of different bones of 
-#' different individuals, the body height indices for  males and females are 
-#' calculated according to Trotter & Gleser (1952) with corrections from 
-#' Trotter & Gleser (1977). Formula for the series 'American Negro'.
-#' The regression formula are hierarchical from combinations of different 
-#' bone measures to single bone measures. Only the first applicable measure will 
-#' be used.
+#' Stature estimation (mm) based on the hierarchy of different regression calculations,
+#' separated  by sex (Trotter & Gleser 1952, 1977) series 'American Negro'.
+#' Bone measures used: Fem1, Tib1b, Fib1, Uln1, Rad1, Hum1
+
+#' If bone measures for left and right are provided the mean value will be used,
+#' but for statistic information 2 bones will be counted (n_measures).
+#' If sex is indet. the mean of male and female stature estimation is given.
+#' The calculation is based on Trotter & Gleser (1952) with corrections from 
+#' Trotter & Gleser (1977). The regression formula are hierarchical from 
+#' combinations of different bone measures to single bone measures. Only the 
+#' first applicable measure will be used.
 #' 
 #' Returns a data.frame with: 
-#'     * Ind: Individual identifyer (rownames), 
-#'     * Sex: 
-#'     * Stature: estimated on the provided sex and bone measures, 
-#'     * Bone (measure(s)): bones used for calculation, 
+#'     * ind: individual identifyer (rownames), 
+#'     * sex: as provided for calculation: m, f, indet.
+#'     * stature: estimated on the provided sex and bone measures, 
+#'     * bone (measure(s)): bones used for calculation, 
 #'     * female (stature): columns with alternative stature for three sex classes, 
 #'     * male (stature), 
-#'     * indet. (stature)
-#' 
-#' @param df data.frame, containing informations on individual, bone and measurement
+#'     * indet. (stature) and
+#'     * n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1
+#'
+#' @param df data.frame containing informations on individual, bone and measurement.
 #'  
-#' @return data.frame, containing one data.frame with all calculated indices for every individual
+#' @return data.frame with calculated stature and related information per individual.
 #'           
 #' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
 #' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
@@ -36,7 +40,7 @@
 
 library(dplyr)
 
-trotter_gleser_1952aw <- function(df){
+trotter_gleser_1952an <- function(df){
   
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # aggregate values for each measure and individual

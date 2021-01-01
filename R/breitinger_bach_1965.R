@@ -1,15 +1,16 @@
-#' Calculate body height indices and mean body height based on Breitinger 1938 & Bach 1965
-#' 
-#' Based on the available measurements of different bones of different individuals, 
-#' the body height indices for males and females are calculated.
-#'
+#' Calculate stature estimation according to:
+#' Breitinger 1938 & Bach 1965.
 #' 
 #' @title breitinger_bach_1965
 #'
 #' @description 
-#' Based on the available measurements of different bones of 
-#' different individuals, the body height indices for  
-#' males and females are calculated. 
+#' Stature estimation (mm) based on the mean of different regression calculations,
+#' separated  by sex (Breitinger 1938, Bach 1965).
+#' Bone measures used: Hum2, Hum1, Rad1b, Fem1, Tib1b
+#' 
+#' If bone measures for left and right are provided the mean value will be used,
+#' but for statistic information 2 bones will be counted (n_measures).
+#' If sex is indet. the mean of male and female stature estimation is given.
 #' Breitinger (1938) does not show the regression equation for Hum1, but the 
 #' equation can be derived from the values given in the table p. 272 
 #' (see Siegmund 2010, p. 112). In contrast, Bach (1965) gives both equations.
@@ -19,13 +20,14 @@
 #'
 #' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
-#'     * sex: 
+#'     * sex: as provided for calculation: m, f, indet.
 #'     * stature: estimated on the provided sex and bone measures, 
 #'     * bone (measure(s)): bones used for calculation, 
 #'     * female (stature): columns with alternative stature for three sex classes, 
 #'     * male (stature), 
 #'     * indet. (stature) and
-#'     * n_measures: number of bonemeasures included, e.g. (left + right)/2
+#'     * n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1
 #' 
 #' @param df data.frame, containing informations on individual, bone and measurement
 #'  

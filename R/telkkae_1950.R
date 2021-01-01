@@ -1,32 +1,33 @@
-#' Calculate body height indices and mean body height based on Telkkä 1950.
-#' 
-#' Based on the available measurements of different bones of different individuals, 
-#' the body height indices for males and females are calculated.
-#'
+#' Calculate stature estimation according to:
+#' Telkkä 1950.
 #' 
 #' @title telkkae_1950
 #'
 #' @description 
-#' Based on the available measurements of different bones of 
-#' different individuals, the body height indices for  
-#' males and females are calculated.
-#' The average length from bones of both sides are calculated.  
-#' The regression formula of Telkkä (1950) calculate the body length. 
-#' To retrieve the estimated human stature 2 cm have to be substracted.
+#' Stature estimation (mm) based on the mean of different regression calculations,
+#' separated  by sex (Citation).
+#' Bone measures used: Hum1, Rad2, Uln2, Fem1, Tib1, Fib1
+#' 
+#' If bone measures for left and right are provided the mean value will be used,
+#' but for statistic information 2 bones will be counted (n_measures).
+#' If sex is indet. the mean of male and female stature estimation is given.
+#' To retrieve the estimated stature 20 mm will be substracted from the 
+#' resulting mean value.
 #'
 #' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
-#'     * sex: 
+#'     * sex: as provided for calculation: m, f, indet.
 #'     * stature: estimated on the provided sex and bone measures, 
 #'     * bone (measure(s)): bones used for calculation, 
 #'     * female (stature): columns with alternative stature for three sex classes, 
 #'     * male (stature), 
 #'     * indet. (stature) and
-#'     * n_measures: number of bone measures included, e.g. (left + right)/2
-#' 
-#' @param df data.frame, containing informations on individual, bone and measurement
+#'     * n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1
+#'
+#' @param df data.frame containing informations on individual, bone and measurement.
 #'  
-#' @return data.frame, containing one data.frame with all calculated indices for every individual
+#' @return data.frame with calculated stature and related information per individual.
 #'           
 #' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
 #' 
