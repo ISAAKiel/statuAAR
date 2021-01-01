@@ -1,4 +1,4 @@
-#' Calculate stature estimation (mm) based on bone measures based according to:
+#' Calculate stature estimation (mm) based on bone measures according to:
 #' Formicola & Franceschi 1996.
 #' 
 #' Stature estimation (mm) based on a hierarchical order of regression calculations,
@@ -19,7 +19,7 @@
 #' 
 #' Bone measures used: Fem2+Tib1, Tib1, Fem1, Hum1, Rad1
 #' 
-#' #' Returns a data.frame with: 
+#' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
 #'     * sex: as provided for calculation: m, f, indet.
 #'     * stature: estimated on the provided sex and bone measures, 
