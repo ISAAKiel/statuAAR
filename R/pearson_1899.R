@@ -65,39 +65,39 @@ pearson_1899 <- function(df){
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
-    df_knochen <- subset(df, subset=df$Ind == vec_indv[i])
+    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     # Get measure values needed
-    Hum1 <- df_knochen$mean.value[df_knochen$variable=="Hum1"]
-    Rad1 <- df_knochen$mean.value[df_knochen$variable=="Rad1"]
-    Fem1 <- df_knochen$mean.value[df_knochen$variable=="Fem1"]
-    Fem2 <- df_knochen$mean.value[df_knochen$variable=="Fem1"]
-    Tib1b <- df_knochen$mean.value[df_knochen$variable=="Tib1b"]
-    Tib1a <- df_knochen$mean.value[df_knochen$variable=="Tib1a"]
+    Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
+    Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1"]
+    Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
+    Fem2 <- df_bones$mean.value[df_bones$variable=="Fem1"]
+    Tib1b <- df_bones$mean.value[df_bones$variable=="Tib1b"]
+    Tib1a <- df_bones$mean.value[df_bones$variable=="Tib1a"]
 
     # document bone measures and number used for calculation 
     bone <- c()
     n_measures <- 0
     if (length(Hum1)>0) {
       bone <- append(bone, "Hum1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Hum1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Hum1"]
     }
     if (length(Rad1)>0) {
       bone <- append(bone, "Rad1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Rad1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Rad1"]
     }
     if (length(Fem1)>0) {
       bone <- append(bone, "Fem1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Fem1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Fem1"]
     } else if (length(Fem2)>0){
       bone <- append(bone, "Fem2.corr")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Fem2"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Fem2"]
     }
     if (length(Tib1b)>0) {
       bone <- append(bone, "Tib1b")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Tib1b"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Tib1b"]
     } else if (length(Tib1a)>0){
       bone <- append(bone, "Tib1a.corr")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Tib1a"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Tib1a"]
     }
 
     # Calculate the different indices for male
@@ -151,8 +151,8 @@ pearson_1899 <- function(df){
     statures <- round(c(mean(measures.m), mean(measures.f), mean(measures.i)), 0)
 
     # write values into data frame of results
-    val_indv$sex[i] <- unique(df_knochen$Sex)
-    val_indv$stature[i] <- statures[as.integer(unique(df_knochen$Sex))]
+    val_indv$sex[i] <- unique(df_bones$Sex)
+    val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone <- paste(bone, collapse = ", ")
     val_indv$female[i] <- statures[2]
     val_indv$male[i] <- statures[1]

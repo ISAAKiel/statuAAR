@@ -55,22 +55,22 @@ feldesman_etal_1990 <- function(df){
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
-    df_knochen <- subset(df, subset=df$Ind == vec_indv[i])
+    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     # Get measure values needed
-    Fem1 <- df_knochen$mean.value[df_knochen$variable=="Fem1"]
+    Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
     #Calculate
     stature <- (Fem1 * 10) / 26.74
 
     stature <- round(stature, 0)
 
     # write values into data frame of results
-    val_indv$sex[i] <- unique(df_knochen$Sex)
+    val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- stature
     val_indv$bone <- "Fem1"
     val_indv$female[i] <- stature
     val_indv$male[i] <- stature
     val_indv$indet[i] <- stature
-    val_indv$n_measures[i] <- df_knochen$n[df_knochen$variable=="Fem1"]
+    val_indv$n_measures[i] <- df_bones$n[df_bones$variable=="Fem1"]
   }
   
   if (dim(val_indv)[1] == 0) {

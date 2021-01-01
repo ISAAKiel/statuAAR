@@ -58,13 +58,13 @@ breitinger_bach_1965 <- function(df){
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
-    df_knochen <- subset(df, subset=df$Ind == vec_indv[i])
+    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     # Get measure values needed
-    Hum2 <- df_knochen$mean.value[df_knochen$variable=="Hum2"]
-    Hum1 <- df_knochen$mean.value[df_knochen$variable=="Hum1"]
-    Rad1b <- df_knochen$mean.value[df_knochen$variable=="Rad1b"]
-    Fem1 <- df_knochen$mean.value[df_knochen$variable=="Fem1"]
-    Tib1b <- df_knochen$mean.value[df_knochen$variable=="Tib1b"]
+    Hum2 <- df_bones$mean.value[df_bones$variable=="Hum2"]
+    Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
+    Rad1b <- df_bones$mean.value[df_bones$variable=="Rad1b"]
+    Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
+    Tib1b <- df_bones$mean.value[df_bones$variable=="Tib1b"]
 
     # document bone measures and number used for calculation
     
@@ -73,26 +73,26 @@ breitinger_bach_1965 <- function(df){
     if (length(Hum2)>0 & length(Hum1)>0)  {
       bone <- append(bone, "Hum2&1")
       n_measures <- n_measures +
-      df_knochen$n[df_knochen$variable=="Hum2"] +
-      df_knochen$n[df_knochen$variable=="Hum1"]
+      df_bones$n[df_bones$variable=="Hum2"] +
+      df_bones$n[df_bones$variable=="Hum1"]
     } else if (length(Hum2)>0) {
       bone <- append(bone, "Hum2")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Hum2"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Hum2"]
     } else if (length(Hum1)>0) {
       bone <- append(bone, "Hum1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Hum1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Hum1"]
     }
     if (length(Rad1b)>0) {
       bone <- append(bone, "Rad1b")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Rad1b"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Rad1b"]
     }
     if (length(Fem1)>0) {
       bone <- append(bone, "Fem1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Fem1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Fem1"]
     }
     if (length(Tib1b)>0) {
       bone <- append(bone, "Tib1b")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Tib1b"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Tib1b"]
     } 
 
     # Calculate the different indices for male
@@ -118,8 +118,8 @@ breitinger_bach_1965 <- function(df){
     statures <- round(10 * c(mean(measures.m), mean(measures.f), mean(measures.i)), 0)
 
     # write values into data frame of results
-    val_indv$sex[i] <- unique(df_knochen$Sex)
-    val_indv$stature[i] <- statures[as.integer(unique(df_knochen$Sex))]
+    val_indv$sex[i] <- unique(df_bones$Sex)
+    val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone <- paste(bone, collapse = ", ")
     val_indv$female[i] <- statures[2]
     val_indv$male[i] <- statures[1]

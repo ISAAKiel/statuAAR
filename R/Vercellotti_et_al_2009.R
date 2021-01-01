@@ -14,9 +14,9 @@
 #'     * Sex: 
 #'     * Statuar: estimated on the provided sex and bone measures, 
 #'     * Bone (measure(s)): bones used for calculation, 
-#'     * female (statuar): columns with alternative statuar for three sex classes, 
-#'     * male (statuar), 
-#'     * indet. (statuar)
+#'     * female (stature): columns with alternative stature for three sex classes, 
+#'     * male (stature), 
+#'     * indet. (stature)
 #' 
 #' @param df data.frame, containing informations on individual, bone and measurement
 #'  
@@ -45,32 +45,32 @@ vercellotti_et_al_2009 <- function(df){
   
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "statuar", "indice", "female", "male", "indet", "n_measures")
+  colnames(val_indv) <-c("sex", "stature", "indice", "female", "male", "indet", "n_measures")
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
-    df_knochen <- subset(df, subset=df$Ind == vec_indv[i])
+    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     
     # Fem2 
-    if ("Fem2" %in% df_knochen$variable){
-      Fem2 <- df_knochen$value[df_knochen$variable == "Fem2"]
-    } else if (("Fem2r" %in% df_knochen$variable) & !("Fem2l" %in% df_knochen$variable)){
-      Fem2 <- df_knochen$value[df_knochen$variable == "Fem2r"]
-    } else if (("Fem2l" %in% df_knochen$variable) & !("Fem2r" %in% df_knochen$variable)){
-      Fem2 <- df_knochen$value[df_knochen$variable == "Fem2l"]
-    } else if (("Fem2l" %in% df_knochen$variable) & ("Fem2r" %in% df_knochen$variable)){
-      Fem2 <- (((df_knochen$value[df_knochen$variable == "Fem2l"])+(df_knochen$value[df_knochen$variable == "Fem2r"]))/2)
+    if ("Fem2" %in% df_bones$variable){
+      Fem2 <- df_bones$value[df_bones$variable == "Fem2"]
+    } else if (("Fem2r" %in% df_bones$variable) & !("Fem2l" %in% df_bones$variable)){
+      Fem2 <- df_bones$value[df_bones$variable == "Fem2r"]
+    } else if (("Fem2l" %in% df_bones$variable) & !("Fem2r" %in% df_bones$variable)){
+      Fem2 <- df_bones$value[df_bones$variable == "Fem2l"]
+    } else if (("Fem2l" %in% df_bones$variable) & ("Fem2r" %in% df_bones$variable)){
+      Fem2 <- (((df_bones$value[df_bones$variable == "Fem2l"])+(df_bones$value[df_bones$variable == "Fem2r"]))/2)
     }
     
     # Tib1 
-    if ("Tib1" %in% df_knochen$variable){
-      Tib1 <- df_knochen$value[df_knochen$variable == "Tib1"]
-    } else if (("Tib1r" %in% df_knochen$variable) & !("Tib1l" %in% df_knochen$variable)){
-      Tib1 <- df_knochen$value[df_knochen$variable == "Tib1r"]
-    } else if (("Tib1l" %in% df_knochen$variable) & !("Tib1r" %in% df_knochen$variable)){
-      Tib1 <- df_knochen$value[df_knochen$variable == "Tib1l"]
-    } else if (("Tib1l" %in% df_knochen$variable) & ("Tib1r" %in% df_knochen$variable)){
-      Tib1 <- (((df_knochen$value[df_knochen$variable == "Tib1l"])+(df_knochen$value[df_knochen$variable == "Tib1r"]))/2)
+    if ("Tib1" %in% df_bones$variable){
+      Tib1 <- df_bones$value[df_bones$variable == "Tib1"]
+    } else if (("Tib1r" %in% df_bones$variable) & !("Tib1l" %in% df_bones$variable)){
+      Tib1 <- df_bones$value[df_bones$variable == "Tib1r"]
+    } else if (("Tib1l" %in% df_bones$variable) & !("Tib1r" %in% df_bones$variable)){
+      Tib1 <- df_bones$value[df_bones$variable == "Tib1l"]
+    } else if (("Tib1l" %in% df_bones$variable) & ("Tib1r" %in% df_bones$variable)){
+      Tib1 <- (((df_bones$value[df_bones$variable == "Tib1l"])+(df_bones$value[df_bones$variable == "Tib1r"]))/2)
     }  
     
     # Check if values Fem2 and/or Tib1 were present and if so insert them in respective function
@@ -80,17 +80,17 @@ vercellotti_et_al_2009 <- function(df){
       K_vercellotti_2009_f <- ((Fem2+Tib1) * 1.55) + 390
       rm(Tib1, Fem2)
       # Store results in data frame for every individual
-      if (df_knochen$Sex == "m"){ 
+      if (df_bones$Sex == "m"){ 
       val_indv$male[i] <- K_vercellotti_2009_m
-    } else if (df_knochen$Sex == "f"){
+    } else if (df_bones$Sex == "f"){
       val_indv$female[i] <- K_vercellotti_2009_f
     } else {val_indv$indet[i] <- (K_vercellotti_2009_f+K_vercellotti_2009_m)/2}
       val_indv$indice[i] <- "Fem2/Tib1"
       next
     } else if (exists("Fem2")){
-      if (df_knochen$Sex == "m"){ 
+      if (df_bones$Sex == "m"){ 
         val_indv$male[i] <- (Fem2 * 2.70) + 481
-      } else if (df_knochen$Sex == "f"){
+      } else if (df_bones$Sex == "f"){
         val_indv$female[i] <- (Fem2 * 2.89) + 365
       } else {val_indv$indet[i] <- (((Fem2 * 2.70) + 481)+((Fem2 * 2.89) + 365))/2}
       val_indv$indice[i] <- "Fem2"
@@ -99,14 +99,14 @@ vercellotti_et_al_2009 <- function(df){
     }
     
     # Fem1 
-    if ("Fem1" %in% df_knochen$variable){
-      Fem1 <- df_knochen$value[df_knochen$variable == "Fem1"]
-    } else if (("Fem1r" %in% df_knochen$variable) & !("Fem1l" %in% df_knochen$variable)){
-      Fem1 <- df_knochen$value[df_knochen$variable == "Fem1r"]
-    } else if (("Fem1l" %in% df_knochen$variable) & !("Fem1r" %in% df_knochen$variable)){
-      Fem1 <- df_knochen$value[df_knochen$variable == "Fem1l"]
-    } else if (("Fem1l" %in% df_knochen$variable) & ("Fem1r" %in% df_knochen$variable)){
-      Fem1 <- (((df_knochen$value[df_knochen$variable == "Fem1l"])+(df_knochen$value[df_knochen$variable == "Fem1r"]))/2)
+    if ("Fem1" %in% df_bones$variable){
+      Fem1 <- df_bones$value[df_bones$variable == "Fem1"]
+    } else if (("Fem1r" %in% df_bones$variable) & !("Fem1l" %in% df_bones$variable)){
+      Fem1 <- df_bones$value[df_bones$variable == "Fem1r"]
+    } else if (("Fem1l" %in% df_bones$variable) & !("Fem1r" %in% df_bones$variable)){
+      Fem1 <- df_bones$value[df_bones$variable == "Fem1l"]
+    } else if (("Fem1l" %in% df_bones$variable) & ("Fem1r" %in% df_bones$variable)){
+      Fem1 <- (((df_bones$value[df_bones$variable == "Fem1l"])+(df_bones$value[df_bones$variable == "Fem1r"]))/2)
     }
     
     # Check if value Fem1 was present and if so insert it in respective function
@@ -127,11 +127,11 @@ vercellotti_et_al_2009 <- function(df){
       val_indv$indet[i] <- mean(c(((Fem1 * 2.61) + 515), ((Fem1 * 2.89) + 353)))
       val_indv$sex[i] <- vec_indv$Sex # get Sex from the vector of individual data!
       if (val_indv$Sex == 'f'){
-        val_indv$statuar[i] <- val_indv$female[i]
+        val_indv$stature[i] <- val_indv$female[i]
       } else if (val_indv$Sex == 'm') {
-        val_indv$statuar[i] <- val_indv$male[i]
+        val_indv$stature[i] <- val_indv$male[i]
       } else {
-        val_indv$statuar[i] <- val_indv$indet[i]
+        val_indv$stature[i] <- val_indv$indet[i]
       }
     }
     rm(Fem1)
@@ -151,14 +151,14 @@ vercellotti_et_al_2009 <- function(df){
     } 
     
     # Hum1 
-    if ("Hum1" %in% df_knochen$variable){
-      Hum1 <- df_knochen$value[df_knochen$variable == "Hum1"]
-    } else if (("Hum1r" %in% df_knochen$variable) & !("Hum1l" %in% df_knochen$variable)){
-      Hum1 <- df_knochen$value[df_knochen$variable == "Hum1r"]
-    } else if (("Hum1l" %in% df_knochen$variable) & !("Hum1r" %in% df_knochen$variable)){
-      Hum1 <- df_knochen$value[df_knochen$variable == "Hum1l"]
-    } else if (("Hum1l" %in% df_knochen$variable) & ("Hum1r" %in% df_knochen$variable)){
-      Hum1 <- (((df_knochen$value[df_knochen$variable == "Hum1l"])+(df_knochen$value[df_knochen$variable == "Hum1r"]))/2)
+    if ("Hum1" %in% df_bones$variable){
+      Hum1 <- df_bones$value[df_bones$variable == "Hum1"]
+    } else if (("Hum1r" %in% df_bones$variable) & !("Hum1l" %in% df_bones$variable)){
+      Hum1 <- df_bones$value[df_bones$variable == "Hum1r"]
+    } else if (("Hum1l" %in% df_bones$variable) & !("Hum1r" %in% df_bones$variable)){
+      Hum1 <- df_bones$value[df_bones$variable == "Hum1l"]
+    } else if (("Hum1l" %in% df_bones$variable) & ("Hum1r" %in% df_bones$variable)){
+      Hum1 <- (((df_bones$value[df_bones$variable == "Hum1l"])+(df_bones$value[df_bones$variable == "Hum1r"]))/2)
     }
     
     # Check if value Hum1 was present and if so insert it in respective function
@@ -174,14 +174,14 @@ vercellotti_et_al_2009 <- function(df){
     } 
     
     # Rad1 
-    if ("Rad1" %in% df_knochen$variable){
-      Rad1 <- df_knochen$value[df_knochen$variable == "Rad1"]
-    } else if (("Rad1r" %in% df_knochen$variable) & !("Rad1l" %in% df_knochen$variable)){
-      Rad1 <- df_knochen$value[df_knochen$variable == "Rad1r"]
-    } else if (("Rad1l" %in% df_knochen$variable) & !("Rad1r" %in% df_knochen$variable)){
-      Rad1 <- df_knochen$value[df_knochen$variable == "Rad1l"]
-    } else if (("Rad1l" %in% df_knochen$variable) & ("Rad1r" %in% df_knochen$variable)){
-      Rad1 <- (((df_knochen$value[df_knochen$variable == "Rad1l"])+(df_knochen$value[df_knochen$variable == "Rad1r"]))/2)
+    if ("Rad1" %in% df_bones$variable){
+      Rad1 <- df_bones$value[df_bones$variable == "Rad1"]
+    } else if (("Rad1r" %in% df_bones$variable) & !("Rad1l" %in% df_bones$variable)){
+      Rad1 <- df_bones$value[df_bones$variable == "Rad1r"]
+    } else if (("Rad1l" %in% df_bones$variable) & !("Rad1r" %in% df_bones$variable)){
+      Rad1 <- df_bones$value[df_bones$variable == "Rad1l"]
+    } else if (("Rad1l" %in% df_bones$variable) & ("Rad1r" %in% df_bones$variable)){
+      Rad1 <- (((df_bones$value[df_bones$variable == "Rad1l"])+(df_bones$value[df_bones$variable == "Rad1r"]))/2)
     }
     
     # Check if value Rad1 was present and if so insert it in respective function
