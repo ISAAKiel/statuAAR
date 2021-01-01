@@ -428,7 +428,7 @@ olivier_etal_1978 <- function(df){
     
     stature.i <- mean(c(stature.m[[1]], stature.f[[1]]))
     indice.i <- paste(stature.m[[2]], stature.f[[2]], sep = ", ")
-    n_measures.i <- stature.m[[3]] + stature.m[[3]]
+    n_measures.i <- stature.m[[3]] + stature.f[[3]]
     
     # vectors for stature estimations, indices and n_measures
     statures <- c(stature.m[[1]], stature.f[[1]], stature.i)
