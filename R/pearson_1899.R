@@ -18,10 +18,12 @@
 #' measurements from Rollet (1888) he provides correction values for the bones of
 #' the left side. These values vary for male within +/- .4 - 4.2 mm and for 
 #' female within +/- 0.4 - 5.1 mm. Leg length discrepancy (LLD) is a complex 
-#' process due to multiple causes and increasing with age. Based on French data
-#' minor LLD is often, but if treated in most cases below 2 cm per leg. 
-#' In addition differences between sex and  left vs right side are observed. 
-#' In consequence a compounded correction between left and right bones is rejected.  
+#' process due to multiple causes with environmental and genetic factors and 
+#' increasing with age. Based on French data minor LLD is often, but if treated 
+#' in most cases below 2 cm per leg. In addition differences between sex and  
+#' left vs right side are observed (Guichet et al 1991, Holliday & Ruff 2001, 
+#' Knutson 2005). In consequence a compounded correction between left and right 
+#' bones by the values derived from the sample of Rollet (1888) is rejected.  
 #'  
 #' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
