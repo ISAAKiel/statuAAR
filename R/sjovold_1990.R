@@ -57,17 +57,17 @@ sjovold_1990 <- function(df){
   
   # check available values for different variables needed for 
   for (i in 1:length(vec_indv)){
-    df_knochen <- subset(df, subset=df$Ind == vec_indv[i])
+    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     # Get measure values needed
-    Hum1 <- df_knochen$mean.value[df_knochen$variable=="Hum1"]
-    Rad1 <- df_knochen$mean.value[df_knochen$variable=="Rad1"]
-    Rad1b <- df_knochen$mean.value[df_knochen$variable=="Rad1b"]
-    Uln1 <- df_knochen$mean.value[df_knochen$variable=="Uln1"]
-    Fem1 <- df_knochen$mean.value[df_knochen$variable=="Fem1"]
-    Fem2 <- df_knochen$mean.value[df_knochen$variable=="Fem2"]
-    Tib1 <- df_knochen$mean.value[df_knochen$variable=="Tib1"]
-    Tib1b <- df_knochen$mean.value[df_knochen$variable=="Tib1b"]
-    Fib1 <- df_knochen$mean.value[df_knochen$variable=="Fib1"]
+    Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
+    Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1"]
+    Rad1b <- df_bones$mean.value[df_bones$variable=="Rad1b"]
+    Uln1 <- df_bones$mean.value[df_bones$variable=="Uln1"]
+    Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
+    Fem2 <- df_bones$mean.value[df_bones$variable=="Fem2"]
+    Tib1 <- df_bones$mean.value[df_bones$variable=="Tib1"]
+    Tib1b <- df_bones$mean.value[df_bones$variable=="Tib1b"]
+    Fib1 <- df_bones$mean.value[df_bones$variable=="Fib1"]
     
     # calculate statuar and document bone measures and number used for calculation
     
@@ -77,44 +77,44 @@ sjovold_1990 <- function(df){
     if (length(Hum1)>0){
       measures <- append(measures, (4.62 * Hum1) + 190.00)
       bone <- append(bone, "Hum1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Hum1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Hum1"]
     }
     if (length(Rad1)>0) {
       measures <- append(measures, (3.78 * Rad1) + 747.0)
       bone <- append(bone, "Rad1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Rad1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Rad1"]
     }else if (length(Rad1b)>0){
       measures <- append(measures, (4.80 * Rad1b) + 515.5)
       bone <- append(bone, "Rad1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Rad1b"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Rad1b"]
     }
     if (length(Uln1)>0) {
       measures <- append(measures, (4.61 * Uln1) + 468.3)
       bone <- append(bone, "Uln1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Uln1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Uln1"]
     }
     if (length(Fem1)>0) {
       measures <- append(measures, (2.71 * Fem1) + 458.6)
       bone <- append(bone, "Fem1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Fem1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Fem1"]
     } else if (length(Fem2)>0){
       measures <- append(measures, (3.01 * Fem2) + 325.2)
       bone <- append(bone, "Fem2")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Fem2"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Fem2"]
     }
     if (length(Tib1)>0) {
       measures <- append(measures, (3.29 * Tib1) + 473.4)
       bone <- append(bone, "Tib1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Tib1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Tib1"]
     } else if (length(Tib1b)>0){
       measures <- append((3.67 * Tib1b) + 295.0)
       bone <- append(bone, "Tib1b")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Tib1b"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Tib1b"]
     }
     if (length(Fib1)>0) {
       measures <- append(measures, (3.59 * Fib2) + 363.1)
       bone <- append(bone, "Fib1")
-      n_measures <- n_measures + df_knochen$n[df_knochen$variable=="Fib1"]
+      n_measures <- n_measures + df_bones$n[df_bones$variable=="Fib1"]
     }
 
     # calculate mean of each measures group for statures
@@ -123,7 +123,7 @@ sjovold_1990 <- function(df){
     stature <- round(mean(measures), 0)
 
     # write values into data frame of results
-    val_indv$sex[i] <- unique(df_knochen$Sex)
+    val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- stature
     val_indv$bone <- paste(bone, collapse = ", ")
     val_indv$female[i] <- stature
