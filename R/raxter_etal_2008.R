@@ -148,7 +148,7 @@ calc.stature.f <- function (df_bones){
   if (length(stature.f)==0){
     stature.f <- (Fem2 * 2.341) + 576.3
     indice <- "Fem2"
-    n_measures <- df_bones$n[df_bones$variable=="Fem"]
+    n_measures <- df_bones$n[df_bones$variable=="Fem2"]
   } 
   if (length(stature.f)==0){
     stature.f <- (Fem1 * 2.340) + 569.9
