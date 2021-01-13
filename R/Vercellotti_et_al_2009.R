@@ -44,7 +44,7 @@ vercellotti_et_al_2009 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
   
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
+  val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
   colnames(val_indv) <-c("sex", "stature", "indice", "female", "male", "indet", "n_measures")
   
   # check available values for different variables needed for 

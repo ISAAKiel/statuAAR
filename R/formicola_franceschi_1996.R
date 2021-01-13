@@ -53,8 +53,8 @@ formicola_franceschi_1996 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
   
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "stature", "bone", "group", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
   
     # Calculte in hierarchical order
@@ -120,6 +120,7 @@ formicola_franceschi_1996 <- function(df){
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone[i] <- indice
+    val_indv$group[i] <- unique(df_bones$Group)
     val_indv$female[i] <- statures[2]
     val_indv$male[i] <- statures[1]
     val_indv$indet[i] <- statures[3]
