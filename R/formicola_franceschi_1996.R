@@ -17,7 +17,7 @@
 #' allthough  differences are small. Due to this, the order used differs slightly from 
 #' Siegmund (2010, 116 (12.8)). 
 #' 
-#' Bone measures used: Fem2+Tib1, Tib1, Fem1, Hum1, Rad1
+#' Bone measures used: Fem2+Tib1, Tib1, Fem1, Hum1, Rad1 (or Rad1a)
 #' 
 #' Returns a data.frame with: 
 #'     * ind: individual identifyer (rownames), 
@@ -68,6 +68,11 @@ formicola_franceschi_1996 <- function(df){
       Tib1 <- df_bones$mean.value[df_bones$variable=="Tib1"]
       Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
       Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1"]
+      Rad1a <- FALSE
+      if (length(Rad1)<2){
+        Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1a"]
+        Rad1a <- TRUE
+      }
       Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
       
       # check for different combinations of measures
@@ -107,6 +112,10 @@ formicola_franceschi_1996 <- function(df){
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "5. Rad1"
         n_measures <- df_bones$n[df_bones$variable=="Rad1"]
+        if(Rad1a){
+          indice <- "5. Rad1a"
+          n_measures <- df_bones$n[df_bones$variable=="Rad1a"]
+        }
       } else {
         # no apropriate measures given
         statures <-rep(NA, 3)
