@@ -37,6 +37,7 @@ vercellotti_et_al_2009 <- function(df){
   
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # aggregate values for each measure an Individual
+  options(dplyr.summarise.inform = FALSE)
   df %>%  
     group_by(Ind, Sex, Group, variable) %>% 
     summarise(mean.value = mean(value), n = n()) -> df

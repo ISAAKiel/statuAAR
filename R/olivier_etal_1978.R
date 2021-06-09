@@ -403,6 +403,7 @@ olivier_etal_1978 <- function(df){
   df$side[grepl(".r", df$variable)]<-"r"
   df$variable<-gsub("([rl]$)","", df$variable) #
   # aggregate values for each measure and individual with right==true in case of
+  options(dplyr.summarise.inform = FALSE)
   df %>%  
     group_by(Ind, Sex, Group, variable) %>% 
     summarise(mean.value = mean(value), n = n(), right = any(side=="r")) %>%
@@ -413,7 +414,7 @@ olivier_etal_1978 <- function(df){
 
   # Initialize data frame for later storage of different mean body heights
   val_indv<- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "group", "female", "male", "indet", "n_measures")
+  colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
 
 
