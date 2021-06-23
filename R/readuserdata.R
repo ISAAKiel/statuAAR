@@ -57,6 +57,14 @@
 #' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
 #' # With a simple long list of measures call basic statistics to check for errors
 #' measures.statistics(my.list[[2]])
+#' 
+#' # For the data from Rollet 1888
+#' # 1. Create an identifyer due to sperated numbering for females and males
+#' rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
+#' # 2. Fill in the mesasures names in the column "own" of the measures.list
+#' measures.list<-read.csv("./data-raw/measures.list.rollet1888.csv")
+#' # 3. Read the data
+#' my.list2 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
 
 #' @export
 

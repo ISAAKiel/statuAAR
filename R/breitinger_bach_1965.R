@@ -71,12 +71,7 @@ breitinger_bach_1965 <- function(df){
     
     bone <- c()
     n_measures <- 0
-    if (length(Hum2)>0 & length(Hum1)>0)  {
-      bone <- append(bone, "Hum2&1")
-      n_measures <- n_measures +
-      df_bones$n[df_bones$variable=="Hum2"] +
-      df_bones$n[df_bones$variable=="Hum1"]
-    } else if (length(Hum2)>0) {
+    if (length(Hum2)>0) {
       bone <- append(bone, "Hum2")
       n_measures <- n_measures + df_bones$n[df_bones$variable=="Hum2"]
     } else if (length(Hum1)>0) {
@@ -98,14 +93,16 @@ breitinger_bach_1965 <- function(df){
 
     # Calculate the different indices for male
     measures.m <- c()
-    measures.m <- append (measures.m, mean(c((Hum1 / 10) * 2.71 + 81.33), ((Hum2 / 10) * 2.715 + 83.21)))
+    measures.m <- append (measures.m, (Hum2 / 10) * 2.715 + 83.21)
+    measures.m <- append (measures.m, (Hum1 / 10) * 2.71 + 81.33)
     measures.m <- append (measures.m, (Rad1b / 10) * 2.968 + 97.09)
     measures.m <- append (measures.m, (Fem1 / 10) * 1.645 + 94.31)
     measures.m <- append (measures.m, (Tib1b / 10) * 1.988 + 95.59)
     
     # Calculate the different indices for female 
     measures.f <- c()
-    measures.f <- append (measures.f, mean(c((Hum1 / 10) * 2.121 + 98.38), ((Hum2 / 10) * 2.121 + 99.44))) 
+    measures.f <- append (measures.f, (Hum1 / 10) * 2.121 + 98.38)
+    measures.f <- append (measures.f, (Hum2 / 10) * 2.121 + 99.44) 
     measures.f <- append (measures.f, (Rad1b / 10) * 1.925 + 116.89)
     measures.f <- append (measures.f, (Fem1 / 10) * 1.313 + 106.69)
     measures.f <- append (measures.f, (Tib1b / 10) * 1.745 + 95.91)
