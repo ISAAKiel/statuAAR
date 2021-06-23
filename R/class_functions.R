@@ -47,7 +47,7 @@ as.statuaar_input_list <- function(x, ...) {
   # check input data type is list
   if ("list" %in% class(x)) {
     # check if all elements in list are mortaar_life_table
-    if (inherits(x[1], "statuaar_statistics") && (inherits(x[2], "statuaar_data_table") {
+    if (inherits(x[1], "statuaar_statistics") && inherits(x[2], "statuaar_data_table")) {
       # do the actual conversion!
       x %>%
         `class<-`(c("statuaar_input_list", class(.))) %>%
@@ -70,7 +70,7 @@ as.statuaar_statistics <- function(x, ...) {
   necessary_vars <- c("measure", "n", "MinM", "Quart1", "MedianM", "MeanM", "Quart3", "MaxM")
 
   # check if input data type is data.frame or tibble
-  if ("data.frame" %in% class(x) | all(c("tbl", "tbl_df") %in% class(x))) {
+  if ("data.frame" %in% class(x)) {
     # check if necessary vals are present
     present <- necessary_vars %in% colnames(x)
     if (all(present)) {
