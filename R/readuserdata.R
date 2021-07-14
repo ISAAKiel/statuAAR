@@ -33,6 +33,7 @@
 #'    * measures=`long`: Bone, measure acc. Martin 1928, laterality separated by `.`
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).
 #'    * measures=`own`: A data.frame `measures.list` with own names to be merged is needed. 
+#'  @param stats Output of aggregating statistics of the measures provided. Default = TRUE.
 #'          
 #'  @return A list with basic statistics and a dataframe with measures to be processed.
 #'    
@@ -101,7 +102,7 @@ measures.statistics <- function (dl) {
 }
 
 # read user data
-prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
+prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own', stats = TRUE) {
   td <- x
   
   # basic check of data format
@@ -276,9 +277,9 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       )
     }
   }
-
-  agg_measures <- measures.statistics(dl)
-  print (agg_measures)
-
-  return(list("statistic"=agg_measures,"data"=dl))
+  if (stats){
+    # measures.statistics(dl) %>% as.statuaar_statistics) %>% print()
+    print (measures.statistics(dl))
+  }
+  return(dl)
   }
