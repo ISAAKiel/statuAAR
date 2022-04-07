@@ -1,8 +1,7 @@
-#' Calculate stature estimation according to:
-#' Pearson 1899
-#' 
-#' @title pearson_1899
+#' @name pearson_1899
 #'
+#' @title Calculate stature estimation according to: Pearson 1899
+#' 
 #' @description 
 #' Stature estimation (mm) based on the mean of several multiple and single
 #' regression calculations, separated  by sex (Pearson 1899).
@@ -26,21 +25,23 @@
 #' bones by the values derived from the sample of Rollet (1888) is rejected.  
 #'  
 #' Returns a data.frame with: 
-#'     * ind: individual identifyer (rownames), 
-#'     * sex: as provided for calculation: m, f, indet.
-#'     * stature: estimated on the provided sex and bone measures, 
-#'     * bone (measure(s)): bones used for calculation, 
-#'     * female (stature): columns with alternative stature for three sex classes, 
-#'     * male (stature), 
-#'     * indet. (stature) and
-#'     * n_measures: number of bone measures included: 
-#'              e.g. 2 Fem2 (left, right) + 1 Tib1
+#' \itemize{
+#' \item{ ind: individual identifyer (rownames), }
+#' \item{ sex: as provided for calculation: m, f, indet.}
+#' \item{ stature: estimated on the provided sex and bone measures, }
+#' \item{ bone (measure(s)): bones used for calculation, }
+#' \item{ female (stature): columns with alternative stature for three sex classes, }
+#' \item{ male (stature), }
+#' \item{ indet. (stature) and}
+#' \item{ n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1}
+#' }
 #'
 #' @param df data.frame containing informations on individual, bone and measurement.
 #'  
 #' @return data.frame with calculated stature and related information per individual.
 #'           
-#' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
+#' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #' 
 #' @examples
 #' 

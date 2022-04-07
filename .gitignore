@@ -1,3 +1,7 @@
+# local data and personal settings
+lokal/
+.gitignore
+
 # History files
 .Rhistory
 .Rapp.history

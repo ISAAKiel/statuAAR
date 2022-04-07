@@ -1,8 +1,7 @@
-#' Calculate stature estimation according to:
-#' Olivier et al 1978.
-#' 
-#' @title olivier_etal_1978
+#' @name olivier_etal_1978
 #'
+#' @title Calculate stature estimation according to: Olivier et al 1978.
+#' 
 #' @description 
 #' Stature estimation (mm) based on the hierarchy of different regression calculations,
 #' separated  by sex (Olivier et al 1978).
@@ -32,22 +31,24 @@
 #' Only the first applicable measure of the given hierarchy will be used.
 #' 
 #' Returns a data.frame with: 
-#'     * ind: individual identifyer (rownames), 
-#'     * sex: as provided for calculation: m, f, indet.
-#'     * stature: estimated on the provided sex and bone measures, 
-#'     * bone (measure(s)): bones used for calculation, 
-#'     * female (stature): columns with alternative stature for three sex classes, 
-#'     * male (stature), 
-#'     * indet. (stature) and
-#'     * n_measures: number of bone measures included: 
-#'              e.g. 2 Fem2 (left, right) + 1 Tib1
+#' \itemize{
+#' \item{ ind: individual identifyer (rownames), }
+#' \item{ sex: as provided for calculation: m, f, indet.}
+#' \item{ stature: estimated on the provided sex and bone measures, }
+#' \item{ bone (measure(s)): bones used for calculation, }
+#' \item{ female (stature): columns with alternative stature for three sex classes, }
+#' \item{ male (stature), }
+#' \item{ indet. (stature) and}
+#' \item{ n_measures: number of bone measures included: 
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1}
+#' }
 #'
 #' @param df data.frame containing informations on individual, bone and measurement.
 #'  
 #' @return data.frame with calculated stature and related information per individual.
 #'           
-#' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
-#' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
+#' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
+#' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #' 
 #' @examples
 #' 

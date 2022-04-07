@@ -1,12 +1,10 @@
-#' Calculate stature estimation (mm) based on bone measures according to:
-#' Formicola & Franceschi 1996.
+#' @name formicola_franceschi_1996
+#'
+#' @title Stature estimation based on bone measures according to: Formicola & Franceschi 1996.
 #' 
+#' @description 
 #' Stature estimation (mm) based on a hierarchical order of regression calculations,
 #' separated  by sex and based on: Fem2+Tib1, Fem1, Tib1, Hum1, Rad1. 
-#' 
-#' @title formicola_franceschi_1996
-#'
-#' @description 
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' If sex is indet. the mean of male and female stature estimation is given.
@@ -20,20 +18,22 @@
 #' Bone measures used: Fem2+Tib1, Tib1, Fem1, Hum1, Rad1 (or Rad1a)
 #' 
 #' Returns a data.frame with: 
-#'     * ind: individual identifyer (rownames), 
-#'     * sex: as provided for calculation: m, f, indet.
-#'     * stature: estimated on the provided sex and bone measures, 
-#'     * bone (measure(s)): bones used for calculation, 
-#'     * female (stature): columns with alternative stature for three sex classes, 
-#'     * male (stature), 
-#'     * indet. (stature) and
-#'     * n_measures: number of bone measures included: e.g. 2 Fem2 (left, right), 1 Tib1
+#' \itemize{
+#' \item{ ind: individual identifyer (rownames), }
+#' \item{ sex: as provided for calculation: m, f, indet.}
+#' \item{ stature: estimated on the provided sex and bone measures, }
+#' \item{ bone (measure(s)): bones used for calculation, }
+#' \item{ female (stature): columns with alternative stature for three sex classes, }
+#' \item{ male (stature), }
+#' \item{ indet. (stature) and}
+#' \item{ n_measures: number of bone measures included: e.g. 2 Fem2 (left, right), 1 Tib1}
+#' }
 #' 
 #' @param df data.frame containing informations on individual, bone and measurement.
 #'  
 #' @return data.frame with calculated stature and related information per individual.
 #'           
-#' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
+#' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #' 
 #' @examples
 #' 

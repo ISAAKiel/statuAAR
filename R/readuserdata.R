@@ -1,22 +1,22 @@
-#' Reorganises and checks tabled data for function body.hight
+#' @name readuserdata
 #' 
-#' @title readuserdata
+#' @title Reorganises and checks tabled data for function body.hight
 #' 
 #' @description 
 #' Checks tabled user data and provides a data.frame of standardised measurements 
 #' for body stature calculation with five columns: 
 #'     Ind(ividual), Sex, Group, variable, value.
 #'  Checks data consitency: 
-#'    * uniqueness of individual identifyer,
-#'    * accepted values for Sex
-#'    * accepted measures names.
+#'\item{ uniqueness of individual identifyer,}
+#'\item{ accepted values for Sex}
+#'\item{ accepted measures names.}
 #'  Provides a data.frame with summarised statistics for each measure across the sample 
 #'     to check for data inconsitancy.
 #'   
 #'  @param x A simple data.frame containing the measurements per individual.
 #'  @param d.form A string defining the data.frame structure.
-#'    * d.form=`table` for a data.frame with individuals (rows) and measurements (columns).
-#'    * d.form=`list`  for a data.frame with at least two columns: 
+#'\item{ d.form=`table` for a data.frame with individuals (rows) and measurements (columns).}
+#'\item{ d.form=`list`  for a data.frame with at least two columns: }
 #'      `variable`(character, measure name e.g. hum1), `value` (numeric, length (mm)).
 #'  @param ind A string defining the column with identifiers for each individual.
 #'    If ind = NA a column `Ind` with rownumbers will be added. 
@@ -27,12 +27,12 @@
 #'  @param measures.names A string defining the set of predefined or own measure names used.
 #'    For `own` a data.frame `measures.list` for correlation (merge) is needed. 
 #'    This will be created when missing and opend for editing.
-#'    * measures=`short`: Bone (3 letters), measure acc. Martin 1928, 
+#'\item{ measures=`short`: Bone (3 letters), measure acc. Martin 1928, }
 #'      laterality (1 letter) without any separation
 #'      (e.g. Hum1, Hum1l, Hum1r, Hum1a, Hum1al, Hum1ar etc.).
-#'    * measures=`long`: Bone, measure acc. Martin 1928, laterality separated by `.`
+#'\item{ measures=`long`: Bone, measure acc. Martin 1928, laterality separated by `.`}
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).
-#'    * measures=`own`: A data.frame `measures.list` with own names to be merged is needed. 
+#'\item{ measures=`own`: A data.frame `measures.list` with own names to be merged is needed. }
 #'          
 #'  @return A list with basic statistics and a dataframe with measures to be processed.
 #'    
@@ -43,8 +43,8 @@
 #'   \item \bold{variable}:  short name of the measure for \bold{value} 
 #'   \item \bold{value}: measurement for \bold{measure}.
 #' }
-#' @author Christoph Rinne <\email{crinne@@ufg.uni-kiel.de}>
-#' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
+#' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
+#' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
 #'
 #' @examples
 #' # Read example dataset into a data frame
@@ -59,8 +59,6 @@
 #' measures.statistics(my.list[[2]])
 
 #' @export
-
-
 # function to create a correlation table for userspecific (own) measure.names
 create.measures.list<- function (){
   measures.list<-read.delim("./R/measures.tab", 
@@ -70,6 +68,7 @@ create.measures.list<- function (){
   return(measures.list[order(measures.list$short),])
 }
 
+#' @export
 # function to calculate basic statistics for a list of measures
 # with $variable for the measure name and $value for the corresponding value
 measures.statistics <- function (dl) {
@@ -92,6 +91,7 @@ measures.statistics <- function (dl) {
   return(agg_measures)
 }
 
+#' @export
 # read user data
 prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own') {
   td <- x

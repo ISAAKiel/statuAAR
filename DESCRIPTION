@@ -1,0 +1,15 @@
+Package: statuAAR
+Title: Human statuar estimation from bone measures based on multiple formula
+Version: 0.0.0.9000
+Authors@R: 
+    person("Christoph", "Rinne", , "crinne@ufg.uni-kiel.de", 
+    role = c("aut", "cre"), 
+    comment = c(ORCID = " https://orcid.org/0000-0002-9829-6182"))
+Description: The package provides multiple formula for human statuar estimation to be aplied to a data set provided. The package reads tabled data with one individual per line or listed data with multiple measures per individual in subsequent lines. The input function returns a dataframe with basic statistic of the measures to check the data and statuAAR input object. The estimation function estimates statuar based on the selected formular and returns a statuAAR output object with the corresponding results.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: Rdpack
+RdMacros: Rdpack
