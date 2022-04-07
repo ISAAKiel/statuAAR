@@ -44,6 +44,7 @@ sjovold_1990 <- function(df){
   
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # aggregate values for each measure and individual
+  options(dplyr.summarise.inform = FALSE)
   df %>%  
     group_by(Ind, Sex, Group, variable) %>% 
     summarise(mean.value = mean(value), n = n()) %>%
@@ -52,8 +53,8 @@ sjovold_1990 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
   
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
   
   # check available values for different variables needed for 
@@ -126,7 +127,8 @@ sjovold_1990 <- function(df){
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- stature
-    val_indv$bone <- paste(bone, collapse = ", ")
+    val_indv$bone[i] <- paste(bone, collapse = ", ")
+    val_indv$group[i] <- unique(df_bones$Group)
     val_indv$female[i] <- stature
     val_indv$male[i] <- stature
     val_indv$indet[i] <- stature
