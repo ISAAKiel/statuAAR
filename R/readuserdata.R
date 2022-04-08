@@ -7,7 +7,7 @@
 #' for body stature calculation with five columns: 
 #'     Ind(ividual), Sex, Group, variable, value.
 #'  Checks data consitency:
-#'  \itemize{} 
+#'  \itemize{ 
 #'    \item{ uniqueness of individual identifyer,}
 #'    \item{ accepted values for Sex}
 #'    \item{ accepted measures names.}
