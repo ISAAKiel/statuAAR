@@ -1,6 +1,6 @@
 #' @name readuserdata
 #'
-#' @title statuAAR data prepareing and checking functions
+#' @title statuAAR data preparation and check functions
 #'
 #' @description
 #' Human stature estimation is based on various measures of different bones. A multitude of
@@ -11,14 +11,14 @@
 #'
 #' All measures have to be given in millimeters (mm). The measures used are defined by
 #' R. Martin (1928). The labels of the measures of the data aquisition may differ from
-#' those used by statuAAR. Therefore a concordance of labels can edited.
+#' those used by statuAAR. Therefore a concordance of labels should be edited.
 #'
 #' In addition summarised statistics for each measure across the sample is provided
 #' to check for data inconsitancy befor calculation.
 #'
 #' \itemize{
 #'  \item{\code{\link{create.measures.concordance}}: Creates a data frame with three columns:
-#'  \stong{short} names (e.g. Hum1al), \strong{long} names (e.g. Humerus.1a.left) and
+#'  \strong{short} names (e.g. Hum1al), \strong{long} names (e.g. Humerus.1a.left) and
 #'  \strong{own} to be filled with user defined names.}
 #'  \item{\code{\link{measures.statistics}}: Calculates basic descriptive statistics to check
 #'  data consitancy.}
@@ -28,6 +28,7 @@
 #'  for calculation of body stature estimation with five columns:
 #'  \stron{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
 #'  \strong{variable} (mearsure name) and \strong{value} (measured valued).}
+#'  }
 #'
 #' @rdname readuserdata
 #'
@@ -45,13 +46,12 @@
 #' @param grp A string defining a optional grouping variable, e.g. population.
 #'    If grp = NA a column `Group` with `NA` will be added.
 #' @param measures.names A string defining the set of predefined or own measure names used.
-#'    For `own` a data.frame `measures.list` for correlation (merge) is needed.
-#'    This will be created when missing and opend for editing.
+#'    For `own` a data.frame `measures.concordance` for correlation (merge) is needed.
 #'  \itemize{
-#'    \item{ measures=`short`: Bone (3 letters), measure acc. Martin 1928,
+#'    \item{ measures=`short`: Bone (3 letters), measure acc. to Martin (1928),
 #'      laterality (1 letter) without any separation
 #'      (e.g. Hum1, Hum1l, Hum1r, Hum1a, Hum1al, Hum1ar etc.).}
-#'    \item{ measures=`long`: Bone, measure acc. Martin 1928, laterality separated by `.`
+#'    \item{ measures=`long`: Bone measure acc. to Martin (1928), laterality separated by `.`
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).}
 #'    \item{ measures=`own`: A data.frame `measures.concordance` with own names to be merged is needed. }
 #'  }
@@ -61,11 +61,11 @@
 #' @return A list with basic statistics and a dataframe with measures to be processed.
 #'
 #' \itemize{
-#'   \item \bold{Ind} or \bold{Individual}:  individual identifyer.
+#'   \item \bold{Ind}:  identifyer for each individual.
 #'   \item \bold{Sex}: sex of the individual. Accept values 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
 #'   \item \bold{grp}: a grouping variable (e.g. population).
-#'   \item \bold{variable}:  short name of the measure for \bold{value}
-#'   \item \bold{value}: measurement for \bold{measure}.
+#'   \item \bold{variable}:  short name of the measure
+#'   \item \bold{value}: measured value.
 #' }
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
@@ -82,17 +82,18 @@
 #' measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 #'
 #' # get a dataframe with measures to process
-#' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
+#' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
 #' # See basic statistics to check for errors
 #' measures.statistics(my.list)
 #'
 #' # For the data from Rollet 1888
-#' # 1. Create an identifyer due to sperated numbering for females and males
+#' rollet1888 <- read.csv("./data-raw/Rollet1888.csv", header=TRUE, skip=5)
+#' # 1. Create an identifyer due to identical numbering of females and males
 #' rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 #' # 2. Fill in the mesasures names in the column "own" of the measures.list
 #' measures.concordance<-read.csv("./data-raw/measures.concordance.rollet1888.csv")
 #' # 3. Read the data
-#' my.list2 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
+#' dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
 #'
 NULL
 
@@ -157,14 +158,9 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   if (!(measures.names %in% c('short', 'long', 'own'))) {
     stop("Please indicate the measure.names format 'short', 'long' (standard), 'own'")
   }
-  # if user selected to use "own" measure.names:
-  #     1. check if df measures list exists
-  #     2. run function to import standard data from csv into df and open for data input
-  if (measures.names == 'own'){
-    if(!(exists('measures.list'))){
-      create.measures.list()
-      fix(measures.list)
-    }
+  # get measures concordance if not exists
+  if (!exists("measures.concordance")){
+    create.measures.concordance()->measures.concordance
   }
 
   # check for corresponding measure.names of the column 'own' and data provided by the user will be done after conversion to a list format
@@ -249,9 +245,6 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   }
 
   # merges the listed measures with the concordance of measure.names, filters on the columns needed.
-  if (!exists("measures.concordance")){
-    create.measures.concordance()->measures.concordance
-  }
   if (measures.names == 'own'){
       result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'own')
       dl<-result[c('Ind','Sex', 'Group','short','value')]

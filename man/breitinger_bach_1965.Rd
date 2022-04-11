@@ -11,7 +11,7 @@ data.frame, containing one data.frame with all calculated indices for every indi
 }
 \description{
 Stature estimation (mm) based on the mean of different regression calculations,
-separated  by sex Breitinger 1938, Bach 1965).
+separated  by sex (Breitinger 1938, Bach 1965).
 Bone measures used: Hum2, Hum1, Rad1b, Fem1, Tib1b.
 
 If bone measures for left and right are provided the mean value will be used,
