@@ -129,7 +129,7 @@ measures.statistics <- function (dl) {
                                   as.vector(summary(subset(dl[[5]],dl[[4]]==user_measures[i])))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
-  return(agg_measures)
+  return(as.statuaar_statistics(agg_measures))
 }
 
 # read user data
@@ -308,5 +308,5 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
     # measures.statistics(dl) %>% as.statuaar_statistics) %>% print()
     print (measures.statistics(dl))
   }
-  return(dl)
+  return(as.statuaar_data_table(dl))
   }
