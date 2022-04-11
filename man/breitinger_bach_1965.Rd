@@ -41,9 +41,11 @@ e.g. 2 Fem2 (left, right) + 1 Tib1}
 
 }
 \references{
-\insertRef{Rpack:bibtex}{Rdpack}
+\insertRef{bach1965}{statuAAR}
 
-\insertRef{auerbachStatureEstimationFormulae2010}{.}
+\insertRef{breitinger1937}{statuAAR}
+
+\insertRef{siegmund2010}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}
