@@ -1,91 +1,110 @@
 #' @name readuserdata
-#' 
-#' @title Reorganises and checks tabled data for function body.hight
-#' 
-#' @description 
-#' Checks tabled user data and provides a data.frame of standardised measurements 
-#' for body stature calculation with five columns: 
-#'     Ind(ividual), Sex, Group, variable, value.
-#'  Checks data consitency:
-#'  \itemize{ 
-#'    \item{ uniqueness of individual identifyer,}
-#'    \item{ accepted values for Sex}
-#'    \item{ accepted measures names.}
-#'  }
-#'  Provides a data.frame with summarised statistics for each measure across the sample 
-#'     to check for data inconsitancy.
-#'     
+#'
+#' @title statuAAR data prepareing and checking functions
+#'
+#' @description
+#' Human stature estimation is based on various measures of different bones. A multitude of
+#' formula have been developed and provide a wide range of possible results. The quality of
+#' the result depends mainly on the representativity of the original sample of the formula
+#' with respect to the currrent study.  Thus a easy and fast forward calculation according
+#' to various formula can be used for a camparison of the results.
+#'
+#' All measures have to be given in millimeters (mm). The measures used are defined by
+#' R. Martin (1928). The labels of the measures of the data aquisition may differ from
+#' those used by statuAAR. Therefore a concordance of labels can edited.
+#'
+#' In addition summarised statistics for each measure across the sample is provided
+#' to check for data inconsitancy befor calculation.
+#'
+#' \itemize{
+#'  \item{\code{\link{create.measures.concordance}}: Creates a data frame with three columns:
+#'  \stong{short} names (e.g. Hum1al), \strong{long} names (e.g. Humerus.1a.left) and
+#'  \strong{own} to be filled with user defined names.}
+#'  \item{\code{\link{measures.statistics}}: Calculates basic descriptive statistics to check
+#'  data consitancy.}
+#'  \item{\code{\link{prep.statuaar.data}}: Checks the input data: uniqueness of individual
+#'  identifyer, accepted values for Sex and accepted measures names.
+#'  Provides a data.frame of standardised measurements
+#'  for calculation of body stature estimation with five columns:
+#'  \stron{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
+#'  \strong{variable} (mearsure name) and \strong{value} (measured valued).}
+#'
 #' @rdname readuserdata
-#'   
+#'
 #' @param x A simple data.frame containing the measurements per individual.
 #' @param d.form A string defining the data.frame structure.
 #'  \itemize{
 #'    \item{ d.form=`table` for a data.frame with individuals (rows) and measurements (columns).}
-#'    \item{ d.form=`list`  for a data.frame with at least two columns: 
+#'    \item{ d.form=`list`  for a data.frame with at least two columns:
 #'      `variable`(character, measure name e.g. hum1), `value` (numeric, length (mm)).}
 #'  }
 #' @param ind A string defining the column with identifiers for each individual.
-#'    If ind = NA a column `Ind` with rownumbers will be added. 
+#'    If ind = NA a column `Ind` with rownumbers will be added.
 #' @param sex A string defining the column identifying the sex.
-#'    If sex = NA a column `Sex` with `indet` will be added.  
+#'    If sex = NA a column `Sex` with `indet` will be added.
 #' @param grp A string defining a optional grouping variable, e.g. population.
-#'    If grp = NA a column `Group` with `NA` will be added. 
+#'    If grp = NA a column `Group` with `NA` will be added.
 #' @param measures.names A string defining the set of predefined or own measure names used.
-#'    For `own` a data.frame `measures.list` for correlation (merge) is needed. 
+#'    For `own` a data.frame `measures.list` for correlation (merge) is needed.
 #'    This will be created when missing and opend for editing.
 #'  \itemize{
-#'    \item{ measures=`short`: Bone (3 letters), measure acc. Martin 1928, 
+#'    \item{ measures=`short`: Bone (3 letters), measure acc. Martin 1928,
 #'      laterality (1 letter) without any separation
 #'      (e.g. Hum1, Hum1l, Hum1r, Hum1a, Hum1al, Hum1ar etc.).}
 #'    \item{ measures=`long`: Bone, measure acc. Martin 1928, laterality separated by `.`
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).}
-#'    \item{ measures=`own`: A data.frame `measures.list` with own names to be merged is needed. }
-#'  }  
+#'    \item{ measures=`own`: A data.frame `measures.concordance` with own names to be merged is needed. }
+#'  }
 #' @param stats Output of aggregating statistics of the measures provided. Default = TRUE.
-#' 
+#' @param dl statuAAR data list as provided by create.measures.concordance.
+#'
 #' @return A list with basic statistics and a dataframe with measures to be processed.
-#'    
+#'
 #' \itemize{
 #'   \item \bold{Ind} or \bold{Individual}:  individual identifyer.
 #'   \item \bold{Sex}: sex of the individual. Accept values 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
 #'   \item \bold{grp}: a grouping variable (e.g. population).
-#'   \item \bold{variable}:  short name of the measure for \bold{value} 
+#'   \item \bold{variable}:  short name of the measure for \bold{value}
 #'   \item \bold{value}: measurement for \bold{measure}.
 #' }
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
 #'
+#' @references
+#'  \insertRef{martinLehrbuchAnthropologieSystematischer1928}{statuAAR}
+#'
 #' @examples
 #' # Read example dataset into a data frame
 #' x <- read.csv("./data-raw/TrotterGleser1952.csv", header=TRUE, skip=2)
 #' # If not yet existent create a list of measure names to be used
-#' measures.list <- create.measures.list()
+#' measures.concordance <- create.measures.concordance()
 #' # Edit the measures.list (not needed for this dataset)
-#' fix(measures.list)
+#' measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
+#'
 #' # get a dataframe with measures to process
-#' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
+#' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
 #' # See basic statistics to check for errors
 #' measures.statistics(my.list)
-#' 
+#'
 #' # For the data from Rollet 1888
 #' # 1. Create an identifyer due to sperated numbering for females and males
 #' rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 #' # 2. Fill in the mesasures names in the column "own" of the measures.list
-#' measures.list<-read.csv("./data-raw/measures.list.rollet1888.csv")
+#' measures.concordance<-read.csv("./data-raw/measures.concordance.rollet1888.csv")
 #' # 3. Read the data
 #' my.list2 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
-#' 
+#'
 NULL
 
 # function to create a correlation table for userspecific (own) measure.names
 #' @rdname readuserdata
 #' @export
-create.measures.list<- function (){
-  measures.list<-read.delim("./R/measures.tab", 
-                            skip = 1, 
+create.measures.concordance<- function (){
+  measures.concordance<-read.delim("./data-raw/measures.concordance.tab",
+                            skip = 1,
                             quote = "\"",
                             colClasses = c(rep("character",3)))
-  return(measures.list[order(measures.list$short),])
+  return(measures.concordance[order(measures.concordance$short),])
 }
 
 # function to calculate basic statistics for a list of measures
@@ -93,13 +112,13 @@ create.measures.list<- function (){
 #' @rdname readuserdata
 #' @export
 measures.statistics <- function (dl) {
-  agg_measures<-data.frame(measure=character(), 
-                           n=integer(), 
-                           MinM=numeric(), 
-                           Quart1=numeric(), 
-                           MedianM=numeric(), 
-                           MeanM=numeric(), 
-                           Quart3=numeric(), 
+  agg_measures<-data.frame(measure=character(),
+                           n=integer(),
+                           MinM=numeric(),
+                           Quart1=numeric(),
+                           MedianM=numeric(),
+                           MeanM=numeric(),
+                           Quart3=numeric(),
                            MaxM=numeric(),
                            stringsAsFactors = FALSE)
   user_measures<-unique(dl$variable)
@@ -117,7 +136,7 @@ measures.statistics <- function (dl) {
 #' @export
 prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own', stats = TRUE) {
   td <- x
-  
+
   # basic check of data format
   if (!is.data.frame(td)) {
     stop("Please provide a data.frame with measurements per individual")
@@ -129,17 +148,17 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   }
   # if data is list check if column names variable and value exist
   if (d.form == 'list'){
-    if (any(which(colnames(dl)=='variable')==0, 
+    if (any(which(colnames(dl)=='variable')==0,
             which(colnames(dl)=='value')==0)){
       stop("Please provide a column 'variable' with measures.names and 'value' with values")
     }
   }
-  # check if user decided on measure.names format 
+  # check if user decided on measure.names format
   if (!(measures.names %in% c('short', 'long', 'own'))) {
     stop("Please indicate the measure.names format 'short', 'long' (standard), 'own'")
   }
-  # if user selected to use "own" measure.names: 
-  #     1. check if df measures list exists 
+  # if user selected to use "own" measure.names:
+  #     1. check if df measures list exists
   #     2. run function to import standard data from csv into df and open for data input
   if (measures.names == 'own'){
     if(!(exists('measures.list'))){
@@ -147,9 +166,9 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       fix(measures.list)
     }
   }
-  
+
   # check for corresponding measure.names of the column 'own' and data provided by the user will be done after conversion to a list format
-  
+
   # change the column names to 'Ind', 'Sex' and 'Group' for further processing
   # ind
   if (ind %in% names(td)) {
@@ -159,7 +178,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   } else {
     stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
   }
-  
+
   if (all(is.na(td$Ind))){
     warning('No individual identifier provided, each record (row) will be counted as one individual.')
     td$Ind <- rownames(td)
@@ -169,7 +188,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   if ((d.form=='table') & (any(duplicated(td$Ind)))) {
     stop(paste("Duplicate individuals (Ind) ecountered:", paste(td$Ind[duplicated(td$Ind)], collapse=", "), sep="\n"))
   }
-  
+
   # check variable sex
   if (sex %in% names(td)) {
     names(td)[which(names(td)==sex)]<-'Sex'
@@ -179,8 +198,8 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
       stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
   }
   td$Sex<-as.character(td$Sex)
-  td$Sex[is.na(td$Sex)] <- 'indet'    
-  
+  td$Sex[is.na(td$Sex)] <- 'indet'
+
   # reduce every value starting with m, f, i, 1, 2, 3 to this character
   # cutting of female, female?, fem., male, indet.  etc.
   td$Sex<-tolower(td$Sex)
@@ -203,7 +222,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   td$Sex[td$Sex=='i'] <- '3'
   td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
 
-  # gouping variable 
+  # gouping variable
   if (is.na(grp)){
     td<-cbind(Group=0,td)
     } else if (!(grp %in% names(td))) {
@@ -213,7 +232,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
     }
   if (any(!is.na(grp)) & any(is.na(grp))){
     warning('One or more individuals have no grouping value.')
-  } 
+  }
 
   # make a data list
 
@@ -229,19 +248,21 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
     dl<-td
   }
 
-  # merges the listed measures with the list of measure.names, filters on the columns needed.
+  # merges the listed measures with the concordance of measure.names, filters on the columns needed.
+  if (!exists("measures.concordance")){
+    create.measures.concordance()->measures.concordance
+  }
   if (measures.names == 'own'){
-      result<-merge (dl, measures.list, by.x = 'variable', by.y = 'own')
+      result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'own')
       dl<-result[c('Ind','Sex', 'Group','short','value')]
-      names(dl)[which(names(dl)=='short')]<-'variable'
   } else if (measures.names == 'short'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'short')
       dl<-result[c('Ind','Sex', 'Group','variable','value')]
   } else if (measures.names == 'long'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
       dl<-result[c('Ind','Sex', 'Group','short','value')]
-      names(dl)[which(names(dl)=='short')]<-'variable'
   }
+  names(dl)[which(names(dl)=='short')]<-'variable'
   dl$variable <- as.character(dl$variable)
   dl$value <- as.numeric(dl$value)
 
@@ -255,12 +276,12 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
                          r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", dl$variable)),
                          stringsAsFactors = FALSE)
   # This schould match 2 x left or 2 x right for one measure.
-  # But for 1 x left, 1 x right and 1 x NA for one measure it will fail. 
+  # But for 1 x left, 1 x right and 1 x NA for one measure it will fail.
   dupl_ind<-which(plyr::count(test, c('Ind', 'variable', 'r.l'))[,4]>1)
-  
+
   # This should find any measure occuring more than twice per Ind.
   dupl_ind<-c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[,3]>2))
-  
+
   if(length(dupl_ind)>0){
     stop(paste("Likely duplicate individuals encountered:",
                   paste(sort(unique(test$Ind[dupl_ind])), collapse= ", "), sep = "\n ")
@@ -281,7 +302,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
                        stringsAsFactors = FALSE)
     dupl_group <- plyr::count(test, c("Ind","Group"))[1]
     dupl_group <- dupl_group$Ind[duplicated(dupl_group$Ind)]
-    
+
     if ((length(dupl_sex)>0) | (length(dupl_group)>0)){
       stop(paste("\nLikely inconsistent sex for individual(s) encountered:",
                  paste(dupl_sex, collapse= ", "),
