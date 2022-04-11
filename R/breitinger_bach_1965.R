@@ -4,16 +4,16 @@
 #' 
 #' @description 
 #' Stature estimation (mm) based on the mean of different regression calculations,
-#' separated  by sex \insertCite{breitinger1937}{statuAAR}. Breitinger 1938, Bach 1965).
-#' Bone measures used: Hum2, Hum1, Rad1b, Fem1, Tib1b. \insertCite{@see also @parseRd and @Rpackage:rbibutils}{Rdpack}
+#' separated  by sex Breitinger 1938, Bach 1965).
+#' Bone measures used: Hum2, Hum1, Rad1b, Fem1, Tib1b.
 #' 
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' If sex is indet. the mean of male and female stature estimation is given.
-#' \insertCite{@breitinger1937;textual}{statuAAR} Breitinger (1938) does not show the regression equation for Hum1, but the 
+#' Breitinger (1938) does not show the regression equation for Hum1, but the 
 #' equation can be derived from the values given in the table p. 272 
-#' \insertCite{@see @siegmund2010, @p. 112}{statuAAR} (see Siegmund 2010, p. 112). In contrast, Bach (1965) gives both equations.
-#'  In addition, \insertCite{@bach2010, @20}{statuAAR} Bach (1965, 20) states to use only one of the Humeri measures 
+#' (see Siegmund 2010, p. 112). In contrast, Bach (1965) gives both equations.
+#'  In addition, Bach (1965, 20) states to use only one of the Humeri measures 
 #'  for estimation (Hum1 or Hum2 or the mean of both) to avoid inadmissable 
 #'  multiplication of the bone within the stature estimation. 
 #'
@@ -39,7 +39,9 @@
 #' @importFrom Rdpack reprompt
 #' 
 #' @references
-#'   \insertAllCited{}
+#'   \insertRef{Rpack:bibtex}{Rdpack}
+#'   
+#'   \insertRef{auerbachStatureEstimationFormulae2010}
 #'    
 #' @examples
 #' 
