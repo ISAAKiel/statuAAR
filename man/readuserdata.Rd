@@ -3,43 +3,59 @@
 \name{readuserdata}
 \alias{readuserdata}
 \alias{create.measures.list}
+\alias{measures.statistics}
+\alias{prep.statuaar.data}
 \title{Reorganises and checks tabled data for function body.hight}
 \usage{
 create.measures.list()
-}
-\description{
-Checks tabled user data and provides a data.frame of standardised measurements
-for body stature calculation with five columns:
-Ind(ividual), Sex, Group, variable, value.
-Checks data consitency:
-\item{ uniqueness of individual identifyer,}
-\item{ accepted values for Sex}
-\item{ accepted measures names.}
-Provides a data.frame with summarised statistics for each measure across the sample
-to check for data inconsitancy.
 
-@param x A simple data.frame containing the measurements per individual.
-@param d.form A string defining the data.frame structure.
+measures.statistics(dl)
+
+prep.statuaar.data(
+  x,
+  d.form = "table",
+  ind = NA,
+  sex = NA,
+  grp = NA,
+  measures.names = "own",
+  stats = TRUE
+)
+}
+\arguments{
+\item{x}{A simple data.frame containing the measurements per individual.}
+
+\item{d.form}{A string defining the data.frame structure.
+\itemize{
 \item{ d.form=\code{table} for a data.frame with individuals (rows) and measurements (columns).}
-\item{ d.form=\code{list}  for a data.frame with at least two columns: }
-\code{variable}(character, measure name e.g. hum1), \code{value} (numeric, length (mm)).
-@param ind A string defining the column with identifiers for each individual.
-If ind = NA a column \code{Ind} with rownumbers will be added.
-@param sex A string defining the column identifying the sex.
-If sex = NA a column \code{Sex} with \code{indet} will be added.
-@param grp A string defining a optional grouping variable, e.g. population.
-If grp = NA a column \code{Group} with \code{NA} will be added.
-@param measures.names A string defining the set of predefined or own measure names used.
+\item{ d.form=\code{list}  for a data.frame with at least two columns:
+\code{variable}(character, measure name e.g. hum1), \code{value} (numeric, length (mm)).}
+}}
+
+\item{ind}{A string defining the column with identifiers for each individual.
+If ind = NA a column \code{Ind} with rownumbers will be added.}
+
+\item{sex}{A string defining the column identifying the sex.
+If sex = NA a column \code{Sex} with \code{indet} will be added.}
+
+\item{grp}{A string defining a optional grouping variable, e.g. population.
+If grp = NA a column \code{Group} with \code{NA} will be added.}
+
+\item{measures.names}{A string defining the set of predefined or own measure names used.
 For \code{own} a data.frame \code{measures.list} for correlation (merge) is needed.
 This will be created when missing and opend for editing.
-\item{ measures=\code{short}: Bone (3 letters), measure acc. Martin 1928, }
+\itemize{
+\item{ measures=\code{short}: Bone (3 letters), measure acc. Martin 1928,
 laterality (1 letter) without any separation
-(e.g. Hum1, Hum1l, Hum1r, Hum1a, Hum1al, Hum1ar etc.).
-\item{ measures=\code{long}: Bone, measure acc. Martin 1928, laterality separated by \code{.}}
-(e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).
+(e.g. Hum1, Hum1l, Hum1r, Hum1a, Hum1al, Hum1ar etc.).}
+\item{ measures=\code{long}: Bone, measure acc. Martin 1928, laterality separated by \code{.}
+(e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).}
 \item{ measures=\code{own}: A data.frame \code{measures.list} with own names to be merged is needed. }
+}}
 
-@return A list with basic statistics and a dataframe with measures to be processed.
+\item{stats}{Output of aggregating statistics of the measures provided. Default = TRUE.}
+}
+\value{
+A list with basic statistics and a dataframe with measures to be processed.
 
 \itemize{
 \item \bold{Ind} or \bold{Individual}:  individual identifyer.
@@ -49,6 +65,19 @@ laterality (1 letter) without any separation
 \item \bold{value}: measurement for \bold{measure}.
 }
 }
+\description{
+Checks tabled user data and provides a data.frame of standardised measurements
+for body stature calculation with five columns:
+Ind(ividual), Sex, Group, variable, value.
+Checks data consitency:
+\itemize{
+\item{ uniqueness of individual identifyer,}
+\item{ accepted values for Sex}
+\item{ accepted measures names.}
+}
+Provides a data.frame with summarised statistics for each measure across the sample
+to check for data inconsitancy.
+}
 \examples{
 # Read example dataset into a data frame
 x <- read.csv("./data-raw/TrotterGleser1952.csv", header=TRUE, skip=2)
@@ -56,10 +85,19 @@ x <- read.csv("./data-raw/TrotterGleser1952.csv", header=TRUE, skip=2)
 measures.list <- create.measures.list()
 # Edit the measures.list (not needed for this dataset)
 fix(measures.list)
-# get a list with [[1]] basic statistics and [[2]] a long dataframe with measures
+# get a dataframe with measures to process
 my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
-# With a simple long list of measures call basic statistics to check for errors
-measures.statistics(my.list[[2]])
+# See basic statistics to check for errors
+measures.statistics(my.list)
+
+# For the data from Rollet 1888
+# 1. Create an identifyer due to sperated numbering for females and males
+rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
+# 2. Fill in the mesasures names in the column "own" of the measures.list
+measures.list<-read.csv("./data-raw/measures.list.rollet1888.csv")
+# 3. Read the data
+my.list2 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
+
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

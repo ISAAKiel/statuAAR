@@ -7,28 +7,30 @@
 #' for body stature calculation with five columns: 
 #'     Ind(ividual), Sex, Group, variable, value.
 #'  Checks data consitency:
-#'  \itemize{} 
+#'  \itemize{ 
 #'    \item{ uniqueness of individual identifyer,}
 #'    \item{ accepted values for Sex}
 #'    \item{ accepted measures names.}
 #'  }
 #'  Provides a data.frame with summarised statistics for each measure across the sample 
 #'     to check for data inconsitancy.
+#'     
+#' @rdname readuserdata
 #'   
-#'  @param x A simple data.frame containing the measurements per individual.
-#'  @param d.form A string defining the data.frame structure.
+#' @param x A simple data.frame containing the measurements per individual.
+#' @param d.form A string defining the data.frame structure.
 #'  \itemize{
 #'    \item{ d.form=`table` for a data.frame with individuals (rows) and measurements (columns).}
 #'    \item{ d.form=`list`  for a data.frame with at least two columns: 
 #'      `variable`(character, measure name e.g. hum1), `value` (numeric, length (mm)).}
 #'  }
-#'  @param ind A string defining the column with identifiers for each individual.
+#' @param ind A string defining the column with identifiers for each individual.
 #'    If ind = NA a column `Ind` with rownumbers will be added. 
-#'  @param sex A string defining the column identifying the sex.
+#' @param sex A string defining the column identifying the sex.
 #'    If sex = NA a column `Sex` with `indet` will be added.  
-#'  @param grp A string defining a optional grouping variable, e.g. population.
+#' @param grp A string defining a optional grouping variable, e.g. population.
 #'    If grp = NA a column `Group` with `NA` will be added. 
-#'  @param measures.names A string defining the set of predefined or own measure names used.
+#' @param measures.names A string defining the set of predefined or own measure names used.
 #'    For `own` a data.frame `measures.list` for correlation (merge) is needed. 
 #'    This will be created when missing and opend for editing.
 #'  \itemize{
@@ -39,9 +41,9 @@
 #'      (e.g. Humerus.1, Humerus.1.left, Humerus.1a.left, etc.).}
 #'    \item{ measures=`own`: A data.frame `measures.list` with own names to be merged is needed. }
 #'  }  
-#'  @param stats Output of aggregating statistics of the measures provided. Default = TRUE.
-#'          
-#'  @return A list with basic statistics and a dataframe with measures to be processed.
+#' @param stats Output of aggregating statistics of the measures provided. Default = TRUE.
+#' 
+#' @return A list with basic statistics and a dataframe with measures to be processed.
 #'    
 #' \itemize{
 #'   \item \bold{Ind} or \bold{Individual}:  individual identifyer.
@@ -60,10 +62,10 @@
 #' measures.list <- create.measures.list()
 #' # Edit the measures.list (not needed for this dataset)
 #' fix(measures.list)
-#' # get a list with [[1]] basic statistics and [[2]] a long dataframe with measures
+#' # get a dataframe with measures to process
 #' my.list <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race")
-#' # With a simple long list of measures call basic statistics to check for errors
-#' measures.statistics(my.list[[2]])
+#' # See basic statistics to check for errors
+#' measures.statistics(my.list)
 #' 
 #' # For the data from Rollet 1888
 #' # 1. Create an identifyer due to sperated numbering for females and males
@@ -72,9 +74,12 @@
 #' measures.list<-read.csv("./data-raw/measures.list.rollet1888.csv")
 #' # 3. Read the data
 #' my.list2 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
+#' 
+NULL
 
-#' @export
 # function to create a correlation table for userspecific (own) measure.names
+#' @rdname readuserdata
+#' @export
 create.measures.list<- function (){
   measures.list<-read.delim("./R/measures.tab", 
                             skip = 1, 
@@ -83,9 +88,10 @@ create.measures.list<- function (){
   return(measures.list[order(measures.list$short),])
 }
 
-#' @export
 # function to calculate basic statistics for a list of measures
 # with $variable for the measure name and $value for the corresponding value
+#' @rdname readuserdata
+#' @export
 measures.statistics <- function (dl) {
   agg_measures<-data.frame(measure=character(), 
                            n=integer(), 
@@ -106,8 +112,9 @@ measures.statistics <- function (dl) {
   return(agg_measures)
 }
 
-#' @export
 # read user data
+#' @rdname readuserdata
+#' @export
 prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own', stats = TRUE) {
   td <- x
   
