@@ -1,3 +1,15 @@
+#' @name statuaar_class_functions
+#'
+#' @title checks and sets statuaar objects
+#'
+#' @description
+#' The statuaar_data_table is the central data structure for stature estimation
+#' in \code{statuAAR} package. It is a data.frame with specific variables,
+#' s. \code{statuAAR::prep.statuaar.data}.
+#'
+#'
+
+
 #' @export
 as.statuaar_data_table <- function(x, ...) {
 
