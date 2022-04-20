@@ -37,7 +37,7 @@ as.statuaar_data_table <- function(x, ...) {
 
 }
 
-@export
+#' @export
 as.statuaar_statistics <- function(x, ...) {
 
   # define expectations
