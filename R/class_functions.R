@@ -9,7 +9,7 @@
 #'
 #'
 
-
+#' @rdname statuaar_class_functions
 #' @export
 as.statuaar_data_table <- function(x, ...) {
 
@@ -37,6 +37,7 @@ as.statuaar_data_table <- function(x, ...) {
 
 }
 
+#' @rdname statuaar_class_functions
 #' @export
 as.statuaar_statistics <- function(x, ...) {
 
@@ -64,12 +65,12 @@ as.statuaar_statistics <- function(x, ...) {
 
 }
 
-#' @rdname is
+#' @rdname statuaar_class_functions
 #' @export
 #' @keywords internal
 is.statuaar_data_table<- function(x, ...) {"statuaar_data_table" %in% class(x)}
 
-#' @rdname is
+#' @rdname statuaar_class_functions
 #' @export
 #' @keywords internal
 is.statuaar_statistics<- function(x, ...) {"statuaar_statistics" %in% class(x)}

@@ -90,13 +90,13 @@ data consitancy.}
 identifyer, accepted values for Sex and accepted measures names.
 Provides a data.frame of standardised measurements
 for calculation of body stature estimation with five columns:
-\stron{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
+\strong{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
 \strong{variable} (mearsure name) and \strong{value} (measured valued).}
 }
 }
 \examples{
 # Read example dataset into a data frame
-x <- read.csv("./data-raw/TrotterGleser1952.csv", header=TRUE, skip=2)
+x <- read.table(system.file("data-raw", "TrotterGleser1952.csv", package = "statuAAR"), header=TRUE, skip=2, sep=",")
 # If not yet existent create a list of measure names to be used
 measures.concordance <- create.measures.concordance()
 # Edit the measures.list (not needed for this dataset)
@@ -108,7 +108,7 @@ dl.trotter.gleser <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row
 measures.statistics(my.list)
 
 # For the data from Rollet 1888
-rollet1888 <- read.csv("./data-raw/Rollet1888.csv", header=TRUE, skip=5)
+rollet1888 <- read.table(system.file("data-raw", "Rollet1888.csv", package = "statuAAR"), header=TRUE, skip=5, sep=",")
 # 1. Create an identifyer due to identical numbering of females and males
 rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 # 2. Fill in the mesasures names in the column "own" of the measures.list
