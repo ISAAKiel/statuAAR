@@ -1,23 +1,23 @@
 #' @name formicola_franceschi_1996
 #'
-#' @title Stature estimation based on bone measures according to: Formicola & Franceschi 1996.
-#' 
-#' @description 
+#' @title Calculate stature estimation based on bone measures according to: Formicola & Franceschi 1996.
+#'
+#' @description
 #' Stature estimation (mm) based on a hierarchical order of regression calculations,
-#' separated  by sex and based on: Fem2+Tib1, Fem1, Tib1, Hum1, Rad1. 
+#' separated  by sex and based on: Fem2+Tib1, Fem1, Tib1, Hum1, Rad1.
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' If sex is indet. the mean of male and female stature estimation is given.
 #' Formicola and Franceschi (1996) do not provide information on hierarchie or mean calculation
 #' of the regression formula, but table 3 gives standard error (S.E.) and correlation
 #' from which a hierarchical order can be derived. The order of bone measures used
-#' according to achieved correlation differs between sex and will be respected, 
-#' allthough  differences are small. Due to this, the order used differs slightly from 
-#' Siegmund (2010, 116 (12.8)). 
-#' 
+#' according to achieved correlation differs between sex and will be respected,
+#' allthough  differences are small. Due to this, the order used differs slightly from
+#' Siegmund (2010, 116 (12.8)).
+#'
 #' Bone measures used: Fem2+Tib1, Tib1, Fem1, Hum1, Rad1 (or Rad1a)
-#' 
-#' Returns a data.frame with: 
+#'
+#' Returns a data.frame with:
 #' \itemize{
 #' \item{ ind: individual identifyer (rownames), }
 #' \item{ sex: as provided for calculation: m, f, indet.}
@@ -28,42 +28,42 @@
 #' \item{ indet. (stature) and}
 #' \item{ n_measures: number of bone measures included: e.g. 2 Fem2 (left, right), 1 Tib1}
 #' }
-#' 
+#'
 #' @param df data.frame containing informations on individual, bone and measurement.
-#'  
+#'
 #' @return data.frame with calculated stature and related information per individual.
-#'           
+#'
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
-#' 
+#'
 #' @examples
-#' 
+#'
 #' @export
 
 library(dplyr)
 
 formicola_franceschi_1996 <- function(df){
-  
+
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # aggregate values for each measure and individual
   options(dplyr.summarise.inform = FALSE)
-  df %>%  
-    group_by(Ind, Sex, Group, variable) %>% 
+  df %>%
+    group_by(Ind, Sex, Group, variable) %>%
     summarise(mean.value = mean(value), n = n()) %>%
     as.data.frame -> df
-  
+
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
-  
+
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
   colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
-  
+
     # Calculte in hierarchical order
-    
-    # check available values for different variables needed for 
+
+    # check available values for different variables needed for
     for (i in 1:length(vec_indv)){
       df_bones <- subset(df, subset=df$Ind == vec_indv[i])
-      
+
       # get all optional needed measures
       Fem2 <- df_bones$mean.value[df_bones$variable=="Fem2"]
       Tib1 <- df_bones$mean.value[df_bones$variable=="Tib1"]
@@ -75,7 +75,7 @@ formicola_franceschi_1996 <- function(df){
         Rad1a <- TRUE
       }
       Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
-      
+
       # check for different combinations of measures
       # Fem2 & Tib1
       if (length(Fem2)>0 & length(Tib1)>0){
@@ -83,7 +83,7 @@ formicola_franceschi_1996 <- function(df){
         stature.f <- ((Fem2 + Tib1) * 1.33) + 545.7
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "1. Fem2&Tib1"
-        n_measures <- df_bones$n[df_bones$variable=="Fem2"] + 
+        n_measures <- df_bones$n[df_bones$variable=="Fem2"] +
           df_bones$n[df_bones$variable=="Tib1"]
         # Fem1
       } else if (length(Fem1)>0) {
@@ -123,7 +123,7 @@ formicola_franceschi_1996 <- function(df){
         indice <- NA
         n_measures <- 0
       }
-      
+
       statures <- round(statures, 0)
 
     # write values into data frame of results
@@ -136,10 +136,10 @@ formicola_franceschi_1996 <- function(df){
     val_indv$indet[i] <- statures[3]
     val_indv$n_measures[i] <- n_measures
     }
-  
+
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-  
+
   return(val_indv)
 }

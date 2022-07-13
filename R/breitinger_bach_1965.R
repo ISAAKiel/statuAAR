@@ -1,6 +1,6 @@
 #' @name breitinger_bach_1965
 #'
-#' @title Stature estimation according to Breitinger 1938 & Bach 1965.
+#' @title Calculate stature estimation according to Breitinger 1938 & Bach 1965.
 #'
 #' @description
 #' Stature estimation (mm) based on the mean of different regression calculations,

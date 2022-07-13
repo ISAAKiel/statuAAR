@@ -2,7 +2,7 @@
 % Please edit documentation in R/breitinger_bach_1965.R
 \name{breitinger_bach_1965}
 \alias{breitinger_bach_1965}
-\title{Stature estimation according to Breitinger 1938 & Bach 1965.}
+\title{Calculate stature estimation according to Breitinger 1938 & Bach 1965.}
 \arguments{
 \item{df}{data.frame, containing informations on individual, bone and measurement}
 }

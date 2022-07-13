@@ -2,7 +2,7 @@
 % Please edit documentation in R/formicola_franceschi_1996.R
 \name{formicola_franceschi_1996}
 \alias{formicola_franceschi_1996}
-\title{Stature estimation based on bone measures according to: Formicola & Franceschi 1996.}
+\title{Calculate stature estimation based on bone measures according to: Formicola & Franceschi 1996.}
 \arguments{
 \item{df}{data.frame containing informations on individual, bone and measurement.}
 }

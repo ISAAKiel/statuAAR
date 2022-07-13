@@ -2,7 +2,7 @@
 % Please edit documentation in R/byers_etal_1989.R
 \name{byers_etal_1989}
 \alias{byers_etal_1989}
-\title{Stature estimation according to: Byers et al 1989.}
+\title{Calculate stature estimation according to: Byers et al 1989.}
 \arguments{
 \item{df}{data.frame containing informations on individual, bone and measurement.}
 }

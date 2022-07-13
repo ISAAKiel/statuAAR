@@ -1,6 +1,6 @@
 #' @name byers_etal_1989
 #'
-#' @title Stature estimation according to: Byers et al 1989.
+#' @title Calculate stature estimation according to: Byers et al 1989.
 #'
 #' @description
 #' Stature estimation (mm) based on a regression calculation of one bone,

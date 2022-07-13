@@ -27,7 +27,7 @@
 #'  Provides a data.frame of standardised measurements
 #'  for calculation of body stature estimation with five columns:
 #'  \strong{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
-#'  \strong{variable} (mearsure name) and \strong{value} (measured valued).}
+#'  \strong{variable} (mearsure name) and \strong{value} (measured value).}
 #'  }
 #'
 #' @rdname readuserdata
@@ -56,7 +56,7 @@
 #'    \item{ measures=`own`: A data.frame `measures.concordance` with own names to be merged is needed. }
 #'  }
 #' @param stats Output of aggregating statistics of the measures provided. Default = TRUE.
-#' @param dl statuAAR data list as provided by create.measures.concordance.
+#' @param dl statuAAR data list as provided by prep.statuaar.data.
 #'
 #' @return A list with basic statistics and a dataframe with measures to be processed.
 #'
@@ -75,25 +75,27 @@
 #'
 #' @examples
 #' # Read example dataset into a data frame
-#' x <- read.table(system.file("data-raw", "TrotterGleser1952.csv", package = "statuAAR"), header=TRUE, skip=2, sep=",")
+#' x <- TrotterGleser1952
 #' # If not yet existent create a list of measure names to be used
 #' measures.concordance <- create.measures.concordance()
 #' # Edit the measures.list (not needed for this dataset)
 #' measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 #'
 #' # get a dataframe with measures to process
-#' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "table", ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
+#' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "table",
+#'    ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
 #' # See basic statistics to check for errors
-#' measures.statistics(my.list)
+#' measures.statistics(dl.trotter.gleser)
 #'
 #' # For the data from Rollet 1888
-#' rollet1888 <- read.table(system.file("data-raw", "Rollet1888.csv", package = "statuAAR"), header=TRUE, skip=5, sep=",")
+#' rollet1888 <- Rollet1888
 #' # 1. Create an identifyer due to identical numbering of females and males
 #' rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 #' # 2. Fill in the mesasures names in the column "own" of the measures.list
 #' measures.concordance<-read.csv("./data-raw/measures.concordance.rollet1888.csv")
 #' # 3. Read the data
-#' dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "table", ind="id", sex = "Sex", measures.names = "own")
+#' dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "table",
+#'       ind="id", sex = "Sex", measures.names = "own")
 #'
 NULL
 
@@ -134,6 +136,7 @@ measures.statistics <- function (dl) {
 
 # read user data
 #' @rdname readuserdata
+#' @import dplyr
 #' @export
 prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own', stats = TRUE) {
   td <- x
