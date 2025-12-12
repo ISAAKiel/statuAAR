@@ -39,11 +39,11 @@
 #' @importFrom Rdpack reprompt
 #'
 #' @references
-#'   \insertRef{bach1965}{statuAAR}
+#'   \insertRef{Bach_1965}{statuAAR}
 #'
-#'   \insertRef{breitinger1937}{statuAAR}
+#'   \insertRef{Breitinger_1937}{statuAAR}
 #'
-#'   \insertRef{siegmund2010}{statuAAR}
+#'   \insertRef{Siegmund_2010}{statuAAR}
 #'
 #' @examples
 #'

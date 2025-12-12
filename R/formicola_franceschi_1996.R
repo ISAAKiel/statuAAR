@@ -37,6 +37,13 @@
 #'
 #' @examples
 #'
+#' @references
+#'   \insertRef{Formicola_Franceschi_1996}{statuAAR}
+#'
+#'   \insertRef{Formicola_1993}{statuAAR}
+#'
+#'   \insertRef{Siegmund_2010}{statuAAR}
+#'
 #' @export
 
 library(dplyr)

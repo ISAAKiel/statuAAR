@@ -1,20 +1,20 @@
 #' @name maijanen_niskanen_2009
 #'
 #' @title Calculate stature estimation according to: Maijanen, Niskanen 2009
-#' 
-#' @description 
+#'
+#' @description
 #' Stature estimation (mm) based on the hierarchy of different regression calculations,
 #' separated  by sex (Maijanen, Niskanen 2009).
 #' Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1
-#' 
+#'
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
-#' Maijanen & Niskanen propose propose to use first the combination of femur and 
-#' tibia, followed by calculations on the hierarchie of single measures. 
+#' Maijanen & Niskanen propose propose to use first the combination of femur and
+#' tibia, followed by calculations on the hierarchie of single measures.
 #' Thea present regression calculations for the combination of male and female
 #' individuals recomended in case of undetermined sex (indet.).
-#' 
-#' Returns a data.frame with: 
+#'
+#' Returns a data.frame with:
 #' \itemize{
 #' \item{ ind: individual identifyer (rownames), }
 #' \item{ sex: as provided for calculation: m, f, indet.}
@@ -23,47 +23,50 @@
 #' \item{ female (stature): columns with alternative stature for three sex classes, }
 #' \item{ male (stature), }
 #' \item{ indet. (stature) and}
-#' \item{ n_measures: number of bone measures included: 
+#' \item{ n_measures: number of bone measures included:
 #'              e.g. 2 Fem2 (left, right) + 1 Tib1}
 #'  }
 #'
 #' @param df data.frame containing informations on individual, bone and measurement.
-#'  
+#'
 #' @return data.frame with calculated stature and related information per individual.
-#'           
+#'
 #' @author Anna Loy \email{aloy@@roots.uni-kiel.de}
 #' @author Nils Müller-Scheeßel \email{nils.mueller-scheessel@@ufg.uni-kiel.de}
 #' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
-#' 
+#'
+#' @references
+#'   \insertRef{Maijanen_Niskanen_2010}{statuAAR}
+#'
 #' @examples
-#' 
+#'
 #'@export
 
 library(dplyr)
 
 maijanen_niskanen_2009 <- function(df){
-  
+
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # aggregate values for each measure and individual
   options(dplyr.summarise.inform = FALSE)
-  df %>%  
-    group_by(Ind, Sex, Group, variable) %>% 
+  df %>%
+    group_by(Ind, Sex, Group, variable) %>%
     summarise(mean.value = mean(value), n = n()) -> df
-  
+
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
-  
+
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
   colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
-  
+
   # Calculte in hierarchical order
-  
-  # check available values for different variables needed for 
+
+  # check available values for different variables needed for
   for (i in 1:length(vec_indv)){
     df_bones <- subset(df, subset=df$Ind == vec_indv[i])
-    
+
     # get all optional needed measures
     # get all optional needed measures
     Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
@@ -73,7 +76,7 @@ maijanen_niskanen_2009 <- function(df){
     Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1"]
     Fib1 <- df_bones$mean.value[df_bones$variable=="Fib1"]
     Uln1 <- df_bones$mean.value[df_bones$variable=="Uln1"]
-    
+
     # check for different combinations of measures
     # Fem2 & Tib1
     if (length(Fem2)>0 & length(Tib1)>0){
@@ -82,7 +85,7 @@ maijanen_niskanen_2009 <- function(df){
       stature.i <- ((Fem2 + Tib1) * 1.64) + 338.2
       statures <- c(stature.m, stature.f, stature.i)
       indice <- "1. Fem2+Tib1b"
-      n_measures <- df_bones$n[df_bones$variable=="Fem2"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Fem2"] +
         df_bones$n[df_bones$variable=="Tib1b"]
     } else if (length(Fem1)>0 & length(Tib1)>0){
       stature.m <- ((Fem1 + Tib1) * 1.63) + 341.3
@@ -90,7 +93,7 @@ maijanen_niskanen_2009 <- function(df){
       stature.i <- ((Fem1 + Tib1) * 1.64) + 330.0
       statures <- c(stature.m, stature.f, stature.i)
       indice <- "2. Fem1+Tib1"
-      n_measures <- df_bones$n[df_bones$variable=="Fem1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Fem1"] +
         df_bones$n[df_bones$variable=="Tib1"]
       # Fem2
       } else if (length(Fem2)>0) {
@@ -136,7 +139,7 @@ maijanen_niskanen_2009 <- function(df){
     } else if (length(Rad1)>0) {
       stature.m <- (Rad1 * 5.94) + 198.6
       stature.f <- (Rad1 * 6.10) + 174.1
-      stature.i <- (Rad1 * 5.72) + 259.9 
+      stature.i <- (Rad1 * 5.72) + 259.9
       statures <- c(stature.m, stature.f, stature.i)
       indice <- "8. Rad1"
       n_measures <- df_bones$n[df_bones$variable=="Rad1"]
@@ -144,7 +147,7 @@ maijanen_niskanen_2009 <- function(df){
     } else if (length(Uln1)>0) {
       stature.m <- (Uln1 * 5.88) + 90.5
       stature.f <- (Uln1 * 5.92) + 95.9
-      stature.i <- (Uln1 * 5.52) + 194.2 
+      stature.i <- (Uln1 * 5.52) + 194.2
       statures <- c(stature.m, stature.f, stature.i)
       indice <- "8. Uln1"
       n_measures <- df_bones$n[df_bones$variable=="Uln1"]
@@ -154,9 +157,9 @@ maijanen_niskanen_2009 <- function(df){
       indice <- NA
       n_measures <- 0
     }
-    
+
     statures <- round(statures, 0)
-    
+
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
@@ -167,12 +170,12 @@ maijanen_niskanen_2009 <- function(df){
     val_indv$indet[i] <- statures[3]
     val_indv$n_measures[i] <- n_measures
   }
-  
+
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-  
+
   #rm(i, vec_indv)
-  
+
   return(val_indv)
 }

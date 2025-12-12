@@ -1,36 +1,36 @@
 #' @name olivier_etal_1978
 #'
 #' @title Calculate stature estimation according to: Olivier et al 1978.
-#' 
-#' @description 
+#'
+#' @description
 #' Stature estimation (mm) based on the hierarchy of different regression calculations,
 #' separated  by sex (Olivier et al 1978).
 #' Bone measures used: Hum2, Hum1, Rad1b, Fem1, Tib1b
-#' 
+#'
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' If sex is indet. the mean of male and female stature estimation is given.
 
-#' The regression formula are hierarchical from combinations of different 
-#' bone measures to single bone measures. For the multiple regressions the average 
-#' of left and right bone is used, allthough "asymmetry to be virtually negligible: 
-#' it is only significant for the right ulna" (Olivier et al 1978, 515). 
+#' The regression formula are hierarchical from combinations of different
+#' bone measures to single bone measures. For the multiple regressions the average
+#' of left and right bone is used, allthough "asymmetry to be virtually negligible:
+#' it is only significant for the right ulna" (Olivier et al 1978, 515).
 #' For individual bone measures regression formula a given for left an right side
-#' in the case of male individuals. Wheras regression formula for females are 
+#' in the case of male individuals. Wheras regression formula for females are
 #' presented only for left bones, likely due to the set of data based on.
 #' In  consequence for male individuals stature estimation on a single bone is
-#' calculated 1. upon the hierarchy given by the table (r, s.d.) and 
+#' calculated 1. upon the hierarchy given by the table (r, s.d.) and
 #' 2. on the mean of left an right bone or 3. on one of both sides.
-#' Wheras for female individuals stature estimation based on one bone considers 
-#' 1. the hierarchy given by the table (r and s.d) using the mean of left and/or 
+#' Wheras for female individuals stature estimation based on one bone considers
+#' 1. the hierarchy given by the table (r and s.d) using the mean of left and/or
 #' right side.
-#' For male 15 multiple regressions are provided, for female only 9, 
-#' in addition these use different bone measures within each hierarchy. 
-#' In consequence, stature estimation for both do not correlate and 
+#' For male 15 multiple regressions are provided, for female only 9,
+#' in addition these use different bone measures within each hierarchy.
+#' In consequence, stature estimation for both do not correlate and
 #' the alternative stature will not be calculated.
 #' Only the first applicable measure of the given hierarchy will be used.
-#' 
-#' Returns a data.frame with: 
+#'
+#' Returns a data.frame with:
 #' \itemize{
 #' \item{ ind: individual identifyer (rownames), }
 #' \item{ sex: as provided for calculation: m, f, indet.}
@@ -39,26 +39,31 @@
 #' \item{ female (stature): columns with alternative stature for three sex classes, }
 #' \item{ male (stature), }
 #' \item{ indet. (stature) and}
-#' \item{ n_measures: number of bone measures included: 
+#' \item{ n_measures: number of bone measures included:
 #'              e.g. 2 Fem2 (left, right) + 1 Tib1}
 #' }
 #'
 #' @param df data.frame containing informations on individual, bone and measurement.
-#'  
+#'
 #' @return data.frame with calculated stature and related information per individual.
-#'           
+#'
 #' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
-#' 
+#'
+#' @references
+#'   \insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR}
+#'
+#'   \insertRef{Olivier_Tissier_1975}{statuAAR}
+#'
 #' @examples
-#' 
+#'
 #'@export
 
 library(dplyr)
 
 #######################################################
 calc.stature.m <- function (df_bones){
-  
+
   # get all optional needed measures
   Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
   Rad1b <- df_bones$mean.value[df_bones$variable=="Rad1b"]
@@ -66,18 +71,18 @@ calc.stature.m <- function (df_bones){
   Fem2 <- df_bones$mean.value[df_bones$variable=="Fem2"]
   Tib1b <- df_bones$mean.value[df_bones$variable=="Tib1b"]
   Fib1 <- df_bones$mean.value[df_bones$variable=="Fib1"]
-  
+
   stature.m<-c()
-  
-  # Long list of multiple regression if measures > 1, else if <=1 
-  
+
+  # Long list of multiple regression if measures > 1, else if <=1
+
   if (length(c(Hum1, Rad1b, Uln1, Fem2, Tib1b, Fib1))>1) {
-    
+
     # if there is more than one measure do multiple regression
-    
+
     stature.m <- (Hum1 * 0.593) + (Fem2 * 0.983) + (Fib1 * 1.384) + 539.0
     indice <- "Hum1&Fem2&Fib1"
-    n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
+    n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
       df_bones$n[df_bones$variable=="Fem2"] +
       df_bones$n[df_bones$variable=="Fib1"]
     if (length(stature.m)==0){
@@ -85,84 +90,84 @@ calc.stature.m <- function (df_bones){
       indice <- "Fem2&Fib1"
       n_measures <- df_bones$n[df_bones$variable=="Fem2"] +
         df_bones$n[df_bones$variable=="Fib1"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Hum1 * 0.717) + (Fem2 * 1.012) + (Tib1b * 1.215) + 536.3
       indice <- "Hum1&Fem2&Tib1b"
-      n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Fem2"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Fem2 * 1.307) + (Tib1b * 1.388) + 573.4
       indice <- "Fem2&Tib1b"
       n_measures <- df_bones$n[df_bones$variable=="Fem2"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Hum1 * 1.273) + (Tib1b * 1.820) + 589.4
       indice <- "Hum1&Tib1b"
-      n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Hum1 * 1.148) + (Fib1 * 1.966) + 592.8
       indice <- "Hum1&Fib1"
-      n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Fib1"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Rad1b * 1.562) + (Fem2 * 1.776) + 499.0
       indice <- "Rad1b&Fem2"
-      n_measures <- df_bones$n[df_bones$variable=="Rad1b"] + 
-        df_bones$n[df_bones$variable=="Fem2"] 
-    } 
+      n_measures <- df_bones$n[df_bones$variable=="Rad1b"] +
+        df_bones$n[df_bones$variable=="Fem2"]
+    }
     if (length(stature.m)==0){
       stature.m <- (Rad1b * 0.874) + (Fib1 * 2.271) + 648.4
       indice <- "Rad1b&Fib1"
-      n_measures <- df_bones$n[df_bones$variable=="Rad1b"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Rad1b"] +
         df_bones$n[df_bones$variable=="Fib1"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Uln1 * 1.234) + (Fem2 * 1.935) + 484.1
       indice <- "Uln1&Fem2"
-      n_measures <- df_bones$n[df_bones$variable=="Uln1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Uln1"] +
         df_bones$n[df_bones$variable=="Fem2"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Hum1 * 1.121) + (Fem2 * 1.760) + 515.6
       indice <- "Hum1&Fem2"
-      n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Fem2"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Uln1 * 0.444) + (Fib1 * 2.492) + 664.3
       indice <- "Uln1&Fib1"
-      n_measures <- df_bones$n[df_bones$variable=="Uln1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Uln1"] +
         df_bones$n[df_bones$variable=="Fib1"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Rad1b * 1.189) + (Tib1b * 2.025) + 637.8
       indice <- "Rad1b&Tib1b"
       n_measures <- df_bones$n[df_bones$variable=="Rad1b"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Uln1 * 0.789) + (Tib1b * 2.248) + 644.7
       indice <- "Uln1&Tib1b"
-      n_measures <- df_bones$n[df_bones$variable=="Uln1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Uln1"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.m)==0){
       stature.m <- (Hum1 * 1.893) + (Rad1b * 2.163) + 541.2
       indice <- "Hum1&Rad1b"
-      n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
-        df_bones$n[df_bones$variable=="Rad1b"] 
-    } 
+      n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
+        df_bones$n[df_bones$variable=="Rad1b"]
+    }
     if (length(stature.m)==0){
       stature.m <- (Hum1 * 2.257) + (Uln1 * 1.586) + 532.9
       indice <- "Hum1&Uln1"
-      n_measures <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Uln1"]
     }
   } else {
@@ -244,18 +249,18 @@ calc.stature.m <- function (df_bones){
         stature.m <- (Uln1r * 3.8656) + 682.4
         indice <- "Uln1.l"
       }
-    } 
+    }
   } # End of else for 1 measure
   # End of male stature estimation
-  
+
   return(list("stature"=stature.m, "indice"=indice, "n_measures"=n_measures))
-  
+
 } # End of Function calc.stature.m
 
 ##############################################################
 
 calc.stature.f <- function (df_bones){
-  
+
   # get all optional needed measures
   Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
   Rad1b <- df_bones$mean.value[df_bones$variable=="Rad1b"]
@@ -263,19 +268,19 @@ calc.stature.f <- function (df_bones){
   Fem2 <- df_bones$mean.value[df_bones$variable=="Fem2"]
   Tib1b <- df_bones$mean.value[df_bones$variable=="Tib1b"]
   Fib1 <- df_bones$mean.value[df_bones$variable=="Fib1"]
-  
+
   # check for different combinations of measures for female stature estimation
   stature.f<-c()
-  
-  # Long list of multiple regression if measures > 1, else if <=1 
-  
+
+  # Long list of multiple regression if measures > 1, else if <=1
+
   if (length(c(Hum1, Rad1b, Uln1, Fem2, Tib1b, Fib1))>1) {
-    
+
     # if there is more than one measure do multiple regression
-    
+
     stature.f <- (Hum1 * 0.771) + (Fem2 * 0.934) + (Tib1b * 1.114) + 565.4
     indice.f <- "Hum1&Fem2&Tib1b"
-    n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] + 
+    n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] +
       df_bones$n[df_bones$variable=="Fem2"] +
       df_bones$n[df_bones$variable=="Tib1b"]
     if (length(stature.f)==0){
@@ -283,49 +288,49 @@ calc.stature.f <- function (df_bones){
       indice.f <- "Fem2&Tib1b"
       n_measures.f <- df_bones$n[df_bones$variable=="Fem2"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.f)==0){
       stature.f <- (Uln1 * 2.468) + (Fem2 * 1.236) + 484.1
       indice.f <- "Uln1&Fem2"
-      n_measures.f <- df_bones$n[df_bones$variable=="Uln1"] + 
-        df_bones$n[df_bones$variable=="Fem2"] 
-    } 
+      n_measures.f <- df_bones$n[df_bones$variable=="Uln1"] +
+        df_bones$n[df_bones$variable=="Fem2"]
+    }
     if (length(stature.f)==0){
       stature.f <- (Rad1b * 2.408) + (Fem2 * 1.258) + 558.0
       indice.f <- "Rad1b&Fem2"
       n_measures.f <- df_bones$n[df_bones$variable=="Rad1b"] +
         df_bones$n[df_bones$variable=="Fem2"]
-    } 
+    }
     if (length(stature.f)==0){
       stature.f <- (Hum1 * 1.661) + (Fem2 * 1.240) + 543.3
       indice.f <- "Hum1&Fem2"
-      n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Fem2"]
-    } 
+    }
     if (length(stature.f)==0){
       stature.f <- (Hum1 * 1.549) + (Uln1 * 2.408) + 532.9
       indice.f <- "Hum1&Uln1"
-      n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] + 
+      n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] +
         df_bones$n[df_bones$variable=="Uln1"]
-    } 
+    }
     if (length(stature.f)==0){
       stature.f <- (Hum1 * 1.605) + (Rad1b * 2.316) + 609.4
       indice.f <- "Hum1&Rad1b"
-      n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] + 
-        df_bones$n[df_bones$variable=="Rad1b"] 
-    } 
+      n_measures.f <- df_bones$n[df_bones$variable=="Hum1"] +
+        df_bones$n[df_bones$variable=="Rad1b"]
+    }
     if (length(stature.f)==0){
       stature.f <- (Rad1b * 2.841) + (Tib1b * 0.871) + 705.4
       indice.f <- "Rad1b&Tib1b"
-      n_measures.f <- df_bones$n[df_bones$variable=="Rad1b"] + 
+      n_measures.f <- df_bones$n[df_bones$variable=="Rad1b"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
     if (length(stature.f)==0){
       stature.f <- (Uln1 * 2.910) + (Tib1b * 0.838) + 625.3
       indice.f <- "Uln1&Tib1b"
-      n_measures.f <- df_bones$n[df_bones$variable=="Uln1"] + 
+      n_measures.f <- df_bones$n[df_bones$variable=="Uln1"] +
         df_bones$n[df_bones$variable=="Tib1b"]
-    } 
+    }
   } else {
     # there is only one or no measure per individual
     if ((length(stature.f)==0) & (length(Tib1b)>0)){
@@ -382,7 +387,7 @@ calc.stature.f <- function (df_bones){
       } else {
         indice.f <- "Uln1.l"
       }
-    } 
+    }
   } # End of else for 1 measure
   # End of female stature estimation
 
@@ -395,22 +400,22 @@ calc.stature.f <- function (df_bones){
 olivier_etal_1978 <- function(df){
   # stupid logic, but:
   # - laterality is not needed for the multiple regression or women
-  # - laterality only needed for men with only one bone. 
+  # - laterality only needed for men with only one bone.
   # - What to do if laterality of 2 measures is unknown?
 
   # create variable side for laterality and delete corresponding info from measure
-  # n=2: both measures used, n=1 & right=T: right side, n=1 & right=F: left side 
+  # n=2: both measures used, n=1 & right=T: right side, n=1 & right=F: left side
   df$side<-rep("l",nrow(df))
   df$side[grepl(".r", df$variable)]<-"r"
   df$variable<-gsub("([rl]$)","", df$variable) #
   # aggregate values for each measure and individual with right==true in case of
   options(dplyr.summarise.inform = FALSE)
-  df %>%  
-    group_by(Ind, Sex, Group, variable) %>% 
+  df %>%
+    group_by(Ind, Sex, Group, variable) %>%
     summarise(mean.value = mean(value), n = n(), right = any(side=="r")) %>%
     as.data.frame()-> df
-  
-  
+
+
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
@@ -419,25 +424,25 @@ olivier_etal_1978 <- function(df){
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
 
 
-  # check available values for different variables needed for 
+  # check available values for different variables needed for
   for (i in 1:length(vec_indv)){
     df_bones <- subset(df, subset = Ind==vec_indv[i])
-    
+
     stature.m <- calc.stature.m(df_bones)
     stature.f <- calc.stature.f(df_bones)
 
-    #  mean for indet. sex,  all bone labels and sum of n_measures 
-    
+    #  mean for indet. sex,  all bone labels and sum of n_measures
+
     stature.i <- mean(c(stature.m[[1]], stature.f[[1]]))
     indice.i <- paste(stature.m[[2]], stature.f[[2]], sep = ", ")
     n_measures.i <- stature.m[[3]] + stature.f[[3]]
-    
+
     # vectors for stature estimations, indices and n_measures
     statures <- c(stature.m[[1]], stature.f[[1]], stature.i)
     statures <- round(statures, 0)
     indices <- c(stature.m[[2]], stature.f[[2]], indice.i)
     n_measures <- c(stature.m[[3]], stature.f[[3]], n_measures.i)
-    
+
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
@@ -448,11 +453,11 @@ olivier_etal_1978 <- function(df){
     val_indv$indet[i] <- statures[3]
     val_indv$n_measures[i] <- n_measures[as.integer(unique(df_bones$Sex))]
   } # next individual
-  
+
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-  
+
   #rm(i, vec_indv)
 
   return(val_indv)

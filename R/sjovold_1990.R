@@ -1,21 +1,21 @@
 #' @name sjovold_1990
 #'
 #' @title Calculate stature estimation according to: Sjøvold 1990.
-#' 
-#' @description 
+#'
+#' @description
 #' Stature estimation (mm) based on the mean of different regression calculations,
 #' not separated  by sex (Sjøvold 1990).
-#' Bone measures used: Hum1, Rad1 (alt. Rad1b), Uln1, Fem1 (alt. Fem2), 
+#' Bone measures used: Hum1, Rad1 (alt. Rad1b), Uln1, Fem1 (alt. Fem2),
 #'  Tib1 (alt. Tib1b), Fib1
 
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
-#' Allthough not explained in the text estimated stature is derived from the mean 
-#' of all calculations from the bone measures. To not multiply significance in the 
-#' case of two measures per bone (e.g. Fem 1, Fem2) only one of both will be 
+#' Allthough not explained in the text estimated stature is derived from the mean
+#' of all calculations from the bone measures. To not multiply significance in the
+#' case of two measures per bone (e.g. Fem 1, Fem2) only one of both will be
 #' calculated.
 #'
-#' Returns a data.frame with: 
+#' Returns a data.frame with:
 #' \itemize{
 #' \item{ ind: individual identifyer (rownames), }
 #' \item{ sex: as provided for calculation: m, f, indet.}
@@ -24,40 +24,43 @@
 #' \item{ female (stature): columns with alternative stature for three sex classes, }
 #' \item{ male (stature), }
 #' \item{ indet. (stature) and}
-#' \item{ n_measures: number of bone measures included: 
+#' \item{ n_measures: number of bone measures included:
 #'              e.g. 2 Fem2 (left, right) + 1 Tib1}
 #' }
 #'
 #' @param df data.frame containing informations on individual, bone and measurement.
-#'  
+#'
 #' @return data.frame with calculated stature and related information per individual.
-#'           
+#'
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
-#' 
+#'
+#' @references
+#'   \insertRef{Sjøvold_1990}{statuAAR}
+#'
 #' @examples
-#' 
+#'
 #' @export
 
 library(dplyr)
 
 sjovold_1990 <- function(df){
-  
+
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # aggregate values for each measure and individual
   options(dplyr.summarise.inform = FALSE)
-  df %>%  
-    group_by(Ind, Sex, Group, variable) %>% 
+  df %>%
+    group_by(Ind, Sex, Group, variable) %>%
     summarise(mean.value = mean(value), n = n()) %>%
     as.data.frame -> df
-  
+
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
-  
+
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
   colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
-  
-  # check available values for different variables needed for 
+
+  # check available values for different variables needed for
   for (i in 1:length(vec_indv)){
     df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     # Get measure values needed
@@ -70,9 +73,9 @@ sjovold_1990 <- function(df){
     Tib1 <- df_bones$mean.value[df_bones$variable=="Tib1"]
     Tib1b <- df_bones$mean.value[df_bones$variable=="Tib1b"]
     Fib1 <- df_bones$mean.value[df_bones$variable=="Fib1"]
-    
+
     # calculate statuar and document bone measures and number used for calculation
-    
+
     measures <- c()
     bone <- c()
     n_measures <- 0
@@ -134,10 +137,10 @@ sjovold_1990 <- function(df){
     val_indv$indet[i] <- stature
     val_indv$n_measures[i] <- n_measures
   }
-  
+
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-  
+
   return(val_indv)
 }

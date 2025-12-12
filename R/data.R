@@ -5,7 +5,7 @@
 #' Sex added according to table subscription.
 #'
 #' @references
-#' \insertRef{bach1965}{statuAAR}
+#' \insertRef{Bach_1965}{statuAAR}
 #'
 #' @format A data frame with 64 rows and 7 variables.
 #' \itemize{
@@ -30,7 +30,7 @@ NULL
 #' (a) pubic morphology or (b) cranial capacity and skeletal.
 #'
 #' @references
-#' \insertRef{feldesmanFemurStatureRatio1990}{statuAAR}
+#' \insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
 #'
 #' @format A data frame with 48 rows and 7 variables.
 #' \itemize{
@@ -55,7 +55,7 @@ NULL
 #' This differentiation is shown in the tables for the femora only. (Rollet 1888 p.24)
 #'
 #' @references
-#' \insertRef{rolletMensurationOsLongs1888}{statuAAR}
+#' \insertRef{Rollet_1888}{statuAAR}
 #'
 #' @source \url{https://archive.org/details/BIUSante_57377/page/n17/mode/2up}
 #'
@@ -91,7 +91,7 @@ NULL
 #' and stature in millimeters.
 #'
 #' @references
-#' \insertRef{trotterEstimationStatureLong1952}{statuAAR}
+#' \insertRef{Trotter_Gleser_1952}{statuAAR}
 #'
 #' @format A data frame with 184 rows and 11 variables.
 #' \itemize{
