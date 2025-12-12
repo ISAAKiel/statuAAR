@@ -35,9 +35,10 @@
 #' @param x A simple data.frame containing the measurements per individual.
 #' @param d.form A string defining the data.frame structure.
 #'  \itemize{
-#'    \item{ d.form=`table` for a data.frame with individuals (rows) and measurements (columns).}
-#'    \item{ d.form=`list`  for a data.frame with at least two columns:
-#'      `variable`(character, measure name e.g. hum1), `value` (numeric, length (mm)).}
+#'    \item{ d.form=`wide` for a data.frame with individuals (rows) and measurements (columns).}
+#'    \item{ d.form=`long`  for a data.frame with one measure per individual in one row.
+#'          At least two columns: `variable`(character, measure name e.g. hum1),
+#'          `value` (numeric, length (mm)).}
 #'  }
 #' @param ind A string defining the column with identifiers for each individual.
 #'    If ind = NA a column `Ind` with rownumbers will be added.
@@ -82,7 +83,7 @@
 #' measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 #'
 #' # get a dataframe with measures to process
-#' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "table",
+#' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
 #'    ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
 #' # See basic statistics to check for errors
 #' measures.statistics(dl.trotter.gleser)
@@ -94,7 +95,7 @@
 #' # 2. Fill in the mesasures names in the column "own" of the measures.list
 #' measures.concordance<-read.csv("./data-raw/measures.concordance.rollet1888.csv")
 #' # 3. Read the data
-#' dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "table",
+#' dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
 #'       ind="id", sex = "Sex", measures.names = "own")
 #'
 NULL
@@ -128,7 +129,7 @@ measures.statistics <- function (dl) {
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
                                   length(subset(dl[[5]],dl[[4]]==user_measures[i])),
-                                  as.vector(summary(subset(dl[[5]],dl[[4]]==user_measures[i])))))
+                                  as.vector(round(summary(subset(dl[[5]],dl[[4]]==user_measures[i])),0))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
   return(as.statuaar_statistics(agg_measures))
@@ -138,7 +139,7 @@ measures.statistics <- function (dl) {
 #' @rdname readuserdata
 #' @import dplyr
 #' @export
-prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measures.names='own', stats = TRUE) {
+prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measures.names='short', stats = TRUE) {
   td <- x
 
   # basic check of data format
@@ -147,11 +148,11 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   }
 
   # check the parameters provided by the user
-  if (!(d.form %in% c('table', 'list'))) {
-    stop("Please indicate the data structure d.form='table' (standard) or d.form='list'")
+  if (!(d.form %in% c('wide', 'long'))) {
+    stop("Please indicate the data structure d.form='wide' (standard) or d.form='long'")
   }
   # if data is list check if column names variable and value exist
-  if (d.form == 'list'){
+  if (d.form == 'long'){
     if (any(which(colnames(dl)=='variable')==0,
             which(colnames(dl)=='value')==0)){
       stop("Please provide a column 'variable' with measures.names and 'value' with values")
@@ -184,7 +185,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
   } else if (any(is.na(td$Ind))) {
     stop('At least one idividual is not labeled. Please check and edit data.')
   }
-  if ((d.form=='table') & (any(duplicated(td$Ind)))) {
+  if ((d.form=='wide') & (any(duplicated(td$Ind)))) {
     stop(paste("Duplicate individuals (Ind) ecountered:", paste(td$Ind[duplicated(td$Ind)], collapse=", "), sep="\n"))
   }
 
@@ -233,15 +234,15 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
     warning('One or more individuals have no grouping value.')
   }
 
-  # make a data list
+  # make a long table
 
   # bring columns 'Ind', 'Sex', 'Group' to the front
   idcols<-c('Ind','Sex', 'Group')
   newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])
   td<-td[newcolorder]
 
-  # for tabled data
-  if (d.form=='table'){
+  # for wide tabled data
+  if (d.form=='wide'){
     dl<-reshape2::melt(td, id=idcols, na.rm=TRUE)
   } else {
     dl<-td
@@ -284,7 +285,7 @@ prep.statuaar.data <- function (x, d.form='table', ind=NA, sex=NA, grp=NA, measu
     )
   }
   # check for inconsistent sex and grouping
-  if (d.form=='list'){
+  if (d.form=='long'){
     test<-data.frame(cbind(Ind=as.character(dl$Ind),
                            Sex=as.character(dl$Sex)),
                            IndSex=as.character(paste(dl$Ind,dl$Sex,sep ="_")),
