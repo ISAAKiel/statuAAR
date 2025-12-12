@@ -70,7 +70,7 @@
 #' @author Hendrik Raese \email{h.raese@@ufg.uni-kiel.de}
 #'
 #' @references
-#'  \insertRef{martinLehrbuchAnthropologieSystematischer1928}{statuAAR}
+#'  \insertRef{Martin_1928}{statuAAR}
 #'
 #' @examples
 #' # Read example dataset into a data frame

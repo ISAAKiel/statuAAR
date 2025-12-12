@@ -118,7 +118,7 @@ dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
 
 }
 \references{
-\insertRef{martinLehrbuchAnthropologieSystematischer1928}{statuAAR}
+\insertRef{Martin_1928}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}
