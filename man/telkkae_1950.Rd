@@ -2,7 +2,7 @@
 % Please edit documentation in R/telkkae_1950.R
 \name{telkkae_1950}
 \alias{telkkae_1950}
-\title{Calculate stature estimation according to: Telkkä 1950.}
+\title{Calculate stature estimation according to: Telkkã 1950.}
 \arguments{
 \item{df}{data.frame containing informations on individual, bone and measurement.}
 }
@@ -11,7 +11,7 @@ data.frame with calculated stature and related information per individual.
 }
 \description{
 Stature estimation (mm) based on the mean of different regression calculations,
-separated  by sex (Citation).
+separated  by sex.
 Bone measures used: Hum1, Rad2, Uln2, Fem1, Tib1, Fib1
 
 If bone measures for left and right are provided the mean value will be used,
@@ -33,8 +33,8 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
-
+\references{
+\insertRef{Telkkã_1950}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

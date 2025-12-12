@@ -40,8 +40,14 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
+\references{
+\insertRef{Raxter_Ruff_Azab_Erfan_Soliman_El-Sawaf_2008}{statuAAR}
 
+\insertRef{Siegmund_2010}{statuAAR}
+
+\insertRef{Trotter_Gleser_1952}{statuAAR}
+
+\insertRef{Trotter_Gleser_1977}{statuAAR}
 }
 \author{
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}

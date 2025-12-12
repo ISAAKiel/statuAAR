@@ -51,8 +51,10 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
+\references{
+\insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR}
 
+\insertRef{Olivier_Tissier_1975}{statuAAR}
 }
 \author{
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}

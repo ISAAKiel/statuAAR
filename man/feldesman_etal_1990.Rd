@@ -33,8 +33,8 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
-
+\references{
+\insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

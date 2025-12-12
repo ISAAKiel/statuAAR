@@ -16,7 +16,7 @@ Bone measures used: Fem2+Tib1, Fem2, Fem1, Tib1, Hum1+Rad1, Hum1, Rad1
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-Vercellotti propose regression calculations for the combination of male and female
+Vercellotti et al. propose regression calculations for the combination of male and female
 individuals. These regressions will be used in case of undetermined sex (indet.).
 
 Returns a data.frame with:
@@ -32,8 +32,8 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
-
+\references{
+\insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR}
 }
 \author{
 Anna Loy \email{aloy@roots.uni-kiel.de}

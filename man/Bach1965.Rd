@@ -21,5 +21,5 @@ Data as given in millimeters, but stature converted to millimeters as well.
 Sex added according to table subscription.
 }
 \references{
-\insertRef{bach1965}{statuAAR}
+\insertRef{Bach_1965}{statuAAR}
 }

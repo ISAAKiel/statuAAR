@@ -13,11 +13,11 @@ measures.statistics(dl)
 
 prep.statuaar.data(
   x,
-  d.form = "table",
+  d.form = "wide",
   ind = NA,
   sex = NA,
   grp = NA,
-  measures.names = "own",
+  measures.names = "short",
   stats = TRUE
 )
 }
@@ -28,9 +28,10 @@ prep.statuaar.data(
 
 \item{d.form}{A string defining the data.frame structure.
 \itemize{
-\item{ d.form=\code{table} for a data.frame with individuals (rows) and measurements (columns).}
-\item{ d.form=\code{list}  for a data.frame with at least two columns:
-\code{variable}(character, measure name e.g. hum1), \code{value} (numeric, length (mm)).}
+\item{ d.form=\code{wide} for a data.frame with individuals (rows) and measurements (columns).}
+\item{ d.form=\code{long}  for a data.frame with one measure per individual in one row.
+At least two columns: \code{variable}(character, measure name e.g. hum1),
+\code{value} (numeric, length (mm)).}
 }}
 
 \item{ind}{A string defining the column with identifiers for each individual.
@@ -38,9 +39,6 @@ If ind = NA a column \code{Ind} with rownumbers will be added.}
 
 \item{sex}{A string defining the column identifying the sex.
 If sex = NA a column \code{Sex} with \code{indet} will be added.}
-
-\item{grp}{A string defining a optional grouping variable, e.g. population.
-If grp = NA a column \code{Group} with \code{NA} will be added.}
 
 \item{measures.names}{A string defining the set of predefined or own measure names used.
 For \code{own} a data.frame \code{measures.concordance} for correlation (merge) is needed.
@@ -60,7 +58,7 @@ A list with basic statistics and a dataframe with measures to be processed.
 
 \itemize{
 \item \bold{Ind}:  identifyer for each individual.
-\item \bold{Sex}: sex of the individual. Accept values 1 (male), 2 (female), 3 (indet) or \code{m}(ale), \code{f}(emale), \code{indet}.
+\item \bold{Sex}: sex of the individual. Accepted values 1 (male), 2 (female), 3 (indet) or \code{m}(ale), \code{f}(emale), \code{indet}.
 \item \bold{grp}: a grouping variable (e.g. population).
 \item \bold{variable}:  short name of the measure
 \item \bold{value}: measured value.
@@ -103,7 +101,7 @@ measures.concordance <- create.measures.concordance()
 measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 
 # get a dataframe with measures to process
-dl.trotter.gleser <- prep.statuaar.data(x, d.form = "table",
+dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
    ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
 # See basic statistics to check for errors
 measures.statistics(dl.trotter.gleser)
@@ -115,7 +113,7 @@ rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 # 2. Fill in the mesasures names in the column "own" of the measures.list
 measures.concordance<-read.csv("./data-raw/measures.concordance.rollet1888.csv")
 # 3. Read the data
-dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "table",
+dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
       ind="id", sex = "Sex", measures.names = "own")
 
 }

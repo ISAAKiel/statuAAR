@@ -24,5 +24,5 @@ Data as given but with additional columns related to appendix heading,
 and stature in millimeters.
 }
 \references{
-\insertRef{trotterEstimationStatureLong1952}{statuAAR}
+\insertRef{Trotter_Gleser_1952}{statuAAR}
 }

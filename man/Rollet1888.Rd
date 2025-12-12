@@ -37,5 +37,5 @@ eight to ten months after the first measures in fresh condition.
 This differentiation is shown in the tables for the femora only. (Rollet 1888 p.24)
 }
 \references{
-\insertRef{rolletMensurationOsLongs1888}{statuAAR}
+\insertRef{Rollet_1888}{statuAAR}
 }

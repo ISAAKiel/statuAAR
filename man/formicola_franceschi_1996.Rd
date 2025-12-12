@@ -36,8 +36,12 @@ Returns a data.frame with:
 \item{ n_measures: number of bone measures included: e.g. 2 Fem2 (left, right), 1 Tib1}
 }
 }
-\examples{
+\references{
+\insertRef{Formicola_Franceschi_1996}{statuAAR}
 
+\insertRef{Formicola_1993}{statuAAR}
+
+\insertRef{Siegmund_2010}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

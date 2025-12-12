@@ -34,8 +34,8 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
-
+\references{
+\insertRef{Maijanen_Niskanen_2010}{statuAAR}
 }
 \author{
 Anna Loy \email{aloy@roots.uni-kiel.de}

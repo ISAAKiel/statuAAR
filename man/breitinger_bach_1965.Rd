@@ -37,15 +37,12 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
-
-}
 \references{
-\insertRef{bach1965}{statuAAR}
+\insertRef{Bach_1965}{statuAAR}
 
-\insertRef{breitinger1937}{statuAAR}
+\insertRef{Breitinger_1937}{statuAAR}
 
-\insertRef{siegmund2010}{statuAAR}
+\insertRef{Siegmund_2010}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

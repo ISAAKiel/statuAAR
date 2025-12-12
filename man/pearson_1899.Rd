@@ -44,8 +44,12 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
-\examples{
-
+\references{
+\insertRef{Pearson_1899}{statuAAR}
+\insertRef{Rollet_1888}{statuAAR}
+\insertRef{Guichet_Spivak_Trouilloud_Grammont_1991}{statuAAR}
+\insertRef{Holliday_Ruff_2001}{statuAAR}
+\insertRef{Knutson_2005}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

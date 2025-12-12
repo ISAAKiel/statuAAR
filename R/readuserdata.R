@@ -44,8 +44,6 @@
 #'    If ind = NA a column `Ind` with rownumbers will be added.
 #' @param sex A string defining the column identifying the sex.
 #'    If sex = NA a column `Sex` with `indet` will be added.
-#' @param grp A string defining a optional grouping variable, e.g. population.
-#'    If grp = NA a column `Group` with `NA` will be added.
 #' @param measures.names A string defining the set of predefined or own measure names used.
 #'    For `own` a data.frame `measures.concordance` for correlation (merge) is needed.
 #'  \itemize{
@@ -63,7 +61,7 @@
 #'
 #' \itemize{
 #'   \item \bold{Ind}:  identifyer for each individual.
-#'   \item \bold{Sex}: sex of the individual. Accept values 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
+#'   \item \bold{Sex}: sex of the individual. Accepted values 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
 #'   \item \bold{grp}: a grouping variable (e.g. population).
 #'   \item \bold{variable}:  short name of the measure
 #'   \item \bold{value}: measured value.
@@ -222,22 +220,10 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measur
   td$Sex[td$Sex=='i'] <- '3'
   td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
 
-  # gouping variable
-  if (is.na(grp)){
-    td<-cbind(Group=0,td)
-    } else if (!(grp %in% names(td))) {
-      stop(paste ("Your grouping variable '",grp,"' is not part of the data provided.", sep = ""))
-    } else {
-      names(td)[which(names(td)==grp)]<-'Group'
-    }
-  if (any(!is.na(grp)) & any(is.na(grp))){
-    warning('One or more individuals have no grouping value.')
-  }
+  # make a long df
 
-  # make a long table
-
-  # bring columns 'Ind', 'Sex', 'Group' to the front
-  idcols<-c('Ind','Sex', 'Group')
+  # bring columns 'Ind' and 'Sex' to the front
+  idcols<-c('Ind','Sex')
   newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])
   td<-td[newcolorder]
 
@@ -251,13 +237,13 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measur
   # merges the listed measures with the concordance of measure.names, filters on the columns needed.
   if (measures.names == 'own'){
       result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'own')
-      dl<-result[c('Ind','Sex', 'Group','short','value')]
+      dl<-result[c('Ind','Sex', 'short','value')]
   } else if (measures.names == 'short'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'short')
-      dl<-result[c('Ind','Sex', 'Group','variable','value')]
+      dl<-result[c('Ind','Sex', 'variable','value')]
   } else if (measures.names == 'long'){
       result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
-      dl<-result[c('Ind','Sex', 'Group','short','value')]
+      dl<-result[c('Ind','Sex', 'short','value')]
   }
   names(dl)[which(names(dl)=='short')]<-'variable'
   dl$variable <- as.character(dl$variable)
@@ -284,7 +270,7 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measur
                   paste(sort(unique(test$Ind[dupl_ind])), collapse= ", "), sep = "\n ")
     )
   }
-  # check for inconsistent sex and grouping
+  # check for inconsistent sex
   if (d.form=='long'){
     test<-data.frame(cbind(Ind=as.character(dl$Ind),
                            Sex=as.character(dl$Sex)),
@@ -293,18 +279,9 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measur
     dupl_sex <- plyr::count(test, c("Ind","Sex"))[1]
     dupl_sex <- dupl_sex$Ind[duplicated(dupl_sex$Ind)]
 
-    test <- data.frame(cbind(Ind=as.character(dl$Ind),
-                             Group=as.character(dl$Group)),
-                       IndGroup=as.character(paste(dl$Ind,dl$Sex,sep ="_")),
-                       stringsAsFactors = FALSE)
-    dupl_group <- plyr::count(test, c("Ind","Group"))[1]
-    dupl_group <- dupl_group$Ind[duplicated(dupl_group$Ind)]
-
-    if ((length(dupl_sex)>0) | (length(dupl_group)>0)){
+    if (length(dupl_sex)>0){
       stop(paste("\nLikely inconsistent sex for individual(s) encountered:",
-                 paste(dupl_sex, collapse= ", "),
-                 "Likely inconsistent grouping for individual(s) encountered:",
-                 paste(dupl_group, collapse= ", "), sep = "\n ")
+                 paste(dupl_sex, collapse= ", "),)
       )
     }
   }
