@@ -14,7 +14,7 @@
 as.statuaar_data_table <- function(x, ...) {
 
   # define expectations
-  necessary_vars <- c("Ind","Sex","Group","variable","value")
+  necessary_vars <- c("Ind","Sex","variable","value")
 
   # check if input data type is data.frame or tibble
   if ("data.frame" %in% class(x) | all(c("tbl", "tbl_df") %in% class(x))) {

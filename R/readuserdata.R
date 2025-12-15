@@ -13,7 +13,7 @@
 #' R. Martin (1928). The labels of the measures of the data aquisition may differ from
 #' those used by statuAAR. Therefore a concordance of labels should be edited.
 #'
-#' In addition summarised statistics for each measure across the sample is provided
+#' In addition summarised statistics for each measure across the dataset is provided
 #' to check for data inconsitancy befor calculation.
 #'
 #' \itemize{
@@ -25,8 +25,8 @@
 #'  \item{\code{\link{prep.statuaar.data}}: Checks the input data: uniqueness of individual
 #'  identifyer, accepted values for Sex and accepted measures names.
 #'  Provides a data.frame of standardised measurements
-#'  for calculation of body stature estimation with five columns:
-#'  \strong{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
+#'  for calculation of body stature estimation with four columns:
+#'  \strong{Ind}(ividual), \strong{Sex},
 #'  \strong{variable} (mearsure name) and \strong{value} (measured value).}
 #'  }
 #'
@@ -37,8 +37,9 @@
 #'  \itemize{
 #'    \item{ d.form=`wide` for a data.frame with individuals (rows) and measurements (columns).}
 #'    \item{ d.form=`long`  for a data.frame with one measure per individual in one row.
-#'          At least two columns: `variable`(character, measure name e.g. hum1),
-#'          `value` (numeric, length (mm)).}
+#'          With only two columns: `variable`(character, measure name e.g. hum1),
+#'          `value` (numeric, length (mm)), each row represents one individual
+#'          with only one measurement and is identified by the row number.}
 #'  }
 #' @param ind A string defining the column with identifiers for each individual.
 #'    If ind = NA a column `Ind` with rownumbers will be added.
@@ -57,12 +58,11 @@
 #' @param stats Output of aggregating statistics of the measures provided. Default = TRUE.
 #' @param dl statuAAR data list as provided by prep.statuaar.data.
 #'
-#' @return A list with basic statistics and a dataframe with measures to be processed.
+#' @return A list with a dataframe for each formula selected.
 #'
 #' \itemize{
 #'   \item \bold{Ind}:  identifyer for each individual.
 #'   \item \bold{Sex}: sex of the individual. Accepted values 1 (male), 2 (female), 3 (indet) or `m`(ale), `f`(emale), `indet`.
-#'   \item \bold{grp}: a grouping variable (e.g. population).
 #'   \item \bold{variable}:  short name of the measure
 #'   \item \bold{value}: measured value.
 #' }
@@ -74,15 +74,18 @@
 #'
 #' @examples
 #' # Read example dataset into a data frame
+#'
+
+#' # Read example dataset into a data frame
 #' x <- TrotterGleser1952
 #' # If not yet existent create a list of measure names to be used
-#' measures.concordance <- create.measures.concordance()
+#' # measures.concordance <- create.measures.concordance()
 #' # Edit the measures.list (not needed for this dataset)
-#' measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
+#' # measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 #'
 #' # get a dataframe with measures to process
 #' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
-#'    ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
+#'    ind = "Appendix_row", sex = "Sex", measures.names = "own", stats = FALSE)
 #' # See basic statistics to check for errors
 #' measures.statistics(dl.trotter.gleser)
 #'
@@ -126,8 +129,8 @@ measures.statistics <- function (dl) {
   user_measures<-unique(dl$variable)
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
-                                  length(subset(dl[[5]],dl[[4]]==user_measures[i])),
-                                  as.vector(round(summary(subset(dl[[5]],dl[[4]]==user_measures[i])),0))))
+                                  length(subset(dl[[4]],dl[[3]]==user_measures[i])),
+                                  as.vector(round(summary(subset(dl[[4]],dl[[3]]==user_measures[i])),0))))
   }
   agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
   return(as.statuaar_statistics(agg_measures))
@@ -137,7 +140,7 @@ measures.statistics <- function (dl) {
 #' @rdname readuserdata
 #' @import dplyr
 #' @export
-prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measures.names='short', stats = TRUE) {
+prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names='short', stats = TRUE) {
   td <- x
 
   # basic check of data format
@@ -167,7 +170,7 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measur
 
   # check for corresponding measure.names of the column 'own' and data provided by the user will be done after conversion to a list format
 
-  # change the column names to 'Ind', 'Sex' and 'Group' for further processing
+  # change the column names to 'Ind' and 'Sex' for further processing
   # ind
   if (ind %in% names(td)) {
     names(td)[which(names(td)==ind)]<-'Ind'
@@ -286,7 +289,6 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, grp=NA, measur
     }
   }
   if (stats){
-    # measures.statistics(dl) %>% as.statuaar_statistics) %>% print()
     print (measures.statistics(dl))
   }
   return(as.statuaar_data_table(dl))
