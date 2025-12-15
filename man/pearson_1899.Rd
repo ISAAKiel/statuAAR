@@ -44,6 +44,10 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
+\examples{
+# Read example dataset into a data frame
+
+}
 \references{
 \insertRef{Pearson_1899}{statuAAR}
 \insertRef{Rollet_1888}{statuAAR}

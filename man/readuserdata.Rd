@@ -54,7 +54,7 @@ laterality (1 letter) without any separation
 \item{stats}{Output of aggregating statistics of the measures provided. Default = TRUE.}
 }
 \value{
-A list with basic statistics and a dataframe with measures to be processed.
+A list with a dataframe for each formula selected.
 
 \itemize{
 \item \bold{Ind}:  identifyer for each individual.
@@ -94,15 +94,17 @@ for calculation of body stature estimation with five columns:
 }
 \examples{
 # Read example dataset into a data frame
+
+# Read example dataset into a data frame
 x <- TrotterGleser1952
 # If not yet existent create a list of measure names to be used
-measures.concordance <- create.measures.concordance()
+# measures.concordance <- create.measures.concordance()
 # Edit the measures.list (not needed for this dataset)
-measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
+# measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 
 # get a dataframe with measures to process
 dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
-   ind = "Appendix_row", sex = "Sex", grp = "Race", measures.names = "own")
+   ind = "Appendix_row", sex = "Sex", measures.names = "own", stats = FALSE)
 # See basic statistics to check for errors
 measures.statistics(dl.trotter.gleser)
 

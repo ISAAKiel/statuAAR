@@ -37,7 +37,7 @@
 #'              e.g. 2 Fem2 (left, right) + 1 Tib1}
 #' }
 #'
-#' @param df data.frame containing informations on individual, bone and measurement.
+#' @param df data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.
 #'
 #' @return data.frame with calculated stature and related information per individual.
 #'
@@ -51,6 +51,7 @@
 #'   \insertRef{Knutson_2005}{statuAAR}
 #'
 #' @examples
+#' # Read example dataset into a data frame
 #'
 #'@export
 

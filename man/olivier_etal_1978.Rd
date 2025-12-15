@@ -51,6 +51,10 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
+\examples{
+# Read example dataset into a data frame
+
+}
 \references{
 \insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR}
 

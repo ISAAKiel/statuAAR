@@ -32,6 +32,10 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
+\examples{
+# Read example dataset into a data frame
+
+}
 \references{
 \insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR}
 }

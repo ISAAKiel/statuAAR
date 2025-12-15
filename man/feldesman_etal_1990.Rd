@@ -33,6 +33,10 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
+\examples{
+# Read example dataset into a data frame
+
+}
 \references{
 \insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
 }

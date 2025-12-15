@@ -40,6 +40,10 @@ Returns a data.frame with:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
+\examples{
+# Read example dataset into a data frame
+
+}
 \references{
 \insertRef{Raxter_Ruff_Azab_Erfan_Soliman_El-Sawaf_2008}{statuAAR}
 

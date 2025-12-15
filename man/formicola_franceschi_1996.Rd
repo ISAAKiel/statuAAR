@@ -36,6 +36,10 @@ Returns a data.frame with:
 \item{ n_measures: number of bone measures included: e.g. 2 Fem2 (left, right), 1 Tib1}
 }
 }
+\examples{
+# Read example dataset into a data frame
+
+}
 \references{
 \insertRef{Formicola_Franceschi_1996}{statuAAR}
 
