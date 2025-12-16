@@ -53,7 +53,7 @@ usethis::use_data(measures.concordance, overwrite = TRUE)
 
 # List of formula
 bb65 <- list(name = 'breitinger_bach_1965', measures = c('Hum2', 'Hum1', 'Rad1b', 'Fem1', 'Tib1b'))
-by89 <- list(name = 'byers_etal_1989', measures = c('Mt11'))
+by89 <- list(name = 'byers_etal_1989', measures = c('Met1'))
 fe90 <- list(name = 'feldesman_etal_1990', measures = c('Fem1'))
 ff96 <- list(name = 'formicola_franceschi_1996', measures = c('Fem2+Tib1', 'Fem1', 'Tib1', 'Hum1', 'Rad1'))
 mn09 <- list(name = 'maijanen_niskanen_2009', measures = c('Fem2+Tib1', 'Fem1+Tib1', 'Fem2', 'Fem1', 'Tib1', 'Hum1', 'Rad1', 'Fib1', 'Uln1'))
