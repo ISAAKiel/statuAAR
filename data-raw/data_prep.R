@@ -65,5 +65,5 @@ te50 <- list(name = 'telkkae_1950', measures = c('Hum1', 'Rad2', 'Uln2', 'Fem1',
 tg01 <- list(name = 'trotter_gleser_1952_an', measures = c('Fem1', 'Tib1b', 'Fib1', 'Uln1', 'Rad1', 'Hum1'))
 tg02 <- list(name = 'trotter_gleser_1952_aw', measures = c('Fem1', 'Tib1b', 'Fib1', 'Uln1', 'Rad1', 'Hum1'))
 ve09 <- list(name = 'vercellotti_etal_2009', measures = c('Fem2+Tib1', 'Fem2', 'Fem1', 'Tib1', 'Hum1+Rad1', 'Hum1', 'Rad1'))
-formula <- list(by89, fe90, ff96, mn09, ol78, pe99, ra08, sj90, te50, tg01, tg02, ve09)
+formula <- list(bb65, by89, fe90, ff96, mn09, ol78, pe99, ra08, sj90, te50, tg01, tg02, ve09)
 usethis::use_data(formula, overwrite = TRUE)
