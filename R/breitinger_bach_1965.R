@@ -54,6 +54,13 @@
 breitinger_bach_1965 <- function(df){
 
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+
+  # check if needed measures are present
+  needed <- getFormulaMeasures('byers_etal_1989')
+  if (!any(df$variable %in% needed)){
+    return("There is no usable bone measurement / indice available for the chosen formula.")
+  }
+
   # aggregate values for each measure and individual
   df <- aggregate(value ~ Ind + Sex + variable,
                    data = df,
