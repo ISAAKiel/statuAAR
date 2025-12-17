@@ -47,23 +47,27 @@
 #'
 #' @export
 
-library(dplyr)
-
 formicola_franceschi_1996 <- function(df){
 
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+
+    # check if needed measures are present
+  needed <- getFormulaMeasures('formicola_franceschi_1996')
+  if (!any(df$variable %in% needed)){
+    return("There is no usable bone measurement / indice available for the chosen formula.")
+  }
+
   # aggregate values for each measure and individual
-  options(dplyr.summarise.inform = FALSE)
-  df %>%
-    group_by(Ind, Sex, Group, variable) %>%
-    summarise(mean.value = mean(value), n = n()) %>%
-    as.data.frame -> df
+  df <- aggregate(value ~ Ind + Sex + variable,
+                  data = df,
+                  FUN = function(x) c(mean = mean(x), n = length(x)))
+  df <- do.call(data.frame, df)
 
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
 
     # Calculte in hierarchical order
@@ -73,16 +77,16 @@ formicola_franceschi_1996 <- function(df){
       df_bones <- subset(df, subset=df$Ind == vec_indv[i])
 
       # get all optional needed measures
-      Fem2 <- df_bones$mean.value[df_bones$variable=="Fem2"]
-      Tib1 <- df_bones$mean.value[df_bones$variable=="Tib1"]
-      Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
-      Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1"]
+      Fem2 <- df_bones$value.mean[df_bones$variable=="Fem2"]
+      Tib1 <- df_bones$value.mean[df_bones$variable=="Tib1"]
+      Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
+      Rad1 <- df_bones$value.mean[df_bones$variable=="Rad1"]
       Rad1a <- FALSE
       if (length(Rad1)<2){
-        Rad1 <- df_bones$mean.value[df_bones$variable=="Rad1a"]
+        Rad1 <- df_bones$value.mean[df_bones$variable=="Rad1a"]
         Rad1a <- TRUE
       }
-      Hum1 <- df_bones$mean.value[df_bones$variable=="Hum1"]
+      Hum1 <- df_bones$value.mean[df_bones$variable=="Hum1"]
 
       # check for different combinations of measures
       # Fem2 & Tib1
@@ -91,39 +95,39 @@ formicola_franceschi_1996 <- function(df){
         stature.f <- ((Fem2 + Tib1) * 1.33) + 545.7
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "1. Fem2&Tib1"
-        n_measures <- df_bones$n[df_bones$variable=="Fem2"] +
-          df_bones$n[df_bones$variable=="Tib1"]
+        n_measures <- df_bones$value.n[df_bones$variable=="Fem2"] +
+          df_bones$value.n[df_bones$variable=="Tib1"]
         # Fem1
       } else if (length(Fem1)>0) {
         stature.m <- (Fem1 * 2.55) + 520.8
         stature.f <- (Fem1 * 2.61) + 460.5
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "2. Fem1"
-        n_measures <- df_bones$n[df_bones$variable=="Fem1"]
+        n_measures <- df_bones$value.n[df_bones$variable=="Fem1"]
         # Tib1
       } else if (length(Tib1)>0) {
         stature.m <- (Tib1 * 2.79) + 634.1
         stature.f <- (Tib1 * 2.80) + 595.8
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "3. Tib1"
-        n_measures <- df_bones$n[df_bones$variable=="Tib1"]
+        n_measures <- df_bones$value.n[df_bones$variable=="Tib1"]
         # Fem1
       } else if (length(Hum1)>0) {
         stature.m <- (Hum1 * 4.04) + 380.5
         stature.f <- (Hum1 * 3.75) + 446.4
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "4. Hum1"
-        n_measures <- df_bones$n[df_bones$variable=="Hum1"]
+        n_measures <- df_bones$value.n[df_bones$variable=="Hum1"]
         # Rad1
       } else if (length(Rad1)>0) {
         stature.m <- (Rad1 * 4.38) + 579.0
         stature.f <- (Rad1 * 3.98) + 651.2
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "5. Rad1"
-        n_measures <- df_bones$n[df_bones$variable=="Rad1"]
+        n_measures <- df_bones$value.n[df_bones$variable=="Rad1"]
         if(Rad1a){
           indice <- "5. Rad1a"
-          n_measures <- df_bones$n[df_bones$variable=="Rad1a"]
+          n_measures <- df_bones$value.n[df_bones$variable=="Rad1a"]
         }
       } else {
         # no apropriate measures given
@@ -138,7 +142,6 @@ formicola_franceschi_1996 <- function(df){
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone[i] <- indice
-    val_indv$group[i] <- unique(df_bones$Group)
     val_indv$female[i] <- statures[2]
     val_indv$male[i] <- statures[1]
     val_indv$indet[i] <- statures[3]
