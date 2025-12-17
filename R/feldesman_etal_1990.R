@@ -68,7 +68,7 @@ feldesman_etal_1990 <- function(df){
   for (i in 1:length(vec_indv)){
     df_bones <- subset(df, subset=df$Ind == vec_indv[i])
     # Get measure values needed
-    Fem1 <- df_bones$mean.value[df_bones$variable=="Fem1"]
+    Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
     #Calculate
     stature <- (Fem1 * 10) / 26.74
 
@@ -78,11 +78,10 @@ feldesman_etal_1990 <- function(df){
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- stature
     val_indv$bone[i] <- "Fem1"
-    val_indv$group[i] <- unique(df_bones$Group)
     val_indv$female[i] <- stature
     val_indv$male[i] <- stature
     val_indv$indet[i] <- stature
-    val_indv$n_measures[i] <- df_bones$n[df_bones$variable=="Fem1"]
+    val_indv$n_measures[i] <- df_bones$value.n[df_bones$variable=="Fem1"]
   }
 
   if (dim(val_indv)[1] == 0) {
