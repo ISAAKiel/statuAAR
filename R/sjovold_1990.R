@@ -49,7 +49,7 @@ sjovold_1990 <- function(df){
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
 
   # check if needed measures are present
-  needed <- getFormulaMeasures('breitinger_bach_1965')
+  needed <- getFormulaMeasures('sjovold_1990')
   if (!any(df$variable %in% needed)){
     return("There is no usable bone measurement / indice available for the chosen formula.")
   }
