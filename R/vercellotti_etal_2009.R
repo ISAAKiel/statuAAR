@@ -42,8 +42,6 @@
 #'
 #'@export
 
-library(dplyr)
-
 #######################################################
 calc.stature.m <- function (df_bones){
 
@@ -211,17 +209,24 @@ calc.stature.i <- function (df_bones){
 vercellotti_etal_2009 <- function(df){
 
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+
+  # check if needed measures are present
+  needed <- getFormulaMeasures('breitinger_bach_1965')
+  if (!any(df$variable %in% needed)){
+    return("There is no usable bone measurement / indice available for the chosen formula.")
+  }
+
   # aggregate values for each measure and individual
-  options(dplyr.summarise.inform = FALSE)
-  df %>%
-    group_by(Ind, Sex, Group, variable) %>%
-    summarise(mean.value = mean(value), n = n()) -> df
+  df <- aggregate(value ~ Ind + Sex + variable,
+                  data = df,
+                  FUN = function(x) c(mean = mean(x), n = length(x)))
+  df <- do.call(data.frame, df)
 
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv<- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv<- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
 
 
@@ -243,7 +248,6 @@ vercellotti_etal_2009 <- function(df){
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone[i] <- indices[as.integer(unique(df_bones$Sex))]
-    val_indv$group[i] <- unique(df_bones$Group)
     val_indv$female[i] <- statures[2]
     val_indv$male[i] <- statures[1]
     val_indv$indet[i] <- statures[3]
@@ -253,8 +257,6 @@ vercellotti_etal_2009 <- function(df){
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-
-  #rm(i, vec_indv)
 
   return(val_indv)
 }
