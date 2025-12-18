@@ -64,8 +64,8 @@ trotter_gleser_1952aw <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=8, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "group", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
 
   # Calculte in hierarchical order
