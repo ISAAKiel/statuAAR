@@ -3,8 +3,11 @@
 \name{breitinger_bach_1965}
 \alias{breitinger_bach_1965}
 \title{Calculate stature estimation according to Breitinger 1938 & Bach 1965.}
+\usage{
+breitinger_bach_1965(df)
+}
 \arguments{
-\item{df}{data.frame, containing informations on individual, bone and measurement}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement}
 }
 \value{
 data.frame, containing one data.frame with all calculated indices for every individual

@@ -4,14 +4,14 @@
 \alias{pearson_1899}
 \title{Calculate stature estimation according to: Pearson 1899}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.
 }
 \description{
 Stature estimation (mm) based on the mean of several multiple and single
-regression calculations, separated  by sex (Pearson 1899).
+regression calculations, separated  by sex (Pearson 1899, p. 196).
 Bone measures used: Hum1, Rad1, Fem1, Tib1b, Tib1a
 
 If bone measures for left and right are provided the mean value will be used,

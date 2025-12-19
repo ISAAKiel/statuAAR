@@ -26,4 +26,4 @@ RdMacros: Rdpack
 URL: https://github.com/ISAAKiel/statuAAR
 BugReports: https://github.com/ISAAKiel/statuAAR/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5)

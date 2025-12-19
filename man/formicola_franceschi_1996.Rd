@@ -3,8 +3,11 @@
 \name{formicola_franceschi_1996}
 \alias{formicola_franceschi_1996}
 \title{Calculate stature estimation based on bone measures according to: Formicola & Franceschi 1996.}
+\usage{
+formicola_franceschi_1996(df)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.

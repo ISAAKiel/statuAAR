@@ -3,8 +3,11 @@
 \name{maijanen_niskanen_2009}
 \alias{maijanen_niskanen_2009}
 \title{Calculate stature estimation according to: Maijanen, Niskanen 2009}
+\usage{
+maijanen_niskanen_2009(df)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.
@@ -16,9 +19,9 @@ Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Ul
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-Maijanen & Niskanen propose propose to use first the combination of femur and
+Maijanen & Niskanen propose to use first the combination of femur and
 tibia, followed by calculations on the hierarchie of single measures.
-Thea present regression calculations for the combination of male and female
+They present regression calculations for the combination of male and female
 individuals recomended in case of undetermined sex (indet.).
 
 Returns a data.frame with:

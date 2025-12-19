@@ -3,8 +3,11 @@
 \name{trotter_gleser_1952an}
 \alias{trotter_gleser_1952an}
 \title{Calculate stature estimation according to: Trotter & Gleser 'American Negro'.}
+\usage{
+trotter_gleser_1952an(df)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.

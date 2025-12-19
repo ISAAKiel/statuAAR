@@ -3,23 +3,29 @@
 \name{byers_etal_1989}
 \alias{byers_etal_1989}
 \title{Calculate stature estimation according to: Byers et al 1989.}
+\usage{
+byers_etal_1989(df)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.
 }
 \description{
-Stature estimation (mm) based on a regression calculation of one bone,
-not separated  by sex (Byers et al 1989).
+Stature estimation (mm) based on a regression calculation of one Metatarsal 1
+only separated by sex (Byers et al 1989).
 Bone measures used: Os metatarsale I, apex of the capitulum to the midpoint
 of the articular surface of the base parallel to the longituninal axis of the bone.
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-The  correlation coefficient does not increase with sex differentiation and thus
-will be ignored. Based on the length of the Os metatarsale I of different individuals,
-the stature for males and females is calculated.
+For archaeological finds, group assignment (Euro-American or Afro-American)
+is not possible. In addition, the gender-specific estimates for Met1 offer the
+best accuracy. For this reason, only the following formulas are used:
+Combined data (indet): St = 634 + 16.8 (Metl),
+All males: St = 815 + 14.3 (Metl),
+All females: St = 783 + 13.9 (Metl).
 
 Returns a data.frame with:
 \itemize{
@@ -31,7 +37,7 @@ Returns a data.frame with:
 \item{ male (stature), }
 \item{ indet. (stature) and}
 \item{ n_measures: number of bone measures included:
-e.g. 2 Fem2 (left, right) + 1 Tib1}
+e.g. 2 Met1 (left, right)}
 }
 }
 \examples{

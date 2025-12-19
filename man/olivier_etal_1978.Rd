@@ -2,9 +2,13 @@
 % Please edit documentation in R/olivier_etal_1978.R
 \name{olivier_etal_1978}
 \alias{olivier_etal_1978}
+\alias{calc.stature.m}
 \title{Calculate stature estimation according to: Olivier et al 1978.}
+\usage{
+calc.stature.m(df_bones)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.
@@ -21,7 +25,7 @@ The regression formula are hierarchical from combinations of different
 bone measures to single bone measures. For the multiple regressions the average
 of left and right bone is used, allthough "asymmetry to be virtually negligible:
 it is only significant for the right ulna" (Olivier et al 1978, 515).
-For individual bone measures regression formula a given for left an right side
+For individual bone measures regression formula are given for left an right side
 in the case of male individuals. Wheras regression formula for females are
 presented only for left bones, likely due to the set of data based on.
 In  consequence for male individuals stature estimation on a single bone is
@@ -29,7 +33,7 @@ calculated 1. upon the hierarchy given by the table (r, s.d.) and
 2. on the mean of left an right bone or 3. on one of both sides.
 Wheras for female individuals stature estimation based on one bone considers
 \enumerate{
-\item the hierarchy given by the table (r and s.d) using the mean of left and/or
+\item the hierarchy given by the table (r, s.d) using the mean of left and/or
 right side.
 For male 15 multiple regressions are provided, for female only 9,
 in addition these use different bone measures within each hierarchy.

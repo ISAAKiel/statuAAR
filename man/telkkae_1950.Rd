@@ -3,8 +3,11 @@
 \name{telkkae_1950}
 \alias{telkkae_1950}
 \title{Calculate stature estimation according to: Telkkã 1950.}
+\usage{
+telkkae_1950(df)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.

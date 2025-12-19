@@ -16,7 +16,6 @@ prep.statuaar.data(
   d.form = "wide",
   ind = NA,
   sex = NA,
-  grp = NA,
   measures.names = "short",
   stats = TRUE
 )
@@ -30,8 +29,9 @@ prep.statuaar.data(
 \itemize{
 \item{ d.form=\code{wide} for a data.frame with individuals (rows) and measurements (columns).}
 \item{ d.form=\code{long}  for a data.frame with one measure per individual in one row.
-At least two columns: \code{variable}(character, measure name e.g. hum1),
-\code{value} (numeric, length (mm)).}
+With only two columns: \code{variable}(character, measure name e.g. hum1),
+\code{value} (numeric, length (mm)), each row represents one individual
+with only one measurement and is identified by the row number.}
 }}
 
 \item{ind}{A string defining the column with identifiers for each individual.
@@ -59,7 +59,6 @@ A list with a dataframe for each formula selected.
 \itemize{
 \item \bold{Ind}:  identifyer for each individual.
 \item \bold{Sex}: sex of the individual. Accepted values 1 (male), 2 (female), 3 (indet) or \code{m}(ale), \code{f}(emale), \code{indet}.
-\item \bold{grp}: a grouping variable (e.g. population).
 \item \bold{variable}:  short name of the measure
 \item \bold{value}: measured value.
 }
@@ -75,7 +74,7 @@ All measures have to be given in millimeters (mm). The measures used are defined
 R. Martin (1928). The labels of the measures of the data aquisition may differ from
 those used by statuAAR. Therefore a concordance of labels should be edited.
 
-In addition summarised statistics for each measure across the sample is provided
+In addition summarised statistics for each measure across the dataset is provided
 to check for data inconsitancy befor calculation.
 
 \itemize{
@@ -87,8 +86,8 @@ data consitancy.}
 \item{\code{\link{prep.statuaar.data}}: Checks the input data: uniqueness of individual
 identifyer, accepted values for Sex and accepted measures names.
 Provides a data.frame of standardised measurements
-for calculation of body stature estimation with five columns:
-\strong{Ind}(ividual), \strong{Sex}, \strong{Group} (optional grouping),
+for calculation of body stature estimation with four columns:
+\strong{Ind}(ividual), \strong{Sex},
 \strong{variable} (mearsure name) and \strong{value} (measured value).}
 }
 }

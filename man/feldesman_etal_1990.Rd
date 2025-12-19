@@ -3,8 +3,11 @@
 \name{feldesman_etal_1990}
 \alias{feldesman_etal_1990}
 \title{Calculate stature estimation according to: Feldesman et al 1990.}
+\usage{
+feldesman_etal_1990(df)
+}
 \arguments{
-\item{df}{data.frame containing informations on individual, bone and measurement.}
+\item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
 \value{
 data.frame with calculated stature and related information per individual.
@@ -30,7 +33,7 @@ Returns a data.frame with:
 \item{ male (stature), }
 \item{ indet. (stature) and}
 \item{ n_measures: number of bone measures included:
-e.g. 2 Fem2 (left, right) + 1 Tib1}
+e.g. 2 Fem1 (left, right)}
 }
 }
 \examples{
