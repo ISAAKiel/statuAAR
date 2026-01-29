@@ -1,4 +1,4 @@
-#' @name trotter_gleser_1952an
+#' @name trotter_gleser_1952_an
 #'
 #' @title Calculate stature estimation according to: Trotter & Gleser 'American Negro'.
 #'
@@ -50,7 +50,7 @@ trotter_gleser_1952an <- function(df){
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
 
   # check if needed measures are present
-  needed <- getFormulaMeasures('trotter_gleser_1952an')
+  needed <- getFormulaMeasures('tg01')
   if (!any(df$variable %in% needed)){
     return("There is no usable bone measurement / indice available for the chosen formula.")
   }

@@ -60,6 +60,81 @@
 #'
 #'@export
 
+###################################
+olivier_etal_1978 <- function(df){
+  # stupid logic, but:
+  # - laterality is not needed for the multiple regression or women
+  # - laterality only needed for men with only one bone.
+  # - What to do if laterality of 2 measures is unknown?
+
+  # create variable side for laterality and delete corresponding info from measure
+  # n=2: both measures used, n=1 & right=T: right side, n=1 & right=F: left side
+  df$right<-rep(FALSE,nrow(df))
+  df$right[grepl(".r", df$variable)]<-TRUE
+  df$variable<-gsub("([rl]$)","", df$variable) #
+
+  # check if needed measures are present
+  needed <- getFormulaMeasures('ol78')
+  if (!any(df$variable %in% needed)){
+    return("There is no usable bone measurement / indice available for the chosen formula.")
+  }
+
+  # aggregate values for each individual, measure and left|right
+  df1 <- aggregate(value ~ Ind + Sex + variable,
+                   data = df,
+                   FUN = function(x) c(mean = mean(x), n = length(x)))
+  df2 <- aggregate(right ~ Ind + Sex + variable,
+                   data = df,
+                   FUN = function(x) any(x))
+  df <- merge(df1, df2, by = c("Ind", "Sex", "variable"))
+  df <- do.call(data.frame, df)
+
+  vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
+
+  # Initialize data frame for later storage of different mean body heights
+  val_indv<- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
+  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
+
+
+  # check available values for different variables needed for
+  for (i in 1:length(vec_indv)){
+    df_bones <- subset(df, subset = Ind==vec_indv[i])
+
+    stature.m <- calc.stature.m(df_bones)
+    stature.f <- calc.stature.f(df_bones)
+
+    #  mean for indet. sex,  all bone labels and sum of n_measures
+
+    stature.i <- mean(c(stature.m[[1]], stature.f[[1]]))
+    indice.i <- paste(stature.m[[2]], stature.f[[2]], sep = ", ")
+    n_measures.i <- stature.m[[3]] + stature.f[[3]]
+
+    # vectors for stature estimations, indices and n_measures
+    statures <- c(stature.m[[1]], stature.f[[1]], stature.i)
+    statures <- round(statures, 0)
+    indices <- c(stature.m[[2]], stature.f[[2]], indice.i)
+    n_measures <- c(stature.m[[3]], stature.f[[3]], n_measures.i)
+
+    # write values into data frame of results
+    val_indv$sex[i] <- unique(df_bones$Sex)
+    val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
+    val_indv$bone[i] <- indices[as.integer(unique(df_bones$Sex))]
+    val_indv$female[i] <- statures[2]
+    val_indv$male[i] <- statures[1]
+    val_indv$indet[i] <- statures[3]
+    val_indv$n_measures[i] <- n_measures[as.integer(unique(df_bones$Sex))]
+  } # next individual
+
+  if (dim(val_indv)[1] == 0) {
+    print("There is no usable bone measurement / indice available for the chosen formula")
+  }
+
+  #rm(i, vec_indv)
+
+  return(val_indv)
+}
+
 #######################################################
 calc.stature.m <- function (df_bones){
 
@@ -394,78 +469,3 @@ calc.stature.f <- function (df_bones){
 
 } # End of Function calc.stature.f
 
-
-###################################
-olivier_etal_1978 <- function(df){
-  # stupid logic, but:
-  # - laterality is not needed for the multiple regression or women
-  # - laterality only needed for men with only one bone.
-  # - What to do if laterality of 2 measures is unknown?
-
-  # create variable side for laterality and delete corresponding info from measure
-  # n=2: both measures used, n=1 & right=T: right side, n=1 & right=F: left side
-  df$right<-rep(FALSE,nrow(df))
-  df$right[grepl(".r", df$variable)]<-TRUE
-  df$variable<-gsub("([rl]$)","", df$variable) #
-
-  # check if needed measures are present
-  needed <- getFormulaMeasures('olivier_etal_1978')
-  if (!any(df$variable %in% needed)){
-    return("There is no usable bone measurement / indice available for the chosen formula.")
-  }
-
-  # aggregate values for each individual, measure and left|right
-  df1 <- aggregate(value ~ Ind + Sex + variable,
-                  data = df,
-                  FUN = function(x) c(mean = mean(x), n = length(x)))
-  df2 <- aggregate(right ~ Ind + Sex + variable,
-                   data = df,
-                   FUN = function(x) any(x))
-  df <- merge(df1, df2, by = c("Ind", "Sex", "variable"))
-  df <- do.call(data.frame, df)
-
-  vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
-
-  # Initialize data frame for later storage of different mean body heights
-  val_indv<- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
-  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
-
-
-  # check available values for different variables needed for
-  for (i in 1:length(vec_indv)){
-    df_bones <- subset(df, subset = Ind==vec_indv[i])
-
-    stature.m <- calc.stature.m(df_bones)
-    stature.f <- calc.stature.f(df_bones)
-
-    #  mean for indet. sex,  all bone labels and sum of n_measures
-
-    stature.i <- mean(c(stature.m[[1]], stature.f[[1]]))
-    indice.i <- paste(stature.m[[2]], stature.f[[2]], sep = ", ")
-    n_measures.i <- stature.m[[3]] + stature.f[[3]]
-
-    # vectors for stature estimations, indices and n_measures
-    statures <- c(stature.m[[1]], stature.f[[1]], stature.i)
-    statures <- round(statures, 0)
-    indices <- c(stature.m[[2]], stature.f[[2]], indice.i)
-    n_measures <- c(stature.m[[3]], stature.f[[3]], n_measures.i)
-
-    # write values into data frame of results
-    val_indv$sex[i] <- unique(df_bones$Sex)
-    val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
-    val_indv$bone[i] <- indices[as.integer(unique(df_bones$Sex))]
-    val_indv$female[i] <- statures[2]
-    val_indv$male[i] <- statures[1]
-    val_indv$indet[i] <- statures[3]
-    val_indv$n_measures[i] <- n_measures[as.integer(unique(df_bones$Sex))]
-  } # next individual
-
-  if (dim(val_indv)[1] == 0) {
-    print("There is no usable bone measurement / indice available for the chosen formula")
-  }
-
-  #rm(i, vec_indv)
-
-  return(val_indv)
-}

@@ -2,10 +2,9 @@
 % Please edit documentation in R/vercellotti_etal_2009.R
 \name{vercellotti_etal_2009}
 \alias{vercellotti_etal_2009}
-\alias{calc.stature.m}
 \title{Calculate stature estimation according to: Vercellotti et al. 2009}
 \usage{
-calc.stature.m(df_bones)
+vercellotti_etal_2009(df)
 }
 \arguments{
 \item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}

@@ -21,7 +21,7 @@
 #' @name Bach1965
 NULL
 
-#' Feldesman_etal_1990: statuar table example
+#' Feldesman1990: statuar table example
 #'
 #' A measurements table from \emph{Feldesman et al 1990, Tab. 6}.
 #' Raw data, femur/stature estimates, and Trotter-Gleser statuar estimates
@@ -43,7 +43,7 @@ NULL
 #'   \item \bold{Trotter-Gleser.stature} statuar calculation based Trotter & Gleser (mm)
 #' }
 #'
-#' @name Feldesman_etal_1990
+#' @name Feldesman1990
 NULL
 
 #' Rollet1888: statuar table example
@@ -108,4 +108,39 @@ NULL
 #' }
 #'
 #' @name TrotterGleser1952
+NULL
+
+#' measures.concordance: concordance for user measure names to
+#' list of valid measures according to Martin (1928)
+#' @format A data frame with 44 rows and 3 variables.
+#' \itemize{
+#'   \item \bold{short:} abbreviation, e.g. Fem1l
+#'   \item \bold{long:} full name, e.g. Femur.1.left
+#'   \item \bold{own:} column for the own measure names
+#' }
+#'
+#' @name measures.concordance
+NULL
+
+#' measures.concordance.rollet: concordance for Rollet (1888) measure names to
+#' list of valid measures according to Martin (1928)
+#' @format A data frame with 44 rows and 3 variables.
+#' \itemize{
+#'   \item \bold{short:} abbreviation, e.g. Fem1l
+#'   \item \bold{long:} full name, e.g. Femur.1.left
+#'   \item \bold{own:} column for the own measure names
+#' }
+#'
+#' @name measures.concordance.rollet1888
+NULL
+
+#' stuaar_formula: List of implemented formula for stature estimation
+#' @format A list with a list for each formula providing three items.
+#' \itemize{
+#'   \item \bold{short:} character, abbreviation, e.g. bb65.
+#'   \item \bold{long:} character, full name used for the function, e.g. breitinger_bach_1965.
+#'   \item \bold{measures:} character, vector of short measure names, e.g. Hum1.
+#' }
+#'
+#' @name stuaar_formula
 NULL

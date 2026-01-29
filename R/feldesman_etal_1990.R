@@ -46,7 +46,7 @@ feldesman_etal_1990 <- function(df){
   # aggregate values for each measure and individual
 
   # check if needed measures are present
-  needed <- getFormulaMeasures('feldesman_etal_1990')
+  needed <- getFormulaMeasures('fe90')
   if (!any(df$variable %in% needed)){
     return("There is no usable bone measurement / indice available for the chosen formula.")
   }

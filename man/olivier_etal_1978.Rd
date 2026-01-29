@@ -2,10 +2,9 @@
 % Please edit documentation in R/olivier_etal_1978.R
 \name{olivier_etal_1978}
 \alias{olivier_etal_1978}
-\alias{calc.stature.m}
 \title{Calculate stature estimation according to: Olivier et al 1978.}
 \usage{
-calc.stature.m(df_bones)
+olivier_etal_1978(df)
 }
 \arguments{
 \item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}

@@ -112,7 +112,7 @@ rollet1888 <- Rollet1888
 # 1. Create an identifyer due to identical numbering of females and males
 rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 # 2. Fill in the mesasures names in the column "own" of the measures.list
-measures.concordance<-read.csv("./data-raw/measures.concordance.rollet1888.csv")
+measures.concordance <- measures.concordance.rollet1888
 # 3. Read the data
 dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
       ind="id", sex = "Sex", measures.names = "own")

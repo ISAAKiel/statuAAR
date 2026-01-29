@@ -2,10 +2,9 @@
 % Please edit documentation in R/raxter_etal_2008.R
 \name{raxter_etal_2008}
 \alias{raxter_etal_2008}
-\alias{calc.stature.m}
 \title{Calculate stature estimation according to: Raxter el al 2008.}
 \usage{
-calc.stature.m(df_bones)
+raxter_etal_2008(df)
 }
 \arguments{
 \item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
