@@ -126,7 +126,7 @@ measures.statistics <- function (dl) {
                            Quart3=numeric(),
                            MaxM=numeric(),
                            stringsAsFactors = FALSE)
-  user_measures<-unique(dl$variable)
+  user_measures<-as.character(unique(dl$variable))
   for (i in 1:length(user_measures)) {
     agg_measures[i,] <- as.list(c(user_measures[i],
                                   length(subset(dl[[4]],dl[[3]]==user_measures[i])),
