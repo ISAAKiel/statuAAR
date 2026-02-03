@@ -138,7 +138,6 @@ measures.statistics <- function (dl) {
 
 # read user data
 #' @rdname readuserdata
-#' @import dplyr
 #' @export
 prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names='short', stats = TRUE) {
   td <- x
