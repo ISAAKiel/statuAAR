@@ -11,13 +11,13 @@ A data frame with 48 rows and 7 variables.
 \item \bold{Probable.gender: } M(a/b), F(a/b) -> Male, Female
 \item \bold{Gender.reference} reference for gender
 \item \bold{Femur.length} measures (mm)
-\item \bold{Femur.stature} statuar calculation based on Femur (mm)
-\item \bold{Trotter-Gleser.stature} statuar calculation based Trotter & Gleser (mm)
+\item \bold{Femur.stature} stature calculation based on Femur (mm)
+\item \bold{Trotter-Gleser.stature} stature calculation based Trotter & Gleser (mm)
 }
 }
 \description{
 A measurements table from \emph{Feldesman et al 1990, Tab. 6}.
-Raw data, femur/stature estimates, and Trotter-Gleser statuar estimates
+Raw data, femur/stature estimates, and Trotter-Gleser stature estimates
 for sample of mid-to late-pleistocene fossil hominids.
 (1) Gender according to published criteria:
 (a) pubic morphology or (b) cranial capacity and skeletal.
