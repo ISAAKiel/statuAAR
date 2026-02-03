@@ -1,5 +1,3 @@
-#' @importFrom Rdpack reprompt
-#'
 #' @name getFormulaNames
 #'
 #' @title Returns the long names of the formula abbreviation
