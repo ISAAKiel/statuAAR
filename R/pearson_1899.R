@@ -55,8 +55,6 @@
 #'
 #'@export
 
-library(dplyr)
-
 pearson_1899 <- function(df){
 
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
