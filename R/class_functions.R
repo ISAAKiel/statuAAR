@@ -22,8 +22,8 @@ as.statuaar_data_table <- function(x, ...) {
     present <- necessary_vars %in% colnames(x)
     if (all(present)) {
       # do the actual conversion!
-      x %>%
-        tibble::new_tibble(., nrow = nrow(.), class = "statuaar_data_table") %>%
+      x |>
+        tibble::new_tibble(x = x , nrow = nrow(x), class = "statuaar_data_table") |>
         return()
     } else {
       stop(
@@ -50,8 +50,8 @@ as.statuaar_statistics <- function(x, ...) {
     present <- necessary_vars %in% colnames(x)
     if (all(present)) {
       # do the actual conversion!
-      x %>%
-        tibble::new_tibble(., nrow = nrow(.), class = "statuaar_statistics") %>%
+      x |>
+        tibble::new_tibble(x = x, nrow = nrow(x), class = "statuaar_statistics") |>
         return()
     } else {
       stop(
