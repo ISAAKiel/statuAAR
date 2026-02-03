@@ -36,8 +36,6 @@
 #'
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
-#' @importFrom Rdpack reprompt
-#'
 #' @references
 #'   \insertRef{Bach_1965}{statuAAR}
 #'
