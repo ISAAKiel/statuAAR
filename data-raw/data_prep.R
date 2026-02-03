@@ -78,5 +78,9 @@ te50 <- list(short = 'te50', name = 'telkkae_1950', measures = c('Hum1', 'Rad2',
 tg01 <- list(short = 'tg01', name = 'trotter_gleser_1952_an', measures = c('Fem1', 'Tib1b', 'Fib1', 'Uln1', 'Rad1', 'Hum1'))
 tg02 <- list(short = 'tg02', name = 'trotter_gleser_1952_aw', measures = c('Fem1', 'Tib1b', 'Fib1', 'Uln1', 'Rad1', 'Hum1'))
 ve09 <- list(short = 've09', name = 'vercellotti_etal_2009', measures = c('Fem2+Tib1', 'Fem2', 'Fem1', 'Tib1', 'Hum1+Rad1', 'Hum1', 'Rad1'))
-statuaar_formula <- list(bb65, by89, fe90, ff96, mn09, ol78, pe99, ra08, sj90, te50, tg01, tg02, ve09)
+r12n <- list(short = 'r12n', name = 'ruff_etal_2012_n', measures = c('Fem1+Tib1', 'Tib1'))
+r12s <- list(short = 'r12s', name = 'ruff_etal_2012_s', measures = c('Fem1+Tib1', 'Tib1'))
+r12a <- list(short = 'r12a', name = 'ruff_etal_2012_a', measures = c('Fem1', 'Hum1', 'Rad1'))
+statuaar_formula <- list(bb65, by89, fe90, ff96, mn09, ol78, pe99, ra08, sj90, te50,
+                         tg01, tg02, ve09, r12a, r12s, r12n)
 usethis::use_data(statuaar_formula, overwrite = TRUE)

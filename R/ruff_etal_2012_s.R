@@ -1,6 +1,6 @@
-#' @name ruff_etal_2012_n
+#' @name ruff_etal_2012_s
 #'
-#' @title Calculate stature estimation according to: Ruff el al 2012, North.
+#' @title Calculate stature estimation according to: Ruff el al 2012, South.
 #'
 #' @description
 #' Stature estimation (mm) based on the hierarchy of different regression calculations,
@@ -52,7 +52,7 @@
 #'@export
 
 ###################################
-ruff_etal_2012_n <- function(df){
+ruff_etal_2012_s <- function(df){
 
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
   # check if needed measures are present
@@ -113,12 +113,12 @@ calc.stature.m <- function (df_bones){
 
   stature.m<-c()
 
-  stature.m <- ((Fem1 + Tib1) * 1.49) + 435.5
+  stature.m <- ((Fem1 + Tib1) * 1.4) + 496.8
   indice <- "Fem1+Tib1"
   n_measures <- df_bones$value.n[df_bones$variable=="Fem1"] +
     df_bones$value.n[df_bones$variable=="Tib1"]
   if (length(stature.m)==0){
-    stature.m <- (Tib1 * 3.09) + 520.4
+    stature.m <- (Tib1 * 2.78) + 607.6
     indice <- "Tib1"
     n_measures <- df_bones$value.n[df_bones$variable=="Tib1"]
   }
@@ -138,16 +138,16 @@ calc.stature.f <- function (df_bones){
 
   stature.f<-c()
 
-  stature.f <- ((Fem1 + Tib1) * 1.42) + 485.9
+  stature.f <- ((Fem1 + Tib1) * 1.47) + 429.6
   indice <- "Fem1+Tib1"
   n_measures <- df_bones$value.n[df_bones$variable=="Fem1"] +
     df_bones$value.n[df_bones$variable=="Tib1"]
   if (length(stature.f)==0){
-    stature.f <- (Tib1 * 2.92) + 569.4
+    stature.f <- (Tib1 * 3.05) + 496.8
     indice <- "Tib1"
     n_measures <- df_bones$value.n[df_bones$variable=="Tib1"]
   }
-  # End of male stature estimation
+  # End of female stature estimation
 
   return(list("stature"=stature.f, "indice"=indice, "n_measures"=n_measures))
 
@@ -164,16 +164,16 @@ calc.stature.f <- function (df_bones){
 
     stature.i<-c()
 
-    stature.i <- ((Fem1 + Tib1) * 1.49) + 435.3
+    stature.i <- ((Fem1 + Tib1) * 1.48) + 430
     indice <- "Fem1+Tib1"
     n_measures <- df_bones$value.n[df_bones$variable=="Fem1"] +
       df_bones$value.n[df_bones$variable=="Tib1"]
     if (length(stature.i)==0){
-      stature.i <- (Tib1 * 3.13) + 501.1
+      stature.i <- (Tib1 * 3.02) + 513.6
       indice <- "Tib1"
       n_measures <- df_bones$value.n[df_bones$variable=="Tib1"]
     }
-    # End of male stature estimation
+    # End of indet. stature estimation
 
     return(list("stature"=stature.i, "indice"=indice, "n_measures"=n_measures))
 
