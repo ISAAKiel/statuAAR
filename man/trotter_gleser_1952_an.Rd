@@ -2,10 +2,9 @@
 % Please edit documentation in R/trotter_gleser_1952_an.R
 \name{trotter_gleser_1952_an}
 \alias{trotter_gleser_1952_an}
-\alias{trotter_gleser_1952an}
 \title{Calculate stature estimation according to: Trotter & Gleser 'American Negro'.}
 \usage{
-trotter_gleser_1952an(df)
+trotter_gleser_1952_an(df)
 }
 \arguments{
 \item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}

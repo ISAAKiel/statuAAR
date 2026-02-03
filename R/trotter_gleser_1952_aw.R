@@ -45,7 +45,7 @@
 #'
 #'@export
 
-trotter_gleser_1952aw <- function(df){
+trotter_gleser_1952_aw <- function(df){
 
   df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
 

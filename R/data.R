@@ -144,3 +144,41 @@ NULL
 #'
 #' @name stuaar_formula
 NULL
+
+#' dl.rollet1888: statuaar data table
+#'
+#' A measures data table (list form) from \emph{Rollet 1888, pp. 16-23}.
+#'
+#' @references
+#' \insertRef{Rollet_1888}{statuAAR}
+#'
+#' @source \url{https://archive.org/details/BIUSante_57377/page/n17/mode/2up}
+#'
+#' @format A data frame with 100 rows and 18 variables.
+#' \itemize{
+#'   \item \bold{Ind} identifier
+#'   \item \bold{Sex:} f, m, i -> female, male, indet.
+#'   \item \bold{Variable} bone measure
+#'   \item \bold{value} measures mm
+#'  }
+#'
+#' @name dl.rollet1888
+NULL
+
+#' dl.trotter.gleser: statuaar data table
+#'
+#' A measures data table (list form) from \emph{Trotter & Gleser 1952, Appendix 1-4}.
+#'
+#' @references
+#' \insertRef{Trotter_Gleser_1952}{statuAAR}
+#'
+#' @format A data frame with 100 rows and 18 variables.
+#' \itemize{
+#'   \item \bold{Ind} identifier
+#'   \item \bold{Sex:} f, m, i -> female, male, indet.
+#'   \item \bold{Variable} bone measure
+#'   \item \bold{value} measures mm
+#'  }
+#'
+#' @name dl.trotter.gleser
+NULL
