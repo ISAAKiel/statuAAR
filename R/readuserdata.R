@@ -1,3 +1,5 @@
+#' @importFrom Rdpack reprompt
+
 #' @name readuserdata
 #'
 #' @title statuAAR data preparation and check functions
