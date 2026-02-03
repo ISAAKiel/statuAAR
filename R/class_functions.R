@@ -22,9 +22,9 @@ as.statuaar_data_table <- function(x, ...) {
     present <- necessary_vars %in% colnames(x)
     if (all(present)) {
       # do the actual conversion!
-      x |>
-        tibble::new_tibble(x = x , nrow = nrow(x), class = "statuaar_data_table") |>
-        return()
+      (function(y) {
+        tibble::new_tibble(x = y, nrow = nrow(y), class = "statuaar_data_table")
+      })(x)
     } else {
       stop(
         "The following variables (columns) are missing: ",
@@ -50,9 +50,9 @@ as.statuaar_statistics <- function(x, ...) {
     present <- necessary_vars %in% colnames(x)
     if (all(present)) {
       # do the actual conversion!
-      x |>
-        tibble::new_tibble(x = x, nrow = nrow(x), class = "statuaar_statistics") |>
-        return()
+      (function(y) {
+        tibble::new_tibble(x = y, nrow = nrow(y), class = "statuaar_statistics")
+      })(x)
     } else {
       stop(
         "The following variables (columns) are missing: ",

@@ -1,4 +1,4 @@
-#' Bach1965: statuar table example
+#' Bach1965: statuaar table example
 #'
 #' A measurements table from \emph{Bach 1965 tables p. 18, 19}.
 #' Data as given in millimeters, but stature converted to millimeters as well.
@@ -21,10 +21,10 @@
 #' @name Bach1965
 NULL
 
-#' Feldesman1990: statuar table example
+#' Feldesman1990: statuaar table example
 #'
 #' A measurements table from \emph{Feldesman et al 1990, Tab. 6}.
-#' Raw data, femur/stature estimates, and Trotter-Gleser statuar estimates
+#' Raw data, femur/stature estimates, and Trotter-Gleser stature estimates
 #' for sample of mid-to late-pleistocene fossil hominids.
 #' (1) Gender according to published criteria:
 #' (a) pubic morphology or (b) cranial capacity and skeletal.
@@ -39,14 +39,14 @@ NULL
 #'   \item \bold{Probable.gender: } M(a/b), F(a/b) -> Male, Female
 #'   \item \bold{Gender.reference} reference for gender
 #'   \item \bold{Femur.length} measures (mm)
-#'   \item \bold{Femur.stature} statuar calculation based on Femur (mm)
-#'   \item \bold{Trotter-Gleser.stature} statuar calculation based Trotter & Gleser (mm)
+#'   \item \bold{Femur.stature} stature calculation based on Femur (mm)
+#'   \item \bold{Trotter-Gleser.stature} stature calculation based Trotter & Gleser (mm)
 #' }
 #'
 #' @name Feldesman1990
 NULL
 
-#' Rollet1888: statuar table example
+#' Rollet1888: statuaar table example
 #'
 #' A measurements table from \emph{Rollet 1888, pp. 16-23}.
 #' Data as given without calculated columns and stature in millimeters as for the measures.
@@ -84,7 +84,7 @@ NULL
 #' @name Rollet1888
 NULL
 
-#' TrotterGleser1952: statuar table example
+#' TrotterGleser1952: statuaar table example
 #'
 #' A measurements table from \emph{Trotter & Gleser 1952, Appendix 1-4}.
 #' Data as given but with additional columns related to appendix heading,
@@ -134,7 +134,7 @@ NULL
 #' @name measures.concordance.rollet1888
 NULL
 
-#' stuaar_formula: List of implemented formula for stature estimation
+#' statuaar_formula: List of implemented formula for stature estimation
 #' @format A list with a list for each formula providing three items.
 #' \itemize{
 #'   \item \bold{short:} character, abbreviation, e.g. bb65.
@@ -142,7 +142,7 @@ NULL
 #'   \item \bold{measures:} character, vector of short measure names, e.g. Hum1.
 #' }
 #'
-#' @name stuaar_formula
+#' @name statuaar_formula
 NULL
 
 #' dl.rollet1888: statuaar data table

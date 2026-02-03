@@ -84,7 +84,7 @@ sjovold_1990 <- function(df){
     #Tib1b <- df_bones$value.mean[df_bones$variable=="Tib1b"]
     Fib1 <- df_bones$value.mean[df_bones$variable=="Fib1"]
 
-    # calculate statuar and document bone measures and number used for calculation
+    # calculate stature and document bone measures and number used for calculation
 
     measures <- c()
     bone <- c()

@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{Rollet1888}
 \alias{Rollet1888}
-\title{Rollet1888: statuar table example}
+\title{Rollet1888: statuaar table example}
 \format{
 A data frame with 100 rows and 18 variables.
 \itemize{

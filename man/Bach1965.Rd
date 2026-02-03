@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{Bach1965}
 \alias{Bach1965}
-\title{Bach1965: statuar table example}
+\title{Bach1965: statuaar table example}
 \format{
 A data frame with 64 rows and 7 variables.
 \itemize{

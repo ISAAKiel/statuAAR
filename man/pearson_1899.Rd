@@ -3,6 +3,9 @@
 \name{pearson_1899}
 \alias{pearson_1899}
 \title{Calculate stature estimation according to: Pearson 1899}
+\usage{
+pearson_1899(df)
+}
 \arguments{
 \item{df}{data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.}
 }
