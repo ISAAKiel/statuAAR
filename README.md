@@ -34,6 +34,42 @@ Installation
     library(devtools)
     install_github('ISAAKiel/statuAAR')
 
+Quick start
+------------
+
+Get a df of the available formula and measures 
+
+    statuAAR::getFormulaDataframe()
+
+Check Breitinger & Bach 1965 documentation
+
+    ?statuAAR::breitinger_bach_1965
+
+Read csv data, e.g. Bach1965.csv into data.frame
+
+    statuAAR::Bach1965 <- read.csv(
+        "data-raw/Bach1965.csv",
+        sep = ",",
+        header = TRUE,
+        skip=3,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      )
+
+Prepare tabled data into a long list (statuaar_data_table)
+
+    dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
+                   measures.names = "short", sex = "sex", stats = FALSE)
+
+Check the measures by general statistics
+
+    statuAAR::measures.statistics(dl.bach1965)
+
+Get stature estimations
+
+    statuAAR::getStature(c('bb65'), dl.bach1965)
+
+
 Licence
 -------
 
