@@ -61,14 +61,27 @@ Prepare tabled data into a long list (statuaar_data_table)
     dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
                    measures.names = "short", sex = "sex", stats = FALSE)
 
-Check the measures by general statistics
+Check the measurements using general statistics.
 
     statuAAR::measures.statistics(dl.bach1965)
 
-Get stature estimations
+| measure | n | MinM | Quart1 | MedianM | MeanM | Quart3 | MaxM |
+|:-------:|:---:|:------:|:------:|:------:|:------:|:------:|:------:|
+| Fem1 | 64 | 292 | 382 | 436 | 434 | 490 | 557 |
+| Hum1 | 64 | 220 | 278 | 311 | 309 | 343 | 387 |
+
+Get the stature estimations of the provided measurements. The function returns 
+a list with a data frame for each formula.
 
     statuAAR::getStature(c('bb65'), dl.bach1965)
 
+$bb65
+
+| id | sex | stature | bone | female | male | indet | n_measures |
+|:---:|:---:|:-----:|:------------:|:-----:|:-----:|:-----:|:---:|
+| 32 | m | 1540 | Hum2, Rad1b, Fem1, Tib1b | 1531 | 1540 | 1536 | 4 |
+| 33 | m | 1550 | Hum2, Rad1b, Fem1, Tib1b | 1538 | 1550 | 1544 | 4 |
+| 34 | m | 1560 | Hum2, Rad1b, Fem1, Tib1b | 1546 | 1560 | 1553 | 4 |
 
 Licence
 -------
