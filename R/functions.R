@@ -147,7 +147,7 @@ getStature <- function(shortnames, statuaar_data_table) {
     # Find function (item) in the statuaar_formula list
     item <- Filter(function(x) x$short == shortname, statuaar_formula)
 
-    # Wenn das Item gefunden wurde, rufe die Funktion auf
+    # If item (function) is present add df of stature estimates
     if (length(item) > 0) {
       func_name <- item[[1]]$name
       func <- get(func_name)  # Holt die Funktion anhand des Namens
@@ -159,4 +159,47 @@ getStature <- function(shortnames, statuaar_data_table) {
   }
 
   return(stature_list)
+}
+
+#' @name getStatureDataframe
+#'
+#' @title Returns the list of stature estimates from getStature() as data.frame.
+#'
+#' @description
+#' Returns the data frames of the GetStature list with an additional
+#' column for the formula used.
+#'
+#' @param StatureList, the return of getStature().
+#'
+#' @return A data.frame with eight columns:
+#'  \itemize{
+#'    \item{ \bold{formula} , short name of the formula, e.g. bb65, }
+#'    \item{ \bold{ind:} individual identifyer (rownames), }
+#'    \item{ \bold{sex:} as provided for calculation: m, f, indet.}
+#'    \item{ \bold{stature:} estimated on the provided sex and bone measures, }
+#'    \item{ \bold{bone measure name(s)}: bones used for calculation, }
+#'    \item{ \bold{female stature}: columns with alternative stature for three sex classes, }
+#'    \item{ \bold{male stature}, }
+#'    \item{ \bold{indet. stature} and}
+#'    \item{ \bold{n_measures}: number of bone measures included:
+#'              e.g. 2 Fem2 (left, right) + 1 Tib1}
+#'  }
+#'
+#' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
+#'
+#' @examples
+#' # Get the bone measures needed for the functions.
+#' getStatureDataframe(getStature(c('bb65', 'tg01'), dl.trotter.gleser))
+#'
+#'@export
+#'
+getStatureDataframe <- function(StatureList) {
+  for (formula in names(StatureList)){
+#    StatureDataFrame <- #leerer data.frame
+#    rbind(StatureDataFrame,
+#          cbind(formula = get(formula),
+#                id = row.names(StatureList$formula),
+#               StatureList$formula)
+  }
+#    return(StatureDataFrame)
 }
