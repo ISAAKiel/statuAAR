@@ -173,10 +173,10 @@ getStature <- function(shortnames, statuaar_data_table) {
 #'
 #' @return A data.frame with eight columns:
 #'  \itemize{
-#'    \item{ \bold{formula} , short name of the formula, e.g. bb65, }
-#'    \item{ \bold{ind:} individual identifyer (rownames), }
-#'    \item{ \bold{sex:} as provided for calculation: m, f, indet.}
-#'    \item{ \bold{stature:} estimated on the provided sex and bone measures, }
+#'    \item{ \bold{formula}: short name of the formula, e.g. bb65, }
+#'    \item{ \bold{ind}: individual identifyer (rownames), }
+#'    \item{ \bold{sex}: as provided for calculation: m, f, indet.}
+#'    \item{ \bold{stature}: estimated on the provided sex and bone measures, }
 #'    \item{ \bold{bone measure name(s)}: bones used for calculation, }
 #'    \item{ \bold{female stature}: columns with alternative stature for three sex classes, }
 #'    \item{ \bold{male stature}, }
@@ -194,12 +194,13 @@ getStature <- function(shortnames, statuaar_data_table) {
 #'@export
 #'
 getStatureDataframe <- function(StatureList) {
-  for (formula in names(StatureList)){
-#    StatureDataFrame <- #leerer data.frame
-#    rbind(StatureDataFrame,
-#          cbind(formula = get(formula),
-#                id = row.names(StatureList$formula),
-#               StatureList$formula)
+  StatureDataFrame <- cbind(formula = character(),
+                            StatureList[[1]][0,])
+  for (short in names(StatureList)){
+    rbind(StatureDataFrame,
+          cbind(formula = short,
+                id = row.names(StatureList[[short]]),
+               StatureList[[short]])) -> StatureDataFrame
   }
-#    return(StatureDataFrame)
+    return(StatureDataFrame)
 }
