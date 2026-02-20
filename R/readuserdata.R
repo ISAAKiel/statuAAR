@@ -82,7 +82,7 @@
 #' x <- TrotterGleser1952
 #' # If not yet existent create a list of measure names to be used
 #' # measures.concordance <- create.measures.concordance()
-#' # Edit the measures.list (not needed for this dataset)
+#' # Edit the measures.concordance (not needed for this dataset)
 #' # measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
 #'
 #' # get a dataframe with measures to process
@@ -95,7 +95,7 @@
 #' rollet1888 <- Rollet1888
 #' # 1. Create an identifyer due to identical numbering of females and males
 #' rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
-#' # 2. Fill in the mesasures names in the column "own" of the measures.list
+#' # 2. Fill in the mesasures names in the column "own" of the measures.concordance
 #' measures.concordance <- measures.concordance.rollet1888
 #' # 3. Read the data
 #' dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
@@ -243,10 +243,10 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names
       result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'own')
       dl<-result[c('Ind','Sex', 'short','value')]
   } else if (measures.names == 'short'){
-      result<-merge (dl, measures.list, by.x = 'variable', by.y = 'short')
+      result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'short')
       dl<-result[c('Ind','Sex', 'variable','value')]
   } else if (measures.names == 'long'){
-      result<-merge (dl, measures.list, by.x = 'variable', by.y = 'long')
+      result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'long')
       dl<-result[c('Ind','Sex', 'short','value')]
   }
   names(dl)[which(names(dl)=='short')]<-'variable'
