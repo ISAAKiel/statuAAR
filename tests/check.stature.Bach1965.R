@@ -13,14 +13,15 @@ dl.bach1965 <- prep.statuaar.data(Bach1965, d.form = "wide",
                measures.names = "short", sex = "sex", stats = FALSE)
 
 # Get stature estimations
-bb65.estimates <- getStature(c('bb65'), dl.bach1965)
+short<-getFormulaDataframe()[,1]
+bb65.estimates <- getStature(short, dl.bach1965)
+bb65.estimates.df <- getStatureDataframe(bb65.estimates)
 
 # Merge the original published and the calculated stature.
-bb65.check <- merge(Bach1965[5], bb65.estimates[[1]][2], by='row.names')
+bb65.check <- merge(Bach1965[5], bb65.estimates.df,
+                    by.x='row.names', by.y = 'id')
+bb65.check$diff <- bb65.check$stature.x - bb65.check$stature.y
 
 # Calculate the difference.
 
-hist(bb65.check[,2]-bb65.check[,3],
-     main = 'Difference between original and caclucalted stature',
-     #xlim = c(-10,10),
-     xlab = 'Difference (mm)')
+boxplot(data = bb65.check, diff~formula)
