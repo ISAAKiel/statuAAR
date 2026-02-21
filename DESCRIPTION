@@ -4,9 +4,9 @@ Title: Human statuar estimation from bone measures based on multiple formula
 Version: 0.0.0.9000
 Authors@R: c(
     person("Christoph", "Rinne", email = "crinne@ufg.uni-kiel.de", role = c("aut", "cre"), 
-     comment = c(ORCID = "https://orcid.org/0000-0002-9829-6182")),
+     comment = c(ORCID = "0000-0002-9829-6182")),
     person("Nils", "Mueller-Scheessel", email = "nils.mueller-scheessel@ufg.uni-kiel.de", 
-     role = c("aut")),
+     role = c("aut"), comment = c(ORCID = "0000-0001-7992-8722")),
     person("Hendrik", "Raese", email = "h.raese@roots.uni-kiel.de", role = c("aut")))
 Maintainer: Christoph Rinne <crinne@ufg.uni-kiel.de>
 Description: The package provides multiple formula for human statuar estimation to be 
@@ -23,7 +23,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: Rdpack, plyr, reshape2, tibble
 RdMacros: Rdpack
-URL: https://github.com/ISAAKiel/statuAAR
+URL: https://github.com/ISAAKiel/statuAAR, https://isaakiel.github.io/statuAAR/
 BugReports: https://github.com/ISAAKiel/statuAAR/issues
 Depends: 
     R (>= 3.5)

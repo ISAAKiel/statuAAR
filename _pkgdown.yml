@@ -1,0 +1,47 @@
+url: https://isaakiel.github.io/statuAAR/
+template:
+  bootstrap: 5
+  light-switch: yes
+reference:
+- title: Basic functions
+  contents:
+  - getFormulaDataframe
+  - getFormulaMeasures
+  - getStature
+  - getStatureDataframe
+- title: Formulas
+  contents:
+  - breitinger_bach_1965
+  - byers_etal_1989
+  - feldesman_etal_1990
+  - formicola_franceschi_1996
+  - maijanen_niskanen_2009
+  - olivier_etal_1978
+  - pearson_1899
+  - raxter_etal_2008
+  - ruff_etal_2012_a
+  - ruff_etal_2012_n
+  - ruff_etal_2012_s
+  - sjovold_1990
+  - telkkae_1950
+  - trotter_gleser_1952_an
+  - trotter_gleser_1952_aw
+  - vercellotti_etal_2009
+- title: Helper functions
+  contents:
+  - getFormulaNames
+  - measures.concordance
+  - measures.concordance.rollet1888
+  - create.measures.concordance
+  - measures.statistics
+  - prep.statuaar.data
+  - statuaar_formula
+- title: Example data sets
+  contents:
+  - Bach1965
+  - Feldesman1990
+  - Rollet1888
+  - dl.rollet1888
+  - TrotterGleser1952
+  - dl.trotter.gleser
+

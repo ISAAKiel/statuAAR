@@ -1,0 +1,53 @@
+---
+title: "Introduction to statuAAR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to statuAAR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, include=FALSE}
+library(statuAAR)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get started
+
+Get a df of the available formula and measures.
+
+```{r get formulas}
+statuAAR::getFormulaDataframe()
+```
+
+Check Breitinger & Bach 1965 documentation.
+
+```{r check B & B}
+?statuAAR::breitinger_bach_1965
+```
+
+Load some data, e.g. Bach1965, into a data.frame.
+
+```{r read B & B}
+Bach1965 <- statuAAR::Bach1965
+head(Bach1965)
+```
+
+
+Prepare tabled data into a long list (statuaar_data_table).
+
+```{r prep B & B}
+dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
+                   measures.names = "short", sex = "sex", stats = FALSE)
+```
+
+Check the measurements using general statistics.
+
+```{r check mesaurements}
+statuAAR::measures.statistics(dl.bach1965)
+```
+
+Get the stature estimations of the provided measurements. The function returns a list with a data frame for each formula.
+
+```{r get estimates}
+head(statuAAR::getStature(c('bb65'), dl.bach1965)$bb65)
+```
