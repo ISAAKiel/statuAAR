@@ -25,6 +25,15 @@ We provide a description for each formula, including required or possible bone m
 
 The package is still under development, but the basic workflow of data preparation, verification and calculation is possible. Explanatory vignettes are in preparation.
 
+
+How to cite this package
+------------
+
+You can cite this package like this: "we calculated human stature values with the statuAAR R package (Rinne et al. 2026)". Here is the full bibliographic reference to include in your reference list (don't forget to update the 'last accessed' date):
+
+> C. Rinne, N. Müller-Scheeßel, H. Raese (2026). _statuAAR: Human stature estimation from bone measures based on multiple formula_. R package version 0.0.9000, <https://github.com/ISAAKiel/statuAAR>
+
+
 Installation
 ------------
 

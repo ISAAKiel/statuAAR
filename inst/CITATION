@@ -1,0 +1,10 @@
+bibentry(
+  key = "statuAAR",
+  bibtype  = "Manual",
+  title    = "statuAAR: Human stature estimation from bone measures based on multiple formula",
+  author = c(person("Christoph", "Rinne"), person("Nils", "Müller-Scheeßel"),
+  person("Hendrik", "Raese")),
+  note  = "R package version 0.0.9000",
+  year     = "2026",
+  url      = "https://github.com/ISAAKiel/statuAAR"
+)
