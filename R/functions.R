@@ -194,13 +194,16 @@ getStature <- function(shortnames, statuaar_data_table) {
 #'@export
 #'
 getStatureDataframe <- function(StatureList) {
-  StatureDataFrame <- cbind(formula = character(),
-                            StatureList[[1]][0,])
+  StatureDataFrame <- as.data.frame(matrix(ncol=8, nrow=0))
+  colnames(StatureDataFrame) <-c("formula", "sex", "stature", "bone",
+                                 "female", "male", "indet", "n_measures")
   for (short in names(StatureList)){
-    rbind(StatureDataFrame,
-          cbind(formula = short,
-                id = row.names(StatureList[[short]]),
-               StatureList[[short]])) -> StatureDataFrame
+    if(is.data.frame(StatureList[[short]])){
+      rbind(StatureDataFrame,
+            cbind(formula = short,
+                  id = row.names(StatureList[[short]]),
+                  StatureList[[short]])) -> StatureDataFrame
+    }
   }
-    return(StatureDataFrame)
+  return(StatureDataFrame)
 }
