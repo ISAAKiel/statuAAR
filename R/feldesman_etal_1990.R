@@ -70,7 +70,7 @@ feldesman_etal_1990 <- function(df){
     # Get measure values needed
     Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
     #Calculate
-    stature <- (Fem1 * 10) / 26.74
+    stature <- (Fem1 * 100) / 26.74
 
     stature <- round(stature, 0)
 

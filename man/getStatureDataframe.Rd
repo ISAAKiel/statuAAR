@@ -12,10 +12,10 @@ getStatureDataframe(StatureList)
 \value{
 A data.frame with eight columns:
 \itemize{
-\item{ \bold{formula} , short name of the formula, e.g. bb65, }
-\item{ \bold{ind:} individual identifyer (rownames), }
-\item{ \bold{sex:} as provided for calculation: m, f, indet.}
-\item{ \bold{stature:} estimated on the provided sex and bone measures, }
+\item{ \bold{formula}: short name of the formula, e.g. bb65, }
+\item{ \bold{ind}: individual identifyer (rownames), }
+\item{ \bold{sex}: as provided for calculation: m, f, indet.}
+\item{ \bold{stature}: estimated on the provided sex and bone measures, }
 \item{ \bold{bone measure name(s)}: bones used for calculation, }
 \item{ \bold{female stature}: columns with alternative stature for three sex classes, }
 \item{ \bold{male stature}, }

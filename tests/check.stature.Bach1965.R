@@ -24,4 +24,7 @@ bb65.check$diff <- bb65.check$stature.x - bb65.check$stature.y
 
 # Calculate the difference.
 
-boxplot(data = bb65.check, diff~formula)
+boxplot(data = bb65.check, diff~formula,
+        main = "Stature (Bach 1965) and estimates",
+        xlab = "Formula abbreviation (short)",
+        ylab = "Orig. stature difference (mm)")
