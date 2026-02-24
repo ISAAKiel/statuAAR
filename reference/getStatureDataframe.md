@@ -19,13 +19,13 @@ getStatureDataframe(StatureList)
 
 A data.frame with eight columns:
 
-- **formula** , short name of the formula, e.g. bb65,
+- **formula**: short name of the formula, e.g. bb65,
 
-- **ind:** individual identifyer (rownames),
+- **ind**: individual identifyer (rownames),
 
-- **sex:** as provided for calculation: m, f, indet.
+- **sex**: as provided for calculation: m, f, indet.
 
-- **stature:** estimated on the provided sex and bone measures,
+- **stature**: estimated on the provided sex and bone measures,
 
 - **bone measure name(s)**: bones used for calculation,
 
