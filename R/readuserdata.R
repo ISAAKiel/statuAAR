@@ -107,7 +107,7 @@ NULL
 #' @rdname readuserdata
 #' @export
 create.measures.concordance<- function (){
-  measures.concordance<-read.delim("./data-raw/measures.concordance.tab",
+  measures.concordance<-read.delim("./inst/extdata/measures.concordance.tab",
                             skip = 1,
                             quote = "\"",
                             colClasses = c(rep("character",3)))
