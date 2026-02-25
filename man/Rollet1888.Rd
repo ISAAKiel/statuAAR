@@ -25,8 +25,18 @@ A data frame with 100 rows and 18 variables.
 \item \bold{Ulna.right} measures mm
 \item \bold{Ulna.left} measures mm
 }
+
+A data frame with 100 rows and 18 variables.
+\itemize{
+\item \bold{Ind} identifier
+\item \bold{Sex:} f, m, i -> female, male, indet.
+\item \bold{Variable} bone measure
+\item \bold{value} measures mm
+}
 }
 \source{
+\url{https://archive.org/details/BIUSante_57377/page/n17/mode/2up}
+
 \url{https://archive.org/details/BIUSante_57377/page/n17/mode/2up}
 }
 \description{
@@ -35,7 +45,11 @@ Data as given without calculated columns and stature in millimeters as for the m
 Further explanation mentions a general shrinking of the bones by app. 2 mm within
 eight to ten months after the first measures in fresh condition.
 This differentiation is shown in the tables for the femora only. (Rollet 1888 p.24)
+
+A measures data table (list form) from \emph{Rollet 1888, pp. 16-23}.
 }
 \references{
+\insertRef{Rollet_1888}{statuAAR}
+
 \insertRef{Rollet_1888}{statuAAR}
 }
