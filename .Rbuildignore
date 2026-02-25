@@ -3,3 +3,7 @@
 ^data-raw$
 ^README.html$
 ^ruff_etal_2012.R$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
