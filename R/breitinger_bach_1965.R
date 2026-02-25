@@ -49,81 +49,81 @@
 #'
 #'@export
 
-breitinger_bach_1965 <- function(df){
+breitinger_bach_1965 <- function(df) {
 
-  df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+  df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
 
   # check if needed measures are present
-  needed <- getFormulaMeasures('bb65')
-  if (!any(df$variable %in% needed)){
+  needed <- getFormulaMeasures("bb65")
+  if (!any(df$variable %in% needed)) {
     return("There is no usable bone measurement.")
   }
 
   # aggregate values for each measure and individual
   df <- aggregate(value ~ Ind + Sex + variable,
-                   data = df,
-                   FUN = function(x) c(mean = mean(x), n = length(x)))
+                  data = df,
+                  FUN = function(x) c(mean = mean(x), n = length(x)))
   df <- do.call(data.frame, df)
 
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
-  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
+  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
+  colnames(val_indv) <- c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
 
   # check available values for different variables needed for
-  for (i in 1:length(vec_indv)){
-    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
+  for (i in seq_along(vec_indv)) {
+    df_bones <- subset(df, subset = df$Ind == vec_indv[i])
     # Get measure values needed
-    Hum2 <- df_bones$value.mean[df_bones$variable=="Hum2"]
-    Hum1 <- df_bones$value.mean[df_bones$variable=="Hum1"]
-    Rad1b <- df_bones$value.mean[df_bones$variable=="Rad1b"]
-    Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
-    Tib1b <- df_bones$value.mean[df_bones$variable=="Tib1b"]
+    Hum2 <- df_bones$value.mean[df_bones$variable == "Hum2"]
+    Hum1 <- df_bones$value.mean[df_bones$variable == "Hum1"]
+    Rad1b <- df_bones$value.mean[df_bones$variable == "Rad1b"]
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+    Tib1b <- df_bones$value.mean[df_bones$variable == "Tib1b"]
 
     # document bone measures and number used for calculation
 
     bone <- c()
     n_measures <- 0
-    if (length(Hum2)>0) {
+    if (length(Hum2) > 0) {
       bone <- append(bone, "Hum2")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Hum2"]
-    } else if (length(Hum1)>0) {
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Hum2"]
+    } else if (length(Hum1) > 0) {
       bone <- append(bone, "Hum1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Hum1"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Hum1"]
     }
-    if (length(Rad1b)>0) {
+    if (length(Rad1b) > 0) {
       bone <- append(bone, "Rad1b")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Rad1b"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Rad1b"]
     }
-    if (length(Fem1)>0) {
+    if (length(Fem1) > 0) {
       bone <- append(bone, "Fem1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Fem1"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Fem1"]
     }
-    if (length(Tib1b)>0) {
+    if (length(Tib1b) > 0) {
       bone <- append(bone, "Tib1b")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Tib1b"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Tib1b"]
     }
 
     # Calculate the different indices for male
     measures.m <- c()
-    measures.m <- append (measures.m, (Hum2 / 10) * 2.715 + 83.21)
-    measures.m <- append (measures.m, (Hum1 / 10) * 2.71 + 81.33)
-    measures.m <- append (measures.m, (Rad1b / 10) * 2.968 + 97.09)
-    measures.m <- append (measures.m, (Fem1 / 10) * 1.645 + 94.31)
-    measures.m <- append (measures.m, (Tib1b / 10) * 1.988 + 95.59)
+    measures.m <- append(measures.m, (Hum2 / 10) * 2.715 + 83.21)
+    measures.m <- append(measures.m, (Hum1 / 10) * 2.71 + 81.33)
+    measures.m <- append(measures.m, (Rad1b / 10) * 2.968 + 97.09)
+    measures.m <- append(measures.m, (Fem1 / 10) * 1.645 + 94.31)
+    measures.m <- append(measures.m, (Tib1b / 10) * 1.988 + 95.59)
 
     # Calculate the different indices for female
     measures.f <- c()
-    measures.f <- append (measures.f, (Hum1 / 10) * 2.121 + 98.38)
-    measures.f <- append (measures.f, (Hum2 / 10) * 2.121 + 99.44)
-    measures.f <- append (measures.f, (Rad1b / 10) * 1.925 + 116.89)
-    measures.f <- append (measures.f, (Fem1 / 10) * 1.313 + 106.69)
-    measures.f <- append (measures.f, (Tib1b / 10) * 1.745 + 95.91)
+    measures.f <- append(measures.f, (Hum1 / 10) * 2.121 + 98.38)
+    measures.f <- append(measures.f, (Hum2 / 10) * 2.121 + 99.44)
+    measures.f <- append(measures.f, (Rad1b / 10) * 1.925 + 116.89)
+    measures.f <- append(measures.f, (Fem1 / 10) * 1.313 + 106.69)
+    measures.f <- append(measures.f, (Tib1b / 10) * 1.745 + 95.91)
 
     # Calculate the different indices for indet.
-    measures.i <-(measures.m + measures.f)/2
+    measures.i <- (measures.m + measures.f) / 2
 
     # calculate mean of each measures group for statures
     # as the regression equations are calculated in cm the result is converted to mm
