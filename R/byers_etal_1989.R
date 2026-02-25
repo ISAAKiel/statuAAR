@@ -45,9 +45,9 @@
 #' @export
 
 byers_etal_1989 <- function(df){
-  df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+  df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
   # check if needed measures are present
-  needed <- getFormulaMeasures('by89')
+  needed <- getFormulaMeasures("by89")
   if (!any(df$variable %in% needed)){
     return("There is no usable bone measurement / indice available for the chosen formula.")
   }
@@ -60,17 +60,17 @@ byers_etal_1989 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
+  colnames(val_indv) <- c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
 
   # check available values for different variables needed for
-  for (i in 1:length(vec_indv)){
-    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
+  for (i in seq_along(vec_indv)){
+    df_bones <- subset(df, subset = df$Ind == vec_indv[i])
     # Get measure values needed
-    Met1 <- df_bones$value.mean[df_bones$variable=="Met1"]
+    Met1 <- df_bones$value.mean[df_bones$variable == "Met1"]
     # document number of measures
-    n_measures <- df_bones$value.n[df_bones$variable=="Met1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "Met1"]
     #Calculate
     stature.m <- (Met1 * 14.3) + 815
     stature.f <- (Met1 * 13.9) + 783
