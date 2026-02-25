@@ -2,7 +2,7 @@
 # between provided and calculated stature estimations
 # Read csv data, e.g. Bach1965.csv including stature
 Bach1965 <- read.csv(
-  "inst/extdata/Bach1965.csv",
+  system.file("extdata", "Bach1965.csv", package = "statuAAR"),
   sep = ",",
   header = TRUE,
   skip=3,
