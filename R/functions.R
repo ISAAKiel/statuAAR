@@ -49,7 +49,7 @@ getFormulaNames <- function (shortnames){
 #'@export
 #'
 getFormulaMeasures <- function (shortnames){
-  measures <- sapply(statuaar_formula, function(item){
+  measures <- sapply(statuAAR::statuaar_formula, function(item){
     if (item$short %in% shortnames) {
       return(item$measures)
     }
@@ -84,7 +84,7 @@ getFormulaMeasures <- function (shortnames){
 #'
 getFormulaDataframe <- function(){
   tmp_list <- list()
-  for (element in statuaar_formula) {
+  for (element in statuAAR::statuaar_formula) {
     short <- element[[1]]
     long <- element[[2]]
     measures <- element[[3]]
@@ -145,7 +145,7 @@ getStature <- function(shortnames, statuaar_data_table) {
 
   for (shortname in shortnames) {
     # Find function (item) in the statuaar_formula list
-    item <- Filter(function(x) x$short == shortname, statuaar_formula)
+    item <- Filter(function(x) x$short == shortname, statuAAR::statuaar_formula)
 
     # If item (function) is present add df of stature estimates
     if (length(item) > 0) {
