@@ -214,12 +214,8 @@ welcome, as are code contributions.
   : Feldesman1990: statuaar table example
 - [`Rollet1888`](https://isaakiel.github.io/statuAAR/reference/Rollet1888.md)
   : Rollet1888: statuaar table example
-- [`dl.rollet1888`](https://isaakiel.github.io/statuAAR/reference/dl.rollet1888.md)
-  : dl.rollet1888: statuaar data table
 - [`TrotterGleser1952`](https://isaakiel.github.io/statuAAR/reference/TrotterGleser1952.md)
   : TrotterGleser1952: statuaar table example
-- [`dl.trotter.gleser`](https://isaakiel.github.io/statuAAR/reference/dl.trotter.gleser.md)
-  : dl.trotter.gleser: statuaar data table
 
 # Articles
 
