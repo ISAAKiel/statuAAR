@@ -6,7 +6,7 @@ Authors@R: c(
     person("Christoph", "Rinne", email = "crinne@ufg.uni-kiel.de", role = c("aut", "cre"), 
      comment = c(ORCID = "0000-0002-9829-6182")),
     person ("Martin", "Hinz", email = "martin.hinz@ufg.uni-kiel.de", role = c("aut"), 
-     comment = c(ORCID = "0000-0002-9904-6548"))
+     comment = c(ORCID = "0000-0002-9904-6548")),
     person("Nils", "Mueller-Scheessel", email = "nils.mueller-scheessel@ufg.uni-kiel.de", 
      role = c("aut"), comment = c(ORCID = "0000-0001-7992-8722")),
     person("Hendrik", "Raese", email = "h.raese@roots.uni-kiel.de", role = c("aut"),
