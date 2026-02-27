@@ -27,7 +27,7 @@ statuAAR::getFormulaDataframe()
     ## 16  r12n          ruff_etal_2012_n
     ##                                                                               measures
     ## 1                                                       Hum2, Hum1, Rad1b, Fem1, Tib1b
-    ## 2                                                                                 Mt11
+    ## 2                                                                                 MtI1
     ## 3                                                                                 Fem1
     ## 4                                                    Fem2+Tib1, Fem1, Tib1, Hum1, Rad1
     ## 5                       Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1

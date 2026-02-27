@@ -79,7 +79,7 @@ Christoph Rinne <crinne@ufg.uni-kiel.de>
 x <- statuAAR::Bach1965
 
 # Prepare tabled data into a long list (statuaar_data_table)
-dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
+dl.bach1965 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
                        measures.names = "short", sex = "sex", stats = FALSE)
 #> Warning: No individual identifier provided, each record (row) will be counted as one individual.
 

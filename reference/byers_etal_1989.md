@@ -10,10 +10,14 @@ If bone measures for left and right are provided the mean value will be
 used, but for statistic information 2 bones will be counted
 (n_measures). For archaeological finds, group assignment (Euro-American
 or Afro-American) is not possible. In addition, the gender-specific
-estimates for Met1 offer the best accuracy. For this reason, only the
-following formulas are used: Combined data (indet): St = 634 + 16.8
-(Metl), All males: St = 815 + 14.3 (Metl), All females: St = 783 + 13.9
-(Metl).
+estimates for MtI1 offer the best accuracy. For this reason, only the
+following formulas are used:
+
+- Combined data (indet): stature = 634 + 16.8 (Metl),
+
+- All males: stature = 815 + 14.3 (Metl),
+
+- All females: stature = 783 + 13.9 (Metl).
 
 Returns a data.frame with:
 
@@ -32,7 +36,7 @@ Returns a data.frame with:
 
 - if_indet. (stature) and
 
-- n_measures: number of bone measures included: e.g. 2 Met1 (left,
+- n_measures: number of bone measures included: e.g. 2 MtI1 (left,
   right)
 
 ## Usage
@@ -68,4 +72,17 @@ Christoph Rinne <crinne@ufg.uni-kiel.de>
 
 ``` r
 # Read example dataset into a data frame
+x <- as.data.frame(list(sex = c("f", "m", "i"), MtI1 = c(49, 50, 51)))
+
+# Prepare tabled data into a long list (statuaar_data_table)
+dl.by89 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
+                       measures.names = "short", sex = "sex", stats = FALSE)
+#> Warning: No individual identifier provided, each record (row) will be counted as one individual.
+
+# Calculate stature estimation using a given formula.
+by895.estimates <- statuAAR::getStature(c("by89"), dl.by89)
+
+# Extract the corresponding data frame from the returned list object.
+by89.estimates[["by89"]]
+#> Error: object 'by89.estimates' not found
 ```

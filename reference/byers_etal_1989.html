@@ -6,11 +6,13 @@ of the articular surface of the base parallel to the longituninal axis of the bo
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
 For archaeological finds, group assignment (Euro-American or Afro-American)
-is not possible. In addition, the gender-specific estimates for Met1 offer the
+is not possible. In addition, the gender-specific estimates for MtI1 offer the
 best accuracy. For this reason, only the following formulas are used:
-Combined data (indet): St = 634 + 16.8 (Metl),
-All males: St = 815 + 14.3 (Metl),
-All females: St = 783 + 13.9 (Metl).
+Combined data (indet): stature = 634 + 16.8 (Metl),
+All males: stature = 815 + 14.3 (Metl),
+All females: stature = 783 + 13.9 (Metl).
+
+
 Returns a data.frame with:
 ind: individual identifyer (rownames),
 sex: as provided for calculation: m, f, indet.
@@ -20,7 +22,7 @@ if_female (stature): columns with alternative stature for three sex classes,
 if_male (stature),
 if_indet. (stature) and
 n_measures: number of bone measures included:
-e.g. 2 Met1 (left, right)
+e.g. 2 MtI1 (left, right)
 
 "><meta property="og:description" content="Stature estimation (mm) based on a regression calculation of one Metatarsal 1
 only separated by sex (Byers et al 1989).
@@ -29,11 +31,13 @@ of the articular surface of the base parallel to the longituninal axis of the bo
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
 For archaeological finds, group assignment (Euro-American or Afro-American)
-is not possible. In addition, the gender-specific estimates for Met1 offer the
+is not possible. In addition, the gender-specific estimates for MtI1 offer the
 best accuracy. For this reason, only the following formulas are used:
-Combined data (indet): St = 634 + 16.8 (Metl),
-All males: St = 815 + 14.3 (Metl),
-All females: St = 783 + 13.9 (Metl).
+Combined data (indet): stature = 634 + 16.8 (Metl),
+All males: stature = 815 + 14.3 (Metl),
+All females: stature = 783 + 13.9 (Metl).
+
+
 Returns a data.frame with:
 ind: individual identifyer (rownames),
 sex: as provided for calculation: m, f, indet.
@@ -43,7 +47,7 @@ if_female (stature): columns with alternative stature for three sex classes,
 if_male (stature),
 if_indet. (stature) and
 n_measures: number of bone measures included:
-e.g. 2 Met1 (left, right)
+e.g. 2 MtI1 (left, right)
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -93,12 +97,11 @@ of the articular surface of the base parallel to the longituninal axis of the bo
 <p>If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
 For archaeological finds, group assignment (Euro-American or Afro-American)
-is not possible. In addition, the gender-specific estimates for Met1 offer the
-best accuracy. For this reason, only the following formulas are used:
-Combined data (indet): St = 634 + 16.8 (Metl),
-All males: St = 815 + 14.3 (Metl),
-All females: St = 783 + 13.9 (Metl).</p>
-<p>Returns a data.frame with:</p><ul><li><p>ind: individual identifyer (rownames),</p></li>
+is not possible. In addition, the gender-specific estimates for MtI1 offer the
+best accuracy. For this reason, only the following formulas are used:</p><ul><li><p>Combined data (indet): stature = 634 + 16.8 (Metl),</p></li>
+<li><p>All males: stature = 815 + 14.3 (Metl),</p></li>
+<li><p>All females: stature = 783 + 13.9 (Metl).</p></li>
+</ul><p>Returns a data.frame with:</p><ul><li><p>ind: individual identifyer (rownames),</p></li>
 <li><p>sex: as provided for calculation: m, f, indet.</p></li>
 <li><p>stature: estimated on the provided sex and bone measures,</p></li>
 <li><p>bone (measure(s)): bones used for calculation,</p></li>
@@ -106,7 +109,7 @@ All females: St = 783 + 13.9 (Metl).</p>
 <li><p>if_male (stature),</p></li>
 <li><p>if_indet. (stature) and</p></li>
 <li><p>n_measures: number of bone measures included:
-e.g. 2 Met1 (left, right)</p></li>
+e.g. 2 MtI1 (left, right)</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -142,6 +145,19 @@ ISSN 1096-8644, <a href="https://doi.org/10.1002/ajpa.1330790303" class="externa
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Read example dataset into a data frame</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="st">"m"</span>, <span class="st">"i"</span><span class="op">)</span>, MtI1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">49</span>, <span class="fl">50</span>, <span class="fl">51</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Prepare tabled data into a long list (statuaar_data_table)</span></span></span>
+<span class="r-in"><span><span class="va">dl.by89</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="fu"><a href="readuserdata.html">prep.statuaar.data</a></span><span class="op">(</span><span class="va">x</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
+<span class="r-in"><span>                       measures.names <span class="op">=</span> <span class="st">"short"</span>, sex <span class="op">=</span> <span class="st">"sex"</span>, stats <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No individual identifier provided, each record (row) will be counted as one individual.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Calculate stature estimation using a given formula.</span></span></span>
+<span class="r-in"><span><span class="va">by895.estimates</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="fu"><a href="getStature.html">getStature</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"by89"</span><span class="op">)</span>, <span class="va">dl.by89</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Extract the corresponding data frame from the returned list object.</span></span></span>
+<span class="r-in"><span><span class="va">by89.estimates</span><span class="op">[[</span><span class="st">"by89"</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'by89.estimates' not found</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
