@@ -86,7 +86,7 @@ a list with a data frame for each formula.
 
 $bb65
 
-| id | sex | stature | bone | female | male | indet | n_measures |
+| id | sex | stature | bone | if_female | if_male | if_indet | n_measures |
 |:---:|:---:|:-----:|:------------:|:-----:|:-----:|:-----:|:---:|
 | 32 | m | 1540 | Hum2, Rad1b, Fem1, Tib1b | 1531 | 1540 | 1536 | 4 |
 | 33 | m | 1550 | Hum2, Rad1b, Fem1, Tib1b | 1538 | 1550 | 1544 | 4 |
