@@ -27,7 +27,7 @@ NULL
 #' Raw data, femur/stature estimates, and Trotter-Gleser stature estimates
 #' for sample of mid-to late-pleistocene fossil hominids.
 #' (1) Gender according to published criteria:
-#' (a) pubic morphology or (b) cranial capacity and skeletal.
+#' (a) pubic morphology or (b) cranial capacity and skeletal robusticy.
 #'
 #' @references
 #' \insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
@@ -35,7 +35,9 @@ NULL
 #' @format A data frame with 48 rows and 7 variables.
 #' \itemize{
 #'   \item \bold{site} site name abreviation
-#'   \item \bold{Type} hominide
+#'   \item \bold{Type} Homo erectus (HE), early Neanderthal (EN),
+#'              Near Eastern Neanderthal (NEN), and
+#'              early anatomically modern Homo sapiens (EAMHS).
 #'   \item \bold{Probable.gender: } M(a/b), F(a/b) -> Male, Female
 #'   \item \bold{Gender.reference} reference for gender
 #'   \item \bold{Femur.length} measures (mm)

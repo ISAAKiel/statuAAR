@@ -3,8 +3,10 @@
 #' @name feldesman_etal_1990
 #'
 #' @description
-#' Stature estimation (mm) based on a regression calculation of one bone,
-#' not separated  by sex (Feldesman et al 1990).
+#' Stature estimation (mm) for Homo erectus (HE), early Neanderthal (EN),
+#' Near Eastern Neanderthal (NEN), and early anatomically modern Homo sapiens
+#' (EAMHS) based on a regression calculation of one bone measurement,
+#' not separated  by sex  (Feldesman et al 1990).
 #' Bone measures used: Fem1
 #'
 #' If bone measures for left and right are provided the mean value will be used,
@@ -37,6 +39,29 @@
 #'
 #' @examples
 #' # Read example dataset into a data frame
+#' x <- statuAAR::Feldesman1990
+#' # Check for one individual per site
+#' table(table(x$Site))
+#'
+#' # Reduce gender, e.g. M(a), information to m, f.
+#' x$Probable.gender <- tolower(gsub("^(\\w).*", "\\1", x$Probable.gender))
+# Replace missing Gender or everything else with i(ndet.).
+#' x$Probable.gender[nchar(x$Probable.gender) == 0] <- "i"
+#'
+#' # If not yet existent create a list of measure names to be used
+#' measures.concordance <- create.measures.concordance()
+#' # Edit the measures.concordance for this dataset
+#' measures.concordance$own[measures.concordance$short == "Fem1"] <- "Femur.length"
+#'
+#' # Prepare tabled data into a long list (statuaar_data_table)
+#' dl.fe90 <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Site",
+#'               measures.names = "own", sex = "Probable.gender", stats = FALSE)
+#'
+#' # Calculate stature estimation using a given formula.
+#' fe90.estimates <- statuAAR::getStature(c("fe90"), dl.fe90)
+#'
+#' # Extract the corresponding data frame from the returned list object.
+#' fe90.estimates[["fe90"]]
 #'
 #' @export
 
@@ -70,7 +95,7 @@ feldesman_etal_1990 <- function(df){
     # Get measure values needed
     Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
     #Calculate
-    stature <- (Fem1 * 100) / 26.74
+    stature <- (Fem1 * 1000) / 26.74
 
     stature <- round(stature, 0)
 
