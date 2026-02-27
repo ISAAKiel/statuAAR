@@ -5,10 +5,13 @@
 - **Christoph Rinne**. Author, maintainer.
   [](https://orcid.org/0000-0002-9829-6182)
 
+- **Martin Hinz**. Author. [](https://orcid.org/0000-0002-9904-6548)
+
 - **Nils Mueller-Scheessel**. Author.
   [](https://orcid.org/0000-0001-7992-8722)
 
-- **Hendrik Raese**. Author.
+- **Hendrik Raese**. Author.  
+  0000-0001-9370-1188
 
 ## Citation
 
