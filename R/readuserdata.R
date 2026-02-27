@@ -83,7 +83,7 @@
 #' # If not yet existent create a list of measure names to be used
 #' # measures.concordance <- create.measures.concordance()
 #' # Edit the measures.concordance (not needed for this dataset)
-#' # measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
+#' # measures.concordance$own[measures.concordance$short == "Fem1"]<-"Fem"
 #'
 #' # get a dataframe with measures to process
 #' dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
@@ -94,7 +94,7 @@
 #' # For the data from Rollet 1888
 #' rollet1888 <- Rollet1888
 #' # 1. Create an identifyer due to identical numbering of females and males
-#' rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
+#' rollet1888$id <- paste(rollet1888$Sex, rollet1888$Nr, sep="_")
 #' # 2. Fill in the mesasures names in the column "own" of the measures.concordance
 #' measures.concordance <- measures.concordance.rollet1888
 #' # 3. Read the data
@@ -106,12 +106,12 @@ NULL
 # function to create a correlation table for userspecific (own) measure.names
 #' @rdname readuserdata
 #' @export
-create.measures.concordance<- function (){
-  measures.concordance<-read.delim("./data-raw/measures.concordance.tab",
+create.measures.concordance <- function (){
+  measures.concordance <- read.delim("./data-raw/measures.concordance.tab",
                             skip = 1,
                             quote = "\"",
-                            colClasses = c(rep("character",3)))
-  return(measures.concordance[order(measures.concordance$short),])
+                            colClasses = c(rep("character", 3)))
+  return(measures.concordance[order(measures.concordance$short), ])
 }
 
 # function to calculate basic statistics for a list of measures
@@ -119,29 +119,29 @@ create.measures.concordance<- function (){
 #' @rdname readuserdata
 #' @export
 measures.statistics <- function (dl) {
-  agg_measures<-data.frame(measure=character(),
-                           n=integer(),
-                           MinM=numeric(),
-                           Quart1=numeric(),
-                           MedianM=numeric(),
-                           MeanM=numeric(),
-                           Quart3=numeric(),
-                           MaxM=numeric(),
+  agg_measures <- data.frame(measure = character(),
+                           n = integer(),
+                           MinM = numeric(),
+                           Quart1 = numeric(),
+                           MedianM = numeric(),
+                           MeanM = numeric(),
+                           Quart3 = numeric(),
+                           MaxM = numeric(),
                            stringsAsFactors = FALSE)
-  user_measures<-as.character(unique(dl$variable))
+  user_measures <- as.character(unique(dl$variable))
   for (i in 1:length(user_measures)) {
-    agg_measures[i,] <- as.list(c(user_measures[i],
-                                  length(subset(dl[[4]],dl[[3]]==user_measures[i])),
-                                  as.vector(round(summary(subset(dl[[4]],dl[[3]]==user_measures[i])),0))))
+    agg_measures[i, ] <- as.list(c(user_measures[i],
+                                  length(subset(dl[[4]], dl[[3]]==user_measures[i])),
+                                  as.vector(round(summary(subset(dl[[4]], dl[[3]]==user_measures[i])), 0))))
   }
-  agg_measures[,2:8] <- sapply(agg_measures[,2:8], as.numeric)
+  agg_measures[, 2:8] <- sapply(agg_measures[, 2:8], as.numeric)
   return(as.statuaar_statistics(agg_measures))
 }
 
 # read user data
 #' @rdname readuserdata
 #' @export
-prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names='short', stats = TRUE) {
+prep.statuaar.data <- function (x, d.form='wide', ind = NA, sex = NA, measures.names='short', stats = TRUE) {
   td <- x
 
   # basic check of data format
@@ -176,9 +176,9 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names
   if (ind %in% names(td)) {
     names(td)[which(names(td)==ind)]<-'Ind'
   } else if ((is.na(ind)) & (!any(names(td)=='Ind'))) {
-    td['Ind']<-rep(NA, nrow(td))
+    td['Ind']<- rep(NA, nrow(td))
   } else {
-    stop(paste ("Your individual identifier '",ind,"' is not part of the data provided.", sep = ""))
+    stop(paste ("Your individual identifier '", ind, "' is not part of the data provided.", sep = ""))
   }
 
   if (all(is.na(td$Ind))){
@@ -197,21 +197,21 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names
   } else if (is.na(sex)) {
     td$Sex <- 3
   } else {
-      stop(paste ("The column name provided for the sex '",sex,"' is not part of the data provided.", sep = ""))
+      stop(paste ("The column name provided for the sex '", sex, "' is not part of the data provided.", sep = ""))
   }
-  td$Sex<-as.character(td$Sex)
+  td$Sex <- as.character(td$Sex)
   td$Sex[is.na(td$Sex)] <- 'indet'
 
   # reduce every value starting with m, f, i, 1, 2, 3 to this character
   # cutting of female, female?, fem., male, indet.  etc.
-  td$Sex<-tolower(td$Sex)
-  td$Sex<-gsub("([mfi123])(.*)","\\1", td$Sex)
+  td$Sex <- tolower(td$Sex)
+  td$Sex <- gsub("([mfi123])(.*)", "\\1", td$Sex)
   # check if there is any other value but ...
   user_sex <- unique(td$Sex)
   wrong_sex <- NULL
   for (i in user_sex){
     if (!(i %in% c('1', '2', '3', 'm', 'f', 'i'))) {
-      wrong_sex <- c(wrong_sex,i)
+      wrong_sex <- c(wrong_sex, i)
     }
   }
   if (length(wrong_sex)>0) {
@@ -222,52 +222,52 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names
   td$Sex[td$Sex=='m'] <- '1'
   td$Sex[td$Sex=='f'] <- '2'
   td$Sex[td$Sex=='i'] <- '3'
-  td$Sex<-factor(td$Sex, levels=c('1','2','3'), labels = c('m', 'f', 'indet'))
+  td$Sex <- factor(td$Sex, levels = c('1', '2', '3'), labels = c('m', 'f', 'indet'))
 
   # make a long df
 
   # bring columns 'Ind' and 'Sex' to the front
-  idcols<-c('Ind','Sex')
-  newcolorder<-c(idcols, names(td)[-which(names(td) %in% idcols)])
-  td<-td[newcolorder]
+  idcols <- c('Ind', 'Sex')
+  newcolorder <- c(idcols, names(td)[-which(names(td) %in% idcols)])
+  td <- td[newcolorder]
 
   # for wide tabled data
   if (d.form=='wide'){
-    dl<-reshape2::melt(td, id=idcols, na.rm=TRUE)
+    dl <- reshape2::melt(td, id = idcols, na.rm = TRUE)
   } else {
-    dl<-td
+    dl <- td
   }
 
   # merges the listed measures with the concordance of measure.names, filters on the columns needed.
   if (measures.names == 'own'){
-      result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'own')
-      dl<-result[c('Ind','Sex', 'short','value')]
+      result <- merge (dl, measures.concordance, by.x = 'variable', by.y = 'own')
+      dl <- result[c('Ind', 'Sex', 'short', 'value')]
   } else if (measures.names == 'short'){
-      result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'short')
-      dl<-result[c('Ind','Sex', 'variable','value')]
+      result <- merge (dl, measures.concordance, by.x = 'variable', by.y = 'short')
+      dl <- result[c('Ind', 'Sex', 'variable', 'value')]
   } else if (measures.names == 'long'){
-      result<-merge (dl, measures.concordance, by.x = 'variable', by.y = 'long')
-      dl<-result[c('Ind','Sex', 'short','value')]
+      result <- merge (dl, measures.concordance, by.x = 'variable', by.y = 'long')
+      dl <- result[c('Ind', 'Sex', 'short', 'value')]
   }
   names(dl)[which(names(dl)=='short')]<-'variable'
   dl$variable <- as.character(dl$variable)
   dl$value <- as.numeric(dl$value)
 
   # check for duplicated identifiers (individuals)
-  dupl_ind<-NULL
+  dupl_ind <- NULL
   # any combination of Ind and variable occuring more than 1
-  test<-data.frame(cbind(Ind=as.character(dl$Ind),
+  test <- data.frame(cbind(Ind = as.character(dl$Ind),
                          # cut off trailing r or l
-                         variable=gsub("[rl]$", "", dl$variable),
+                         variable = gsub("[rl]$", "", dl$variable),
                          # new variable for left or right
-                         r.l=gsub(".*([rl])$|.*[^rl]$", "\\1", dl$variable)),
+                         r.l = gsub(".*([rl])$|.*[^rl]$", "\\1", dl$variable)),
                          stringsAsFactors = FALSE)
   # This schould match 2 x left or 2 x right for one measure.
   # But for 1 x left, 1 x right and 1 x NA for one measure it will fail.
-  dupl_ind<-which(plyr::count(test, c('Ind', 'variable', 'r.l'))[,4]>1)
+  dupl_ind <- which(plyr::count(test, c('Ind', 'variable', 'r.l'))[, 4]>1)
 
   # This should find any measure occuring more than twice per Ind.
-  dupl_ind<-c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[,3]>2))
+  dupl_ind <- c(dupl_ind, which(plyr::count(test, c('Ind', 'variable'))[, 3]>2))
 
   if(length(dupl_ind)>0){
     stop(paste("Likely duplicate individuals encountered:",
@@ -276,16 +276,16 @@ prep.statuaar.data <- function (x, d.form='wide', ind=NA, sex=NA, measures.names
   }
   # check for inconsistent sex
   if (d.form=='long'){
-    test<-data.frame(cbind(Ind=as.character(dl$Ind),
-                           Sex=as.character(dl$Sex)),
-                           IndSex=as.character(paste(dl$Ind,dl$Sex,sep ="_")),
+    test <- data.frame(cbind(Ind = as.character(dl$Ind),
+                           Sex = as.character(dl$Sex)),
+                           IndSex = as.character(paste(dl$Ind, dl$Sex, sep ="_")),
                            stringsAsFactors = FALSE)
-    dupl_sex <- plyr::count(test, c("Ind","Sex"))[1]
+    dupl_sex <- plyr::count(test, c("Ind", "Sex"))[1]
     dupl_sex <- dupl_sex$Ind[duplicated(dupl_sex$Ind)]
 
     if (length(dupl_sex)>0){
       stop(paste("\nLikely inconsistent sex for individual(s) encountered:",
-                 paste(dupl_sex, collapse= ", "),)
+                 paste(dupl_sex, collapse= ", "), )
       )
     }
   }

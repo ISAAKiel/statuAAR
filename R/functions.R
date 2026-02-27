@@ -194,8 +194,8 @@ getStature <- function(shortnames, statuaar_data_table) {
 #'@export
 #'
 getStatureDataframe <- function(StatureList) {
-  StatureDataFrame <- as.data.frame(matrix(ncol=8, nrow=0))
-  colnames(StatureDataFrame) <-c("formula", "sex", "stature", "bone",
+  StatureDataFrame <- as.data.frame(matrix(ncol = 8, nrow = 0))
+  colnames(StatureDataFrame) <- c("formula", "sex", "stature", "bone",
                                  "female", "male", "indet", "n_measures")
   for (short in names(StatureList)){
     if(is.data.frame(StatureList[[short]])){

@@ -42,7 +42,7 @@
 
 telkkae_1950 <- function(df){
 
-  df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+  df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
 
   # check if needed measures are present
   needed <- getFormulaMeasures('te50')
@@ -59,20 +59,20 @@ telkkae_1950 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
-  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
+  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
+  colnames(val_indv) <- c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
 
   # check available values for different variables needed for
-  for (i in 1:length(vec_indv)){
-    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
+  for (i in seq_along(vec_indv)){
+    df_bones <- subset(df, subset = df$Ind == vec_indv[i])
     # Get measure values needed
-    Hum1 <- df_bones$value.mean[df_bones$variable=="Hum1"]
-    Rad2 <- df_bones$value.mean[df_bones$variable=="Rad2"]
-    Uln2 <- df_bones$value.mean[df_bones$variable=="Uln2"]
-    Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
-    Tib1 <- df_bones$value.mean[df_bones$variable=="Tib1"]
-    Fib1 <- df_bones$value.mean[df_bones$variable=="Fib1"]
+    Hum1 <- df_bones$value.mean[df_bones$variable == "Hum1"]
+    Rad2 <- df_bones$value.mean[df_bones$variable == "Rad2"]
+    Uln2 <- df_bones$value.mean[df_bones$variable == "Uln2"]
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+    Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
+    Fib1 <- df_bones$value.mean[df_bones$variable == "Fib1"]
 
     # document bone measures and number used for calculation
 
@@ -80,27 +80,27 @@ telkkae_1950 <- function(df){
     n_measures <- 0
     if (length(Hum1)>0) {
       bone <- append(bone, "Hum1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Hum1"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Hum1"]
     }
     if (length(Rad2)>0) {
       bone <- append(bone, "Rad2")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Rad2"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Rad2"]
     }
     if (length(Uln2)>0) {
       bone <- append(bone, "Uln2")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Uln2"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Uln2"]
     }
     if (length(Fem1)>0) {
       bone <- append(bone, "Fem1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Fem1"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Fem1"]
     }
     if (length(Tib1)>0) {
       bone <- append(bone, "Tib1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Tib1"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Tib1"]
     }
     if (length(Fib1)>0) {
       bone <- append(bone, "Fib1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable=="Fib1"]
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Fib1"]
     }
 
     # Calculate the different indices for male

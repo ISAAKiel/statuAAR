@@ -42,7 +42,7 @@
 
 feldesman_etal_1990 <- function(df){
 
-  df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+  df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
   # aggregate values for each measure and individual
 
   # check if needed measures are present
@@ -60,15 +60,15 @@ feldesman_etal_1990 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
-  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
+  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
+  colnames(val_indv) <- c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
 
   # check available values for different variables needed for
-  for (i in 1:length(vec_indv)){
-    df_bones <- subset(df, subset=df$Ind == vec_indv[i])
+  for (i in seq_along(vec_indv)){
+    df_bones <- subset(df, subset = df$Ind == vec_indv[i])
     # Get measure values needed
-    Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
     #Calculate
     stature <- (Fem1 * 100) / 26.74
 
@@ -81,7 +81,7 @@ feldesman_etal_1990 <- function(df){
     val_indv$female[i] <- stature
     val_indv$male[i] <- stature
     val_indv$indet[i] <- stature
-    val_indv$n_measures[i] <- df_bones$value.n[df_bones$variable=="Fem1"]
+    val_indv$n_measures[i] <- df_bones$value.n[df_bones$variable == "Fem1"]
   }
 
   if (dim(val_indv)[1] == 0) {

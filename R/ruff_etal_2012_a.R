@@ -54,7 +54,7 @@
 ###################################
 ruff_etal_2012_a <- function(df){
 
-  df$variable<-gsub("([rl]$)","", df$variable) # laterality not needed
+  df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
   # check if needed measures are present
   needed <- getFormulaMeasures('r12n')
   if (!any(df$variable %in% needed)){
@@ -70,14 +70,14 @@ ruff_etal_2012_a <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv<- as.data.frame(matrix(ncol=7, nrow=length(vec_indv)), row.names=vec_indv)
-  colnames(val_indv) <-c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
-  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1,2,3))
+  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
+  colnames(val_indv) <- c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
 
 
   # check available values for different variables needed for
-  for (i in 1:length(vec_indv)){
-    df_bones <- subset(df, subset = Ind==vec_indv[i])
+  for (i in seq_along(vec_indv)){
+    df_bones <- subset(df, subset = Ind == vec_indv[i])
 
     stature.m <- calc.stature.m(df_bones)
     stature.f <- calc.stature.f(df_bones)
@@ -108,24 +108,24 @@ ruff_etal_2012_a <- function(df){
 calc.stature.m <- function (df_bones){
 
   # get all optional needed measures
-  Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
-  Hum1 <- df_bones$value.mean[df_bones$variable=="Hum1"]
-  Rad1 <- df_bones$value.mean[df_bones$variable=="Rad1"]
+  Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+  Hum1 <- df_bones$value.mean[df_bones$variable == "Hum1"]
+  Rad1 <- df_bones$value.mean[df_bones$variable == "Rad1"]
 
-  stature.m<-c()
+  stature.m <- c()
 
   stature.m <- (Fem1 * 2.72) + 428.5
   indice <- "Fem1"
-  n_measures <- df_bones$value.n[df_bones$variable=="Fem1"]
+  n_measures <- df_bones$value.n[df_bones$variable == "Fem1"]
   if (length(stature.m)==0){
     stature.m <- (Hum1 * 3.83) + 414.2
     indice <- "Hum1"
-    n_measures <- df_bones$value.n[df_bones$variable=="Hum1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "Hum1"]
   }
   if (length(stature.m)==0){
     stature.m <- (Rad1 * 4.85) + 474.6
     indice <- "Rad1"
-    n_measures <- df_bones$value.n[df_bones$variable=="Rad1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "Rad1"]
   }
   # End of male stature estimation
 
@@ -138,24 +138,24 @@ calc.stature.m <- function (df_bones){
 calc.stature.f <- function (df_bones){
 
   # get all optional needed measures
-  Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
-  Hum1 <- df_bones$value.mean[df_bones$variable=="Hum1"]
-  Rad1 <- df_bones$value.mean[df_bones$variable=="Rad1"]
+  Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+  Hum1 <- df_bones$value.mean[df_bones$variable == "Hum1"]
+  Rad1 <- df_bones$value.mean[df_bones$variable == "Rad1"]
 
-  stature.f<-c()
+  stature.f <- c()
 
   stature.f <- (Fem1 * 2.69) + 435.6
   indice <- "Fem1"
-  n_measures <- df_bones$value.n[df_bones$variable=="Fem1"]
+  n_measures <- df_bones$value.n[df_bones$variable == "Fem1"]
   if (length(stature.f)==0){
     stature.f <- (Hum1 * 3.38) + 546
     indice <- "Hum1"
-    n_measures <- df_bones$value.n[df_bones$variable=="Hum1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "Hum1"]
   }
   if (length(stature.m)==0){
     stature.fm <- (Rad1 * 4.2) + 630.8
     indice <- "Rad1"
-    n_measures <- df_bones$value.n[df_bones$variable=="Rad1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "Rad1"]
   }
   # End of female stature estimation
 
@@ -169,24 +169,24 @@ calc.stature.f <- function (df_bones){
   calc.stature.i <- function (df_bones){
 
     # get all optional needed measures
-    Fem1 <- df_bones$value.mean[df_bones$variable=="Fem1"]
-    Hum1 <- df_bones$value.mean[df_bones$variable=="Hum1"]
-    Rad1 <- df_bones$value.mean[df_bones$variable=="Rad1"]
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+    Hum1 <- df_bones$value.mean[df_bones$variable == "Hum1"]
+    Rad1 <- df_bones$value.mean[df_bones$variable == "Rad1"]
 
-    stature.i<-c()
+    stature.i <- c()
 
     stature.i <- (Fem1 * 2.77) + 405
     indice <- "Fem1"
-    n_measures <- df_bones$value.n[df_bones$variable=="Fem1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "Fem1"]
     if (length(stature.f)==0){
       stature.i <- (Hum1 * 3.72) + 448.6
       indice <- "Hum1"
-      n_measures <- df_bones$value.n[df_bones$variable=="Hum1"]
+      n_measures <- df_bones$value.n[df_bones$variable == "Hum1"]
     }
     if (length(stature.f)==0){
       stature.i <- (Rad1 * 4.46) + 569.4
       indice <- "Rad1"
-      n_measures <- df_bones$value.n[df_bones$variable=="Rad1"]
+      n_measures <- df_bones$value.n[df_bones$variable == "Rad1"]
     }
     # End of indet. stature estimation
 
