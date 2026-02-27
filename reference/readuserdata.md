@@ -138,7 +138,7 @@ x <- TrotterGleser1952
 # If not yet existent create a list of measure names to be used
 # measures.concordance <- create.measures.concordance()
 # Edit the measures.concordance (not needed for this dataset)
-# measures.concordance$own[measures.concordance$short=="Fem1"]<-"Fem"
+# measures.concordance$own[measures.concordance$short == "Fem1"] <- "Fem"
 
 # get a dataframe with measures to process
 dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
@@ -157,7 +157,7 @@ measures.statistics(dl.trotter.gleser)
 # For the data from Rollet 1888
 rollet1888 <- Rollet1888
 # 1. Create an identifyer due to identical numbering of females and males
-rollet1888$id<-paste(rollet1888$Sex, rollet1888$Nr, sep="_")
+rollet1888$id <- paste(rollet1888$Sex, rollet1888$Nr, sep = "_")
 # 2. Fill in the mesasures names in the column "own" of the measures.concordance
 measures.concordance <- measures.concordance.rollet1888
 # 3. Read the data

@@ -175,7 +175,8 @@ laterality (1 letter) without any separation
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list with a dataframe for each formula selected.</p>
 <ul><li><p><b>Ind</b>:  identifyer for each individual.</p></li>
-<li><p><b>Sex</b>: sex of the individual. Accepted values 1 (male), 2 (female), 3 (indet) or <code>m</code>(ale), <code>f</code>(emale), <code>indet</code>.</p></li>
+<li><p><b>Sex</b>: sex of the individual. Accepted values 1 (male), 2 (female),
+3 (indet) or <code>m</code>(ale), <code>f</code>(emale), <code>indet</code>.</p></li>
 <li><p><b>variable</b>:  short name of the measure</p></li>
 <li><p><b>value</b>: measured value.</p></li>
 </ul></div>
@@ -201,7 +202,7 @@ G. Fischer, Jena.
 <span class="r-in"><span><span class="co"># If not yet existent create a list of measure names to be used</span></span></span>
 <span class="r-in"><span><span class="co"># measures.concordance &lt;- create.measures.concordance()</span></span></span>
 <span class="r-in"><span><span class="co"># Edit the measures.concordance (not needed for this dataset)</span></span></span>
-<span class="r-in"><span><span class="co"># measures.concordance$own[measures.concordance$short=="Fem1"]&lt;-"Fem"</span></span></span>
+<span class="r-in"><span><span class="co"># measures.concordance$own[measures.concordance$short == "Fem1"] &lt;- "Fem"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># get a dataframe with measures to process</span></span></span>
 <span class="r-in"><span><span class="va">dl.trotter.gleser</span> <span class="op">&lt;-</span> <span class="fu">prep.statuaar.data</span><span class="op">(</span><span class="va">x</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
@@ -220,7 +221,7 @@ G. Fischer, Jena.
 <span class="r-in"><span><span class="co"># For the data from Rollet 1888</span></span></span>
 <span class="r-in"><span><span class="va">rollet1888</span> <span class="op">&lt;-</span> <span class="va">Rollet1888</span></span></span>
 <span class="r-in"><span><span class="co"># 1. Create an identifyer due to identical numbering of females and males</span></span></span>
-<span class="r-in"><span><span class="va">rollet1888</span><span class="op">$</span><span class="va">id</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">rollet1888</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">rollet1888</span><span class="op">$</span><span class="va">Nr</span>, sep<span class="op">=</span><span class="st">"_"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rollet1888</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">rollet1888</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">rollet1888</span><span class="op">$</span><span class="va">Nr</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># 2. Fill in the mesasures names in the column "own" of the measures.concordance</span></span></span>
 <span class="r-in"><span><span class="va">measures.concordance</span> <span class="op">&lt;-</span> <span class="va">measures.concordance.rollet1888</span></span></span>
 <span class="r-in"><span><span class="co"># 3. Read the data</span></span></span>
