@@ -196,7 +196,7 @@ getStature <- function(shortnames, statuaar_data_table) {
 getStatureDataframe <- function(StatureList) {
   StatureDataFrame <- as.data.frame(matrix(ncol = 8, nrow = 0))
   colnames(StatureDataFrame) <- c("formula", "sex", "stature", "bone",
-                                 "female", "male", "indet", "n_measures")
+                                 "if_female", "if_male", "if_indet", "n_measures")
   for (short in names(StatureList)){
     if(is.data.frame(StatureList[[short]])){
       rbind(StatureDataFrame,

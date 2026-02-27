@@ -33,16 +33,26 @@ Returns a data.frame with:
 \item{ sex: as provided for calculation: m, f, indet.}
 \item{ stature: estimated on the provided sex and bone measures, }
 \item{ bone (measure(s)): bones used for calculation, }
-\item{ female (stature): columns with alternative stature for three sex classes, }
-\item{ male (stature), }
-\item{ indet. (stature) and}
+\item{ if_female (stature): columns with alternative stature for three sex classes, }
+\item{ if_male (stature), }
+\item{ if_indet. (stature) and}
 \item{ n_measures: number of bone measures included:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
 \examples{
 # Read example dataset into a data frame
-x <- Bach1965
+x <- statuAAR::Bach1965
+
+# Prepare tabled data into a long list (statuaar_data_table)
+dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
+                       measures.names = "short", sex = "sex", stats = FALSE)
+
+# Calculate stature estimation using a given formula.
+bb65.estimates <- statuAAR::getStature(c("bb65"), dl.bach1965)
+
+# Extract the corresponding data frame from the returned list object.
+bb65.estimates[["bb65"]]
 
 }
 \references{

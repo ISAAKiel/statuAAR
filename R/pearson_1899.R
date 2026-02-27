@@ -30,9 +30,9 @@
 #' \item{ sex: as provided for calculation: m, f, indet.}
 #' \item{ stature: estimated on the provided sex and bone measures, }
 #' \item{ bone (measure(s)): bones used for calculation, }
-#' \item{ female (stature): columns with alternative stature for three sex classes, }
-#' \item{ male (stature), }
-#' \item{ indet. (stature) and}
+#' \item{ if_female (stature): columns with alternative stature for three sex classes, }
+#' \item{ if_male (stature), }
+#' \item{ if_indet. (stature) and}
 #' \item{ n_measures: number of bone measures included:
 #'              e.g. 2 Fem2 (left, right) + 1 Tib1}
 #' }
@@ -75,7 +75,7 @@ pearson_1899 <- function(df){
 
   # Initialize data frame for later storage of different mean body heights
   val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
-  colnames(val_indv) <- c("sex", "stature", "bone", "female", "male", "indet", "n_measures")
+  colnames(val_indv) <- c("sex", "stature", "bone", "if_female", "if_male", "if_indet", "n_measures")
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
 
   # check available values for different variables needed for
@@ -169,9 +169,9 @@ pearson_1899 <- function(df){
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone[i] <- paste(bone, collapse = ", ")
-    val_indv$female[i] <- statures[2]
-    val_indv$male[i] <- statures[1]
-    val_indv$indet[i] <- statures[3]
+    val_indv$if_female[i] <- statures[2]
+    val_indv$if_male[i] <- statures[1]
+    val_indv$if_indet[i] <- statures[3]
     val_indv$n_measures[i] <- n_measures
   }
 

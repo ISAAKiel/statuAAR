@@ -29,9 +29,9 @@ Returns a data.frame with:
 \item{ sex: as provided for calculation: m, f, indet.}
 \item{ stature: estimated on the provided sex and bone measures, }
 \item{ bone (measure(s)): bones used for calculation, }
-\item{ female (stature): columns with alternative stature for three sex classes, }
-\item{ male (stature), }
-\item{ indet. (stature) and}
+\item{ if_female (stature): columns with alternative stature for three sex classes, }
+\item{ if_male (stature), }
+\item{ if_indet. (stature) and}
 \item{ n_measures: number of bone measures included:
 e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
