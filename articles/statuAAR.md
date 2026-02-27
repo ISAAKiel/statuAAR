@@ -97,10 +97,10 @@ returns a list with a data frame for each formula.
 head(statuAAR::getStature(c('bb65'), dl.bach1965)$bb65)
 ```
 
-    ##    sex stature                     bone female male indet n_measures
-    ## 32   m    1540 Hum2, Rad1b, Fem1, Tib1b   1531 1540  1536          4
-    ## 33   m    1550 Hum2, Rad1b, Fem1, Tib1b   1538 1550  1544          4
-    ## 34   m    1560 Hum2, Rad1b, Fem1, Tib1b   1546 1560  1553          4
-    ## 35   m    1570 Hum2, Rad1b, Fem1, Tib1b   1554 1570  1562          4
-    ## 36   m    1580 Hum2, Rad1b, Fem1, Tib1b   1561 1580  1571          4
-    ## 37   m    1590 Hum2, Rad1b, Fem1, Tib1b   1570 1590  1580          4
+    ##    sex stature                     bone if_female if_male if_indet n_measures
+    ## 32   m    1540 Hum2, Rad1b, Fem1, Tib1b      1531    1540     1536          4
+    ## 33   m    1550 Hum2, Rad1b, Fem1, Tib1b      1538    1550     1544          4
+    ## 34   m    1560 Hum2, Rad1b, Fem1, Tib1b      1546    1560     1553          4
+    ## 35   m    1570 Hum2, Rad1b, Fem1, Tib1b      1554    1570     1562          4
+    ## 36   m    1580 Hum2, Rad1b, Fem1, Tib1b      1561    1580     1571          4
+    ## 37   m    1590 Hum2, Rad1b, Fem1, Tib1b      1570    1590     1580          4
