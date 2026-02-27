@@ -21,11 +21,13 @@ of the articular surface of the base parallel to the longituninal axis of the bo
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
 For archaeological finds, group assignment (Euro-American or Afro-American)
-is not possible. In addition, the gender-specific estimates for Met1 offer the
+is not possible. In addition, the gender-specific estimates for MtI1 offer the
 best accuracy. For this reason, only the following formulas are used:
-Combined data (indet): St = 634 + 16.8 (Metl),
-All males: St = 815 + 14.3 (Metl),
-All females: St = 783 + 13.9 (Metl).
+\itemize{
+\item{ Combined data (indet): stature = 634 + 16.8 (Metl), }
+\item{ All males: stature = 815 + 14.3 (Metl), }
+\item{ All females: stature = 783 + 13.9 (Metl). }
+}
 
 Returns a data.frame with:
 \itemize{
@@ -37,11 +39,22 @@ Returns a data.frame with:
 \item{ if_male (stature), }
 \item{ if_indet. (stature) and}
 \item{ n_measures: number of bone measures included:
-e.g. 2 Met1 (left, right)}
+e.g. 2 MtI1 (left, right)}
 }
 }
 \examples{
 # Read example dataset into a data frame
+x <- as.data.frame(list(sex = c("f", "m", "i"), MtI1 = c(49, 50, 51)))
+
+# Prepare tabled data into a long list (statuaar_data_table)
+dl.by89 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
+                       measures.names = "short", sex = "sex", stats = FALSE)
+
+# Calculate stature estimation using a given formula.
+by895.estimates <- statuAAR::getStature(c("by89"), dl.by89)
+
+# Extract the corresponding data frame from the returned list object.
+by89.estimates[["by89"]]
 
 }
 \references{

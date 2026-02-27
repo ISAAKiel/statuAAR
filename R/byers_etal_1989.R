@@ -11,11 +11,13 @@
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' For archaeological finds, group assignment (Euro-American or Afro-American)
-#' is not possible. In addition, the gender-specific estimates for Met1 offer the
+#' is not possible. In addition, the gender-specific estimates for MtI1 offer the
 #' best accuracy. For this reason, only the following formulas are used:
-#' Combined data (indet): St = 634 + 16.8 (Metl),
-#' All males: St = 815 + 14.3 (Metl),
-#' All females: St = 783 + 13.9 (Metl).
+#' \itemize{
+#' \item{ Combined data (indet): stature = 634 + 16.8 (Metl), }
+#' \item{ All males: stature = 815 + 14.3 (Metl), }
+#' \item{ All females: stature = 783 + 13.9 (Metl). }
+#' }
 #'
 #' Returns a data.frame with:
 #' \itemize{
@@ -27,7 +29,7 @@
 #' \item{ if_male (stature), }
 #' \item{ if_indet. (stature) and}
 #' \item{ n_measures: number of bone measures included:
-#'              e.g. 2 Met1 (left, right)}
+#'              e.g. 2 MtI1 (left, right)}
 #' }
 #'
 #' @param df data.frame of type statuaar_data_table, containing informations on individual, bone and measurement.
@@ -41,6 +43,17 @@
 #'
 #' @examples
 #' # Read example dataset into a data frame
+#' x <- as.data.frame(list(sex = c("f", "m", "i"), MtI1 = c(49, 50, 51)))
+#'
+#' # Prepare tabled data into a long list (statuaar_data_table)
+#' dl.by89 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
+#'                        measures.names = "short", sex = "sex", stats = FALSE)
+#'
+#' # Calculate stature estimation using a given formula.
+#' by895.estimates <- statuAAR::getStature(c("by89"), dl.by89)
+#'
+#' # Extract the corresponding data frame from the returned list object.
+#' by89.estimates[["by89"]]
 #'
 #' @export
 
@@ -68,20 +81,20 @@ byers_etal_1989 <- function(df){
   for (i in seq_along(vec_indv)){
     df_bones <- subset(df, subset = df$Ind == vec_indv[i])
     # Get measure values needed
-    Met1 <- df_bones$value.mean[df_bones$variable == "Met1"]
+    MtI1 <- df_bones$value.mean[df_bones$variable == "MtI1"]
     # document number of measures
-    n_measures <- df_bones$value.n[df_bones$variable == "Met1"]
+    n_measures <- df_bones$value.n[df_bones$variable == "MtI1"]
     #Calculate
-    stature.m <- (Met1 * 14.3) + 815
-    stature.f <- (Met1 * 13.9) + 783
-    stature.i <- (Met1 * 16.8) + 634
+    stature.m <- (MtI1 * 14.3) + 815
+    stature.f <- (MtI1 * 13.9) + 783
+    stature.i <- (MtI1 * 16.8) + 634
 
     statures <- round(c(stature.m, stature.f, stature.i), 0)
 
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_bones$Sex)
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
-    val_indv$bone[i] <- "Met1"
+    val_indv$bone[i] <- "MtI1"
     val_indv$if_female[i] <- statures[2]
     val_indv$if_male[i] <- statures[1]
     val_indv$if_indet[i] <- statures[3]
