@@ -4,7 +4,7 @@ A measurements table from *Feldesman et al 1990, Tab. 6*. Raw data,
 femur/stature estimates, and Trotter-Gleser stature estimates for sample
 of mid-to late-pleistocene fossil hominids. (1) Gender according to
 published criteria: (a) pubic morphology or (b) cranial capacity and
-skeletal.
+skeletal robusticy.
 
 ## Format
 
@@ -12,7 +12,8 @@ A data frame with 48 rows and 7 variables.
 
 - **site** site name abreviation
 
-- **Type** hominide
+- **Type** Homo erectus (HE), early Neanderthal (EN), Near Eastern
+  Neanderthal (NEN), and early anatomically modern Homo sapiens (EAMHS).
 
 - **Probable.gender:** M(a/b), F(a/b) -\> Male, Female
 
