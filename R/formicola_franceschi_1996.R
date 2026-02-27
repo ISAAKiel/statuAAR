@@ -58,7 +58,7 @@ formicola_franceschi_1996 <- function(df){
   }
 
   # aggregate values for each measure and individual
-  df <- aggregate(value ~ Ind + Sex + variable,
+  df <- stats::aggregate(value ~ Ind + Sex + variable,
                   data = df,
                   FUN = function(x) c(mean = mean(x), n = length(x)))
   df <- do.call(data.frame, df)

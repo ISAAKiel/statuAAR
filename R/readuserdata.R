@@ -106,12 +106,27 @@ NULL
 # function to create a correlation table for userspecific (own) measure.names
 #' @rdname readuserdata
 #' @export
-create.measures.concordance <- function (){
-  measures.concordance <- read.delim("./data-raw/measures.concordance.tab",
-                            skip = 1,
-                            quote = "\"",
-                            colClasses = c(rep("character", 3)))
-  return(measures.concordance[order(measures.concordance$short), ])
+create.measures.concordance <- function() {
+
+  # Look up the file inside the *installed* package
+  path <- system.file("extdata", "measures.concordance.tab", package = "statuAAR")
+
+  if (path == "") {
+    stop(
+      "Cannot find 'measures.concordance.tab' in the installed package.\n",
+      "Make sure it exists at 'inst/extdata/measures.concordance.tab' in the source repository."
+    )
+  }
+
+  measures.concordance <- utils::read.delim(
+    file = path,
+    skip = 1,
+    quote = "\"",
+    colClasses = rep("character", 3),
+    stringsAsFactors = FALSE
+  )
+
+  measures.concordance[order(measures.concordance$short), ]
 }
 
 # function to calculate basic statistics for a list of measures

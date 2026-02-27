@@ -162,7 +162,7 @@ NULL
 #'   \item \bold{value} measures mm
 #'  }
 #'
-#' @name dl.rollet1888
+#' @name Rollet1888
 NULL
 
 #' dl.trotter.gleser: statuaar data table
@@ -180,5 +180,5 @@ NULL
 #'   \item \bold{value} measures mm
 #'  }
 #'
-#' @name dl.trotter.gleser
+#' @name TrotterGleser1952
 NULL

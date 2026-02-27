@@ -80,10 +80,10 @@ olivier_etal_1978 <- function(df){
   }
 
   # aggregate values for each individual, measure and left|right
-  df1 <- aggregate(value ~ Ind + Sex + variable,
+  df1 <- stats::aggregate(value ~ Ind + Sex + variable,
                    data = df,
                    FUN = function(x) c(mean = mean(x), n = length(x)))
-  df2 <- aggregate(right ~ Ind + Sex + variable,
+  df2 <- stats::aggregate(right ~ Ind + Sex + variable,
                    data = df,
                    FUN = function(x) any(x))
   df <- merge(df1, df2, by = c("Ind", "Sex", "variable"))

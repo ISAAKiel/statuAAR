@@ -22,6 +22,11 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: Rdpack, plyr, reshape2, tibble
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
 RdMacros: Rdpack
 URL: https://github.com/ISAAKiel/statuAAR, https://isaakiel.github.io/statuAAR/
 BugReports: https://github.com/ISAAKiel/statuAAR/issues

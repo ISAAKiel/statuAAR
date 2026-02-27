@@ -17,12 +17,24 @@ A data frame with 184 rows and 11 variables.
 \item \bold{Fib} measures (mm)
 \item \bold{Fem+Tib} measures (mm)
 }
+
+A data frame with 100 rows and 18 variables.
+\itemize{
+\item \bold{Ind} identifier
+\item \bold{Sex:} f, m, i -> female, male, indet.
+\item \bold{Variable} bone measure
+\item \bold{value} measures mm
+}
 }
 \description{
 A measurements table from \emph{Trotter & Gleser 1952, Appendix 1-4}.
 Data as given but with additional columns related to appendix heading,
 and stature in millimeters.
+
+A measures data table (list form) from \emph{Trotter & Gleser 1952, Appendix 1-4}.
 }
 \references{
+\insertRef{Trotter_Gleser_1952}{statuAAR}
+
 \insertRef{Trotter_Gleser_1952}{statuAAR}
 }
