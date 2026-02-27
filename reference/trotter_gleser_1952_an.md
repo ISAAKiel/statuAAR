@@ -21,12 +21,12 @@ Returns a data.frame with:
 
 - bone (measure(s)): bones used for calculation,
 
-- female (stature): columns with alternative stature for three sex
+- if_female (stature): columns with alternative stature for three sex
   classes,
 
-- male (stature),
+- if_male (stature),
 
-- indet. (stature) and
+- if_indet. (stature) and
 
 - n_measures: number of bone measures included: e.g. 2 Fem2 (left,
   right) + 1 Tib1
