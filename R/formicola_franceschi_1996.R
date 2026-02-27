@@ -47,13 +47,13 @@
 #'
 #' @export
 
-formicola_franceschi_1996 <- function(df){
+formicola_franceschi_1996 <- function(df) {
 
   df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
 
-    # check if needed measures are present
-  needed <- getFormulaMeasures('ff96')
-  if (!any(df$variable %in% needed)){
+  # check if needed measures are present
+  needed <- getFormulaMeasures("ff96")
+  if (!any(df$variable %in% needed)) {
     return("There is no usable bone measurement / indice available for the chosen formula.")
   }
 
@@ -82,7 +82,7 @@ formicola_franceschi_1996 <- function(df){
       Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
       Rad1 <- df_bones$value.mean[df_bones$variable == "Rad1"]
       Rad1a <- FALSE
-      if (length(Rad1)<2){
+      if (length(Rad1) < 2) {
         Rad1 <- df_bones$value.mean[df_bones$variable == "Rad1a"]
         Rad1a <- TRUE
       }
@@ -90,7 +90,7 @@ formicola_franceschi_1996 <- function(df){
 
       # check for different combinations of measures
       # Fem2 & Tib1
-      if (length(Fem2)>0 & length(Tib1)>0){
+      if (length(Fem2) > 0 && length(Tib1) > 0) {
         stature.m <- ((Fem2 + Tib1) * 1.30) + 604.2
         stature.f <- ((Fem2 + Tib1) * 1.33) + 545.7
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
@@ -98,34 +98,34 @@ formicola_franceschi_1996 <- function(df){
         n_measures <- df_bones$value.n[df_bones$variable == "Fem2"] +
           df_bones$value.n[df_bones$variable == "Tib1"]
         # Fem1
-      } else if (length(Fem1)>0) {
+      } else if (length(Fem1) > 0) {
         stature.m <- (Fem1 * 2.55) + 520.8
         stature.f <- (Fem1 * 2.61) + 460.5
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "2. Fem1"
         n_measures <- df_bones$value.n[df_bones$variable == "Fem1"]
         # Tib1
-      } else if (length(Tib1)>0) {
+      } else if (length(Tib1) > 0) {
         stature.m <- (Tib1 * 2.79) + 634.1
         stature.f <- (Tib1 * 2.80) + 595.8
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "3. Tib1"
         n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
         # Fem1
-      } else if (length(Hum1)>0) {
+      } else if (length(Hum1) > 0) {
         stature.m <- (Hum1 * 4.04) + 380.5
         stature.f <- (Hum1 * 3.75) + 446.4
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "4. Hum1"
         n_measures <- df_bones$value.n[df_bones$variable == "Hum1"]
         # Rad1
-      } else if (length(Rad1)>0) {
+      } else if (length(Rad1) > 0) {
         stature.m <- (Rad1 * 4.38) + 579.0
         stature.f <- (Rad1 * 3.98) + 651.2
         statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
         indice <- "5. Rad1"
         n_measures <- df_bones$value.n[df_bones$variable == "Rad1"]
-        if(Rad1a){
+        if (Rad1a) {
           indice <- "5. Rad1a"
           n_measures <- df_bones$value.n[df_bones$variable == "Rad1a"]
         }
