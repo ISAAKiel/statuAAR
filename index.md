@@ -123,11 +123,11 @@ statuAAR::getStature(c('bb65'), dl.bach1965)
 
 \$bb65
 
-| id  | sex | stature |           bone           | female | male | indet | n_measures |
-|:---:|:---:|:-------:|:------------------------:|:------:|:----:|:-----:|:----------:|
-| 32  |  m  |  1540   | Hum2, Rad1b, Fem1, Tib1b |  1531  | 1540 | 1536  |     4      |
-| 33  |  m  |  1550   | Hum2, Rad1b, Fem1, Tib1b |  1538  | 1550 | 1544  |     4      |
-| 34  |  m  |  1560   | Hum2, Rad1b, Fem1, Tib1b |  1546  | 1560 | 1553  |     4      |
+| id  | sex | stature |           bone           | if_female | if_male | if_indet | n_measures |
+|:---:|:---:|:-------:|:------------------------:|:---------:|:-------:|:--------:|:----------:|
+| 32  |  m  |  1540   | Hum2, Rad1b, Fem1, Tib1b |   1531    |  1540   |   1536   |     4      |
+| 33  |  m  |  1550   | Hum2, Rad1b, Fem1, Tib1b |   1538    |  1550   |   1544   |     4      |
+| 34  |  m  |  1560   | Hum2, Rad1b, Fem1, Tib1b |   1546    |  1560   |   1553   |     4      |
 
 ## Licence
 
