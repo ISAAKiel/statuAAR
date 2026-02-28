@@ -17,8 +17,11 @@ follows first and then Hum1 (1996, Tab. 3). For individuals of
 indeterminate sex, stature estimatation is only possible by disregarding
 the hierarchical order or by taking the mean of two different bone
 measurements. For this reason, the hierarchical order of formulas for
-women is used for all individuals. Due to this, the order used differs
-slightly from Siegmund (2010, 116 (12.8)).
+women is used for all individuals. In addition, the hierarchical order
+is given for the least-square linear regression, allthough regressions
+using the major axis of the correlation plane are applied (1996, 83, 86
+Tab. 3). Due to this, the order used differs slightly from Siegmund
+(2010, 116 (12.8)).
 
 Bone measures used: Fem2 + Tib1 (both present), Tib1, Fem1, Hum1, Rad1
 (or Rad1a)
