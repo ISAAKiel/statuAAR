@@ -4,18 +4,24 @@
 #'
 #' @description
 #' Stature estimation (mm) based on a hierarchical order of regression calculations,
-#' separated  by sex and based on: Fem2+Tib1, Fem1, Tib1, Hum1, Rad1.
+#' separated  by sex and based on: Fem2 + Tib1, Fem1, Tib1, Hum1, Rad1.
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' If sex is indet. the mean of male and female stature estimation is given.
-#' Formicola and Franceschi (1996) do not provide information on hierarchie or mean calculation
-#' of the regression formula, but table 3 gives standard error (S.E.) and correlation
-#' from which a hierarchical order can be derived. The order of bone measures used
-#' according to achieved correlation differs between sex and will be respected,
-#' allthough  differences are small. Due to this, the order used differs slightly from
-#' Siegmund (2010, 116 (12.8)).
+#' Formicola and Franceschi (1996) do not provide information on hierarchie or mean
+#' calculation of the regression formula, but table 3 gives standard error (S.E.)
+#' and correlation from which a hierarchical order can be derived. The order of
+#' bone measurements is identical for men and women for the first three formulas,
+#' although the respective SE differ significantly: Fem2 + Tib1, Fem1, Tib1.
+#' For women, Hum1 and Rad1 follow with a significant difference in SE, while
+#' for men, with a small SE difference, Rad1 follows first and then Hum1
+#' (1996, Tab. 3). For individuals of indeterminate sex, stature estimatation is
+#' only possible by disregarding the hierarchical order or by taking the mean of
+#' two different bone measurements. For this reason, the hierarchical order of
+#' formulas for women is used for all individuals.
+#' Due to this, the order used differs slightly from Siegmund (2010, 116 (12.8)).
 #'
-#' Bone measures used: Fem2+Tib1, Tib1, Fem1, Hum1, Rad1 (or Rad1a)
+#' Bone measures used: Fem2 + Tib1 (both present), Tib1, Fem1, Hum1, Rad1 (or Rad1a)
 #'
 #' Returns a data.frame with:
 #' \itemize{
@@ -35,15 +41,26 @@
 #'
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
-#' @examples
-#' # Read example dataset into a data frame
-#'
 #' @references
 #'   \insertRef{Formicola_Franceschi_1996}{statuAAR}
 #'
 #'   \insertRef{Formicola_1993}{statuAAR}
 #'
 #'   \insertRef{Siegmund_2010}{statuAAR}
+#'
+#' @examples
+#' # Read example dataset into a data frame
+#' x <- statuAAR::Bach1965
+#'
+#' # Prepare tabled data into a long list (statuaar_data_table)
+#' dl.bach1965 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
+#'                        measures.names = "short", sex = "sex", stats = FALSE)
+#'
+#' # Calculate stature estimation using a given formula.
+#' ff96.estimates <- statuAAR::getStature(c("ff96"), dl.bach1965)
+#'
+#' # Extract the corresponding data frame from the returned list object.
+#' ff96.estimates[["ff96"]]
 #'
 #' @export
 
