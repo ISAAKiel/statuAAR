@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   statuAAR: statuAAR.html
-last_built: 2026-02-28T05:53Z
+last_built: 2026-03-01T17:03Z
 urls:
   reference: https://isaakiel.github.io/statuAAR/reference
   article: https://isaakiel.github.io/statuAAR/articles
