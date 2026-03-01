@@ -7,12 +7,26 @@
 #' separated  by sex (Maijanen, Niskanen 2009).
 #' Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1
 #'
-#' If bone measures for left and right are provided the mean value will be used,
-#' but for statistic information 2 bones will be counted (n_measures).
-#' Maijanen & Niskanen propose to use first the combination of femur and
-#' tibia, followed by calculations on the hierarchie of single measures.
-#' They present regression calculations for the combination of male and female
-#' individuals recomended in case of undetermined sex (indet.).
+#' If bone measures for left and right are provided the mean value will be used, 
+#' but for statistic information 2 bones will be counted (n_measures). 
+#' Maijanen & Niskanen propose to use RMA based formula, primarily the combination 
+#' of femur and tibia, followed by calculations on the hierarchie of single measures. 
+#' In addition, they provide formula for the combination of male and female individuals 
+#' recomended in case of undetermined or insecure sex determination (indet.). (2010, p. 479) 
+#' Unfortunately, tables 2 - 4 only provide the S.E. of the rejected least square 
+#' correlation (LSQ) to order the RMA parameter (slope, intercept). In addition, the 
+#' order of the provided measures differ for the first foure bone measures: 
+#' \itemize{ 
+#' \item{ combined: Fem2Tib1, Fem2, Fem1Tib1, Fem1
+#' \item{ males: Fem2, Fem2Tib1, Fem1, Fem1Tib1 }
+#' \item{ females: Fem1Tib1, Fem2Tib1, Fem1, Fem2 }
+#' \item{ subsequent identical order: Fib1, Tib1, Hum1, Rad1, Uln1 }
+#' }
+#' 
+#' In order to have a consistent calculation based on the same bone measurements in 
+#' cases of certain, uncertain, or even impossible sex determination, the following 
+#' order is applied to all individuals: Fem2Tib1, Fem1Tib1, Fem2, Fem1, Fib1, Tib1, 
+#' Hum1, Rad1, Uln1.
 #'
 #' Returns a data.frame with:
 #' \itemize{
@@ -44,7 +58,7 @@
 #'
 #'@export
 
-maijanen_niskanen_2009 <- function(df){
+maijanen_niskanen_2009 <- function(df) {
 
   df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
 
@@ -70,7 +84,7 @@ maijanen_niskanen_2009 <- function(df){
   # Calculte in hierarchical order
 
   # check available values for different variables needed for
-  for (i in seq_along(vec_indv)){
+  for (i in seq_along(vec_indv)) {
     df_bones <- subset(df, subset = df$Ind == vec_indv[i])
 
     # get all optional needed measures
@@ -85,7 +99,7 @@ maijanen_niskanen_2009 <- function(df){
 
     # check for different combinations of measures
     # Fem2 & Tib1
-    if (length(Fem2)>0 & length(Tib1)>0){
+    if (length(Fem2) > 0 & length(Tib1) > 0) {
       stature.m <- ((Fem2 + Tib1) * 1.62) + 353.3
       stature.f <- ((Fem2 + Tib1) * 1.53) + 416.3
       stature.i <- ((Fem2 + Tib1) * 1.64) + 338.2
@@ -93,7 +107,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "1. Fem2+Tib1b"
       n_measures <- df_bones$value.n[df_bones$variable == "Fem2"] +
         df_bones$value.n[df_bones$variable == "Tib1b"]
-    } else if (length(Fem1)>0 & length(Tib1)>0){
+    } else if (length(Fem1) > 0 & length(Tib1) > 0) {
       stature.m <- ((Fem1 + Tib1) * 1.63) + 341.3
       stature.f <- ((Fem1 + Tib1) * 1.49) + 442.7
       stature.i <- ((Fem1 + Tib1) * 1.64) + 330.0
@@ -102,7 +116,7 @@ maijanen_niskanen_2009 <- function(df){
       n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
         df_bones$value.n[df_bones$variable == "Tib1"]
       # Fem2
-      } else if (length(Fem2)>0) {
+      } else if (length(Fem2) > 0) {
       stature.m <- (Fem2 * 2.93) + 350.1
       stature.f <- (Fem2 * 2.94) + 343.0
       stature.i <- (Fem2 * 2.94) + 342.3
@@ -110,7 +124,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "3. Fem2"
       n_measures <- df_bones$value.n[df_bones$variable == "Fem2"]
       # Fem1
-    } else if (length(Fem1)>0) {
+    } else if (length(Fem1) > 0) {
       stature.m <- (Fem1 * 2.96) + 325.5
       stature.f <- (Fem1 * 2.79) + 396.3
       stature.i <- (Fem1 * 2.95) + 327.3
@@ -118,7 +132,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "4. Fem1"
       n_measures <- df_bones$value.n[df_bones$variable == "Fem1"]
       # Fib1
-    } else if (length(Fib1)>0) {
+    } else if (length(Fib1) > 0) {
       stature.m <- (Fib1 * 3.61) + 381.4
       stature.f <- (Fib1 * 3.19) + 518.8
       stature.i <- (Fib1 * 3.60) + 383.8
@@ -126,7 +140,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "5. Fib1"
       n_measures <- df_bones$value.n[df_bones$variable == "Fib1"]
       # Tib1
-    } else if (length(Tib1)>0) {
+    } else if (length(Tib1) > 0) {
       stature.m <- (Tib1 * 3.46) + 427.7
       stature.f <- (Tib1 * 2.98) + 572.6
       stature.i <- (Tib1 * 3.57) + 380.5
@@ -134,7 +148,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "6. Tib1"
       n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
       # Hum1
-    } else if (length(Hum1)>0) {
+    } else if (length(Hum1) > 0) {
       stature.m <- (Hum1 * 4.06) + 327.4
       stature.f <- (Hum1 * 3.95) + 348.2
       stature.i <- (Hum1 * 4.29) + 246.8
@@ -142,7 +156,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "7. Hum1"
       n_measures <- df_bones$value.n[df_bones$variable == "Hum1"]
       # Rad1
-    } else if (length(Rad1)>0) {
+    } else if (length(Rad1) > 0) {
       stature.m <- (Rad1 * 5.94) + 198.6
       stature.f <- (Rad1 * 6.10) + 174.1
       stature.i <- (Rad1 * 5.72) + 259.9
@@ -150,7 +164,7 @@ maijanen_niskanen_2009 <- function(df){
       indice <- "8. Rad1"
       n_measures <- df_bones$value.n[df_bones$variable == "Rad1"]
       # Uln1
-    } else if (length(Uln1)>0) {
+    } else if (length(Uln1) > 0) {
       stature.m <- (Uln1 * 5.88) + 90.5
       stature.f <- (Uln1 * 5.92) + 95.9
       stature.i <- (Uln1 * 5.52) + 194.2
@@ -179,8 +193,6 @@ maijanen_niskanen_2009 <- function(df){
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-
-  #rm(i, vec_indv)
 
   return(val_indv)
 }
