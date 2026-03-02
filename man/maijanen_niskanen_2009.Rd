@@ -19,10 +19,25 @@ Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Ul
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-Maijanen & Niskanen propose to use first the combination of femur and
-tibia, followed by calculations on the hierarchie of single measures.
-They present regression calculations for the combination of male and female
-individuals recomended in case of undetermined sex (indet.).
+Maijanen & Niskanen propose to use RMA based formula, primarily the combination
+of femur and tibia, followed by calculations on the hierarchie of single measures.
+In addition, they provide formula for the combination of male and female individuals
+recomended in case of undetermined or insecure sex determination (indet.). (2010, p. 479)
+Unfortunately, tables 2 - 4 only provide the S.E. of the rejected least square
+correlation (LSQ) to order the RMA parameter (slope, intercept). In addition, the
+order derived from these S.E. differs for the first foure bone measures:
+
+\itemize{
+\item{ combined: Fem2Tib1, Fem2, Fem1Tib1, Fem1 }
+\item{ males: Fem2, Fem2Tib1, Fem1, Fem1Tib1 }
+\item{ females: Fem1Tib1, Fem2Tib1, Fem1, Fem2 }
+\item{ subsequent identical order: Fib1, Tib1, Hum1, Rad1, Uln1 }
+}
+
+In order to have a consistent calculation based on the same bone measurements in
+cases of certain, uncertain, or even impossible sex determination, the following
+order is applied to all individuals: Fem2Tib1, Fem1Tib1, Fem2, Fem1, Fib1, Tib1,
+Hum1, Rad1, Uln1.
 
 Returns a data.frame with:
 \itemize{
@@ -38,18 +53,38 @@ e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
 \examples{
-# Read example dataset into a data frame
+# Read example dataset into a data frame and check the columnames
+x <- statuAAR::Rollet1888
+colnames(x)
+
+# Create a unique identifier from Nr and Sex
+x$id <- paste(x$Sex, x$Nr, sep = "_")
+
+# Create & check the data frame of mesures concordance for Rollet 1888
+measures.concordance <- statuAAR::measures.concordance.rollet1888
+measures.concordance[measures.concordance$own != "",]
+
+# Prepare tabled data into a long list (statuaar_data_table)
+dl.rollet <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "id",
+                measures.names = "own", sex = "Sex", stats = FALSE)
+
+# Calculate stature estimation using a given formula.
+mn09.estimates <- statuAAR::getStature(c("mn09"), dl.rollet)
+
+# Extract the corresponding data frame from the returned list object.
+# Please note, not in all cases left and right measures are available.
+mn09.estimates[["mn09"]]
 
 }
 \references{
 \insertRef{Maijanen_Niskanen_2010}{statuAAR}
 }
 \author{
-Anna Loy \email{aloy@roots.uni-kiel.de}
+Christoph Rinne \email{crinne@ufg.uni-kiel.de}
 
 Nils Müller-Scheeßel \email{nils.mueller-scheessel@ufg.uni-kiel.de}
 
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}
 
-Christoph Rinne \email{crinne@ufg.uni-kiel.de}
+Anna Loy \email{aloy@roots.uni-kiel.de}
 }
