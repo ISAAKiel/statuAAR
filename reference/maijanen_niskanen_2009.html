@@ -4,10 +4,24 @@ separated  by sex (Maijanen, Niskanen 2009).
 Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-Maijanen &amp;amp; Niskanen propose to use first the combination of femur and
-tibia, followed by calculations on the hierarchie of single measures.
-They present regression calculations for the combination of male and female
-individuals recomended in case of undetermined sex (indet.).
+Maijanen &amp;amp; Niskanen propose to use RMA based formula, primarily the combination
+of femur and tibia, followed by calculations on the hierarchie of single measures.
+In addition, they provide formula for the combination of male and female individuals
+recomended in case of undetermined or insecure sex determination (indet.). (2010, p. 479)
+Unfortunately, tables 2 - 4 only provide the S.E. of the rejected least square
+correlation (LSQ) to order the RMA parameter (slope, intercept). In addition, the
+order derived from these S.E. differs for the first foure bone measures:
+
+combined: Fem2Tib1, Fem2, Fem1Tib1, Fem1
+males: Fem2, Fem2Tib1, Fem1, Fem1Tib1
+females: Fem1Tib1, Fem2Tib1, Fem1, Fem2
+subsequent identical order: Fib1, Tib1, Hum1, Rad1, Uln1
+
+
+In order to have a consistent calculation based on the same bone measurements in
+cases of certain, uncertain, or even impossible sex determination, the following
+order is applied to all individuals: Fem2Tib1, Fem1Tib1, Fem2, Fem1, Fib1, Tib1,
+Hum1, Rad1, Uln1.
 Returns a data.frame with:
 ind: individual identifyer (rownames),
 sex: as provided for calculation: m, f, indet.
@@ -24,10 +38,24 @@ separated  by sex (Maijanen, Niskanen 2009).
 Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-Maijanen &amp;amp; Niskanen propose to use first the combination of femur and
-tibia, followed by calculations on the hierarchie of single measures.
-They present regression calculations for the combination of male and female
-individuals recomended in case of undetermined sex (indet.).
+Maijanen &amp;amp; Niskanen propose to use RMA based formula, primarily the combination
+of femur and tibia, followed by calculations on the hierarchie of single measures.
+In addition, they provide formula for the combination of male and female individuals
+recomended in case of undetermined or insecure sex determination (indet.). (2010, p. 479)
+Unfortunately, tables 2 - 4 only provide the S.E. of the rejected least square
+correlation (LSQ) to order the RMA parameter (slope, intercept). In addition, the
+order derived from these S.E. differs for the first foure bone measures:
+
+combined: Fem2Tib1, Fem2, Fem1Tib1, Fem1
+males: Fem2, Fem2Tib1, Fem1, Fem1Tib1
+females: Fem1Tib1, Fem2Tib1, Fem1, Fem2
+subsequent identical order: Fib1, Tib1, Hum1, Rad1, Uln1
+
+
+In order to have a consistent calculation based on the same bone measurements in
+cases of certain, uncertain, or even impossible sex determination, the following
+order is applied to all individuals: Fem2Tib1, Fem1Tib1, Fem2, Fem1, Fib1, Tib1,
+Hum1, Rad1, Uln1.
 Returns a data.frame with:
 ind: individual identifyer (rownames),
 sex: as provided for calculation: m, f, indet.
@@ -85,10 +113,21 @@ separated  by sex (Maijanen, Niskanen 2009).
 Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1</p>
 <p>If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
-Maijanen &amp; Niskanen propose to use first the combination of femur and
-tibia, followed by calculations on the hierarchie of single measures.
-They present regression calculations for the combination of male and female
-individuals recomended in case of undetermined sex (indet.).</p>
+Maijanen &amp; Niskanen propose to use RMA based formula, primarily the combination
+of femur and tibia, followed by calculations on the hierarchie of single measures.
+In addition, they provide formula for the combination of male and female individuals
+recomended in case of undetermined or insecure sex determination (indet.). (2010, p. 479)
+Unfortunately, tables 2 - 4 only provide the S.E. of the rejected least square
+correlation (LSQ) to order the RMA parameter (slope, intercept). In addition, the
+order derived from these S.E. differs for the first foure bone measures:</p>
+<ul><li><p>combined: Fem2Tib1, Fem2, Fem1Tib1, Fem1</p></li>
+<li><p>males: Fem2, Fem2Tib1, Fem1, Fem1Tib1</p></li>
+<li><p>females: Fem1Tib1, Fem2Tib1, Fem1, Fem2</p></li>
+<li><p>subsequent identical order: Fib1, Tib1, Hum1, Rad1, Uln1</p></li>
+</ul><p>In order to have a consistent calculation based on the same bone measurements in
+cases of certain, uncertain, or even impossible sex determination, the following
+order is applied to all individuals: Fem2Tib1, Fem1Tib1, Fem2, Fem1, Fib1, Tib1,
+Hum1, Rad1, Uln1.</p>
 <p>Returns a data.frame with:</p><ul><li><p>ind: individual identifyer (rownames),</p></li>
 <li><p>sex: as provided for calculation: m, f, indet.</p></li>
 <li><p>stature: estimated on the provided sex and bone measures,</p></li>
@@ -127,15 +166,59 @@ ISSN 1099-1212, <a href="https://doi.org/10.1002/oa.1071" class="external-link">
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Anna Loy <a href="mailto:aloy@roots.uni-kiel.de">aloy@roots.uni-kiel.de</a></p>
+    <p>Christoph Rinne <a href="mailto:crinne@ufg.uni-kiel.de">crinne@ufg.uni-kiel.de</a></p>
 <p>Nils Müller-Scheeßel <a href="mailto:nils.mueller-scheessel@ufg.uni-kiel.de">nils.mueller-scheessel@ufg.uni-kiel.de</a></p>
 <p>Hendrik Raese <a href="mailto:h.raese@ufg.uni-kiel.de">h.raese@ufg.uni-kiel.de</a></p>
-<p>Christoph Rinne <a href="mailto:crinne@ufg.uni-kiel.de">crinne@ufg.uni-kiel.de</a></p>
+<p>Anna Loy <a href="mailto:aloy@roots.uni-kiel.de">aloy@roots.uni-kiel.de</a></p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Read example dataset into a data frame</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Read example dataset into a data frame and check the columnames</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="va"><a href="Rollet1888.html">Rollet1888</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Nr"              "Sex"             "Age"             "Stature"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "Femur.right"     "Femur.left"      "Femur.right.dry" "Femur.left.dry" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "Tibia.right"     "Tibia.left"      "Fibula.right"    "Fibula.left"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "Humerus.right"   "Humerus.left"    "Radius.right"    "Radius.left"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "Ulna.right"      "Ulna.left"      </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a unique identifier from Nr and Sex</span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">x</span><span class="op">$</span><span class="va">Nr</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create &amp; check the data frame of mesures concordance for Rollet 1888</span></span></span>
+<span class="r-in"><span><span class="va">measures.concordance</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="va"><a href="measures.concordance.rollet1888.html">measures.concordance.rollet1888</a></span></span></span>
+<span class="r-in"><span><span class="va">measures.concordance</span><span class="op">[</span><span class="va">measures.concordance</span><span class="op">$</span><span class="va">own</span> <span class="op">!=</span> <span class="st">""</span>,<span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    short            long           own</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Fem1         Femur.1           Fem</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Fem1l    Femur.1.left    Femur.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Fem1r   Femur.1.right   Femur.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Fib1l   Fibula.1.left   Fibula.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Fib1r  Fibula.1.right  Fibula.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  Hum1       Humerus.1           Hum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Hum1l  Humerus.1.left  Humerus.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Hum1r Humerus.1.right Humerus.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  Rad1        Radius.1           Rad</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 Rad1l   Radius.1.left   Radius.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 Rad1r  Radius.1.right  Radius.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  Tib1         Tibia.1           Tib</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 Tib1l    Tibia.1.left    Tibia.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Tib1r   Tibia.1.right   Tibia.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  Uln1          Ulna.1          Ulna</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 Uln1l     Ulna.1.left     Ulna.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 Uln1r    Ulna.1.right    Ulna.right</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Prepare tabled data into a long list (statuaar_data_table)</span></span></span>
+<span class="r-in"><span><span class="va">dl.rollet</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="fu"><a href="readuserdata.html">prep.statuaar.data</a></span><span class="op">(</span><span class="va">x</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>, ind <span class="op">=</span> <span class="st">"id"</span>,</span></span>
+<span class="r-in"><span>                measures.names <span class="op">=</span> <span class="st">"own"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span>, stats <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Calculate stature estimation using a given formula.</span></span></span>
+<span class="r-in"><span><span class="va">mn09.estimates</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="fu"><a href="getStature.html">getStature</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mn09"</span><span class="op">)</span>, <span class="va">dl.rollet</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Extract the corresponding data frame from the returned list object.</span></span></span>
+<span class="r-in"><span><span class="co"># Please note, not in all cases left and right measures are available.</span></span></span>
+<span class="r-in"><span><span class="va">mn09.estimates</span><span class="op">[[</span><span class="st">"mn09"</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "There is no usable bone measurement / indice available for the chosen formula."</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
