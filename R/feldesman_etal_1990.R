@@ -57,7 +57,7 @@
 #' dl.fe90 <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Site",
 #'               measures.names = "own", sex = "Probable.gender", stats = FALSE)
 #'
-#' # Calculate stature estimation using a given formula.
+#' # Calculate stature estimation using this formula.
 #' fe90.estimates <- statuAAR::getStature(c("fe90"), dl.fe90)
 #'
 #' # Extract the corresponding data frame from the returned list object.
