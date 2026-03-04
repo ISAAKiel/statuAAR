@@ -173,7 +173,7 @@ laterality (1 letter) without any separation
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list with a dataframe for each formula selected.</p>
+    <p>A statuaar_data_table with one bone measure and value per row.</p>
 <ul><li><p><b>Ind</b>:  identifyer for each individual.</p></li>
 <li><p><b>Sex</b>: sex of the individual. Accepted values 1 (male), 2 (female),
 3 (indet) or <code>m</code>(ale), <code>f</code>(emale), <code>indet</code>.</p></li>
@@ -207,6 +207,15 @@ G. Fischer, Jena.
 <span class="r-in"><span><span class="co"># get a dataframe with measures to process</span></span></span>
 <span class="r-in"><span><span class="va">dl.trotter.gleser</span> <span class="op">&lt;-</span> <span class="fu">prep.statuaar.data</span><span class="op">(</span><span class="va">x</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
 <span class="r-in"><span>   ind <span class="op">=</span> <span class="st">"Appendix_row"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span>, measures.names <span class="op">=</span> <span class="st">"own"</span>, stats <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dl.trotter.gleser</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 920 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Ind   Sex   variable value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1_1   m     Fem1       381</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 1_2   m     Fem1       385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 1_3   m     Fem1       389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 917 more rows</span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># See basic statistics to check for errors</span></span></span>
 <span class="r-in"><span><span class="fu">measures.statistics</span><span class="op">(</span><span class="va">dl.trotter.gleser</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 8</span></span>
@@ -224,7 +233,27 @@ G. Fischer, Jena.
 <span class="r-in"><span><span class="va">rollet1888</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">rollet1888</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">rollet1888</span><span class="op">$</span><span class="va">Nr</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># 2. Fill in the mesasures names in the column "own" of the measures.concordance</span></span></span>
 <span class="r-in"><span><span class="va">measures.concordance</span> <span class="op">&lt;-</span> <span class="va">measures.concordance.rollet1888</span></span></span>
-<span class="r-in"><span><span class="co"># 3. Read the data</span></span></span>
+<span class="r-in"><span><span class="va">measures.concordance</span><span class="op">[</span><span class="va">measures.concordance</span><span class="op">$</span><span class="va">own</span> <span class="op">!=</span> <span class="st">""</span>,<span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    short            long           own</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Fem1         Femur.1           Fem</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Fem1l    Femur.1.left    Femur.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Fem1r   Femur.1.right   Femur.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Fib1l   Fibula.1.left   Fibula.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Fib1r  Fibula.1.right  Fibula.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  Hum1       Humerus.1           Hum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Hum1l  Humerus.1.left  Humerus.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Hum1r Humerus.1.right Humerus.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  Rad1        Radius.1           Rad</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 Rad1l   Radius.1.left   Radius.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 Rad1r  Radius.1.right  Radius.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  Tib1         Tibia.1           Tib</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 Tib1l    Tibia.1.left    Tibia.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Tib1r   Tibia.1.right   Tibia.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  Uln1          Ulna.1          Ulna</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 Uln1l     Ulna.1.left     Ulna.left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 Uln1r    Ulna.1.right    Ulna.right</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 3. Transform data into a statuaar_data_table and basic statistics</span></span></span>
 <span class="r-in"><span><span class="va">dl.rollet1888</span> <span class="op">&lt;-</span> <span class="fu">prep.statuaar.data</span><span class="op">(</span><span class="va">rollet1888</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
 <span class="r-in"><span>      ind<span class="op">=</span><span class="st">"id"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span>, measures.names <span class="op">=</span> <span class="st">"own"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>

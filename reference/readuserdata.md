@@ -103,7 +103,7 @@ prep.statuaar.data(
 
 ## Value
 
-A list with a dataframe for each formula selected.
+A statuaar_data_table with one bone measure and value per row.
 
 - **Ind**: identifyer for each individual.
 
@@ -143,6 +143,15 @@ x <- TrotterGleser1952
 # get a dataframe with measures to process
 dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
    ind = "Appendix_row", sex = "Sex", measures.names = "own", stats = FALSE)
+print(dl.trotter.gleser, n = 3)
+#> # A tibble: 920 × 4
+#>   Ind   Sex   variable value
+#>   <chr> <fct> <chr>    <dbl>
+#> 1 1_1   m     Fem1       381
+#> 2 1_2   m     Fem1       385
+#> 3 1_3   m     Fem1       389
+#> # ℹ 917 more rows
+
 # See basic statistics to check for errors
 measures.statistics(dl.trotter.gleser)
 #> # A tibble: 5 × 8
@@ -160,7 +169,27 @@ rollet1888 <- Rollet1888
 rollet1888$id <- paste(rollet1888$Sex, rollet1888$Nr, sep = "_")
 # 2. Fill in the mesasures names in the column "own" of the measures.concordance
 measures.concordance <- measures.concordance.rollet1888
-# 3. Read the data
+measures.concordance[measures.concordance$own != "",]
+#>    short            long           own
+#> 1   Fem1         Femur.1           Fem
+#> 2  Fem1l    Femur.1.left    Femur.left
+#> 3  Fem1r   Femur.1.right   Femur.right
+#> 8  Fib1l   Fibula.1.left   Fibula.left
+#> 9  Fib1r  Fibula.1.right  Fibula.right
+#> 10  Hum1       Humerus.1           Hum
+#> 14 Hum1l  Humerus.1.left  Humerus.left
+#> 15 Hum1r Humerus.1.right Humerus.right
+#> 19  Rad1        Radius.1           Rad
+#> 23 Rad1l   Radius.1.left   Radius.left
+#> 24 Rad1r  Radius.1.right  Radius.right
+#> 28  Tib1         Tibia.1           Tib
+#> 35 Tib1l    Tibia.1.left    Tibia.left
+#> 36 Tib1r   Tibia.1.right   Tibia.right
+#> 37  Uln1          Ulna.1          Ulna
+#> 38 Uln1l     Ulna.1.left     Ulna.left
+#> 39 Uln1r    Ulna.1.right    Ulna.right
+
+# 3. Transform data into a statuaar_data_table and basic statistics
 dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
       ind="id", sex = "Sex", measures.names = "own")
 #> # A tibble: 1 × 8
