@@ -34,6 +34,9 @@ ff.). Accordingly, all possible estimates are calculated for each
 individual and then averaged. This can lead to an overrepresentation of
 individual bone measurements.
 
+Since he does not provide formulas for individuals of indeterminate sex,
+the results for female and male are averaged here.
+
 Returns a data.frame with:
 
 - ind: individual identifyer (rownames),
