@@ -80,9 +80,12 @@ dl.by89 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
 #> Warning: No individual identifier provided, each record (row) will be counted as one individual.
 
 # Calculate stature estimation using a given formula.
-by895.estimates <- statuAAR::getStature(c("by89"), dl.by89)
+by89.estimates <- statuAAR::getStature(c("by89"), dl.by89)
 
 # Extract the corresponding data frame from the returned list object.
 by89.estimates[["by89"]]
-#> Error: object 'by89.estimates' not found
+#>     sex stature bone if_female if_male if_indet n_measures
+#> 2     m    1530 MtI1      1478    1530     1474          1
+#> 1     f    1464 MtI1      1464    1516     1457          1
+#> 3 indet    1491 MtI1      1492    1544     1491          1
 ```
