@@ -52,7 +52,7 @@ getFormulaDataframe()
 #> 3                                                                                 Fem1
 #> 4                                                    Fem2+Tib1, Fem1, Tib1, Hum1, Rad1
 #> 5                       Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1
-#> 6                                                       Hum2, Hum1, Rad1b, Fem1, Tib1b
+#> 6                                                       Hum2, Hum1, Rad1b, Fem2, Tib1b
 #> 7                                                       Hum1, Rad1, Fem1, Tib1b, Tib1a
 #> 8  Fem1, Fem1+Tib1a, Fem2, Fem2+Tib1a, Fem2+Tib1b, Hum1, Hum1+Rad1, Rad1, Tib1a, Tib1b
 #> 9                               Hum1, Rad1, Rad1b, Uln1, Fem1, Fem2, Tib1, Tib1b, Fib1
