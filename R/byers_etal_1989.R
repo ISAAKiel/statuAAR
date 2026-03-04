@@ -50,7 +50,7 @@
 #'                        measures.names = "short", sex = "sex", stats = FALSE)
 #'
 #' # Calculate stature estimation using a given formula.
-#' by895.estimates <- statuAAR::getStature(c("by89"), dl.by89)
+#' by89.estimates <- statuAAR::getStature(c("by89"), dl.by89)
 #'
 #' # Extract the corresponding data frame from the returned list object.
 #' by89.estimates[["by89"]]
