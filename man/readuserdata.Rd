@@ -54,7 +54,7 @@ laterality (1 letter) without any separation
 \item{stats}{Output of aggregating statistics of the measures provided. Default = TRUE.}
 }
 \value{
-A list with a dataframe for each formula selected.
+A statuaar_data_table with one bone measure and value per row.
 
 \itemize{
 \item \bold{Ind}:  identifyer for each individual.
@@ -105,6 +105,8 @@ x <- TrotterGleser1952
 # get a dataframe with measures to process
 dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
    ind = "Appendix_row", sex = "Sex", measures.names = "own", stats = FALSE)
+print(dl.trotter.gleser, n = 3)
+
 # See basic statistics to check for errors
 measures.statistics(dl.trotter.gleser)
 
@@ -114,7 +116,9 @@ rollet1888 <- Rollet1888
 rollet1888$id <- paste(rollet1888$Sex, rollet1888$Nr, sep = "_")
 # 2. Fill in the mesasures names in the column "own" of the measures.concordance
 measures.concordance <- measures.concordance.rollet1888
-# 3. Read the data
+measures.concordance[measures.concordance$own != "",]
+
+# 3. Transform data into a statuaar_data_table and basic statistics
 dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
       ind="id", sex = "Sex", measures.names = "own")
 
