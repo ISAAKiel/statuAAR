@@ -15,31 +15,30 @@ data.frame with calculated stature and related information per individual.
 \description{
 Stature estimation (mm) based on the hierarchy of different regression calculations,
 separated  by sex (Olivier et al 1978).
-Bone measures used: Hum2, Hum1, Rad1b, Fem1, Tib1b
+Bone measures used: Hum2, Hum1, Rad1b, Fem2, Tib1b
 
-If bone measures for left and right are provided the mean value will be used,
-but for statistic information 2 bones will be counted (n_measures).
-If sex is indet. the mean of male and female stature estimation is given.
-The regression formula are hierarchical from combinations of different
-bone measures to single bone measures. For the multiple regressions the average
-of left and right bone is used, allthough "asymmetry to be virtually negligible:
+The bone measures used are clearly specified only for the side specific
+formulas, e.g. "Femur (2)". In all other cases and in the text only the bone,
+e.g. Femur, is used, without any specific number for the measure.
+We consistently use only the clearly specified bone measures,
+e.g. Femur 2, in all cases.
+
+The regression formulas are arranged hierarchically according to the given
+correlation coefficient r, from combinations of different bone measurements
+to individual bone measurements.
+The regression formulas for men, separated by gender, are ignored:
+"In the multiple regression equations we have used the average of the
+right and left size, judging the asymmetry to be virtually negligible:
 it is only significant for the right ulna" (Olivier et al 1978, 515).
-For individual bone measures regression formula are given for left an right side
-in the case of male individuals. Wheras regression formula for females are
-presented only for left bones, likely due to the set of data based on.
-In  consequence for male individuals stature estimation on a single bone is
-calculated 1. upon the hierarchy given by the table (r, s.d.) and
-2. on the mean of left an right bone or 3. on one of both sides.
-Wheras for female individuals stature estimation based on one bone considers
-\enumerate{
-\item the hierarchy given by the table (r, s.d) using the mean of left and/or
-right side.
-For male 15 multiple regressions are provided, for female only 9,
-in addition these use different bone measures within each hierarchy.
-In consequence, stature estimation for both do not correlate and
-the alternative stature will not be calculated.
+This results in 15 formula for males and 14 formula for females, based on
+different combinations of bone measures according to the respective hierarchy
+of the correlation coefficient achieved.
+Consequently, stature of female and male individuals is estimation on the basis
+of different bone measures.
+Furthermore, individuals without sex determination cannot be calculated by the
+mean of two values based of different parameters.
+We therefore only provide the mean of female and male stature for comparison purposes.
 Only the first applicable measure of the given hierarchy will be used.
-}
 
 Returns a data.frame with:
 \itemize{
@@ -56,6 +55,24 @@ e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 \examples{
 # Read example dataset into a data frame
+x <- statuAAR::Rollet1888
+
+# Create a unique identifier from Nr and Sex
+x$id <- paste(x$Sex, x$Nr, sep = "_")
+
+# Create & check the data frame of mesures concordance for Rollet 1888
+measures.concordance <- statuAAR::measures.concordance.rollet1888
+measures.concordance[measures.concordance$own != "",]
+
+# Prepare tabled data into a long list (statuaar_data_table)
+dl.rollet <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "id",
+                measures.names = "own", sex = "Sex", stats = FALSE)
+
+# Calculate stature estimation using this formula.
+ol78.estimates <- statuAAR::getStature(c("ol78"), dl.rollet)
+
+# Extract the corresponding data frame from the returned list object.
+ol78.estimates[["ol78"]]
 
 }
 \references{
