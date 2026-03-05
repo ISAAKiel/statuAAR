@@ -61,6 +61,6 @@ getFormulaDataframe()
 #> 12                                                 Fem1, Tib1b, Fib1, Uln1, Rad1, Hum1
 #> 13                                  Fem2+Tib1, Fem2, Fem1, Tib1, Hum1+Rad1, Hum1, Rad1
 #> 14                                                                    Fem1, Hum1, Rad1
-#> 15                                                                     Fem1+Tib1, Tib1
-#> 16                                                                     Fem1+Tib1, Tib1
+#> 15                                                               Fem1+Tib1, Fem1, Tib1
+#> 16                                                               Fem1+Tib1, Fem1, Tib1
 ```
