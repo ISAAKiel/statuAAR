@@ -29,8 +29,8 @@ compounded correction between left and right bones by the values derived
 from the sample of Rollet (1888) is rejected.
 
 Pearson applies his formula to several data sets ("races") and allways
-caculates the mean value of all applicable formulas (1988, p. 198, 205
-ff.). Accordingly, all possible estimates are calculated for each
+caculates the mean value of all applicable formulas (1988, pp. 198,
+205). Accordingly, all possible estimates are calculated for each
 individual and then averaged. This can lead to an overrepresentation of
 individual bone measurements.
 
