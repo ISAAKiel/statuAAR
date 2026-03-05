@@ -25,7 +25,9 @@ The authors do not refer to a hierarchical application of the respective formula
 but the repeated emphasis on \%SEE as a quality characteristic suggests this.
 In addition, averaging the results of both formulas for the respective regional group
 would inadmissibly include the length of the tibia multiple times.
-Bone measures used in hierarchical order of percent standard error of estimate (\%SEE):
+
+Bone measures (Fem1, Tib1, Hum1, Rad1) used in hierarchical order of percent
+standard error of estimate (\%SEE).
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
@@ -44,7 +46,22 @@ e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
 \examples{
-# Read example dataset into a data frame
+# Read example dataset into a data frame.
+# Ruff et al 2012 cite Trotter & Gleser (White).
+x <- statuAAR::TrotterGleser1952
+x <- x[x$Race == "White", ]
+
+# Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+measures.concordance <- create.measures.concordance()
+measures.concordance[measures.concordance$own != "",]
+
+# Prepare statuaar_data_table
+dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+                           sex = "Sex", measures.names = "own", stats = FALSE)
+
+# Calculate stature estimation using a given formula.
+statuAAR::getStature(c("r12a"), dl.tgb)
+# ruff_etal_2012_a(dl.tgb) # The alternative.
 
 }
 \references{

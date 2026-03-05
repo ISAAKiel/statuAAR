@@ -15,7 +15,9 @@
 #' but the repeated emphasis on %SEE as a quality characteristic suggests this.
 #' In addition, averaging the results of both formulas for the respective regional group
 #' would inadmissibly include the length of the tibia multiple times.
-#' Bone measures used in hierarchical order of percent standard error of estimate (%SEE):
+#'
+#' Bone measures (Fem1, Tib1, Hum1, Rad1) used in hierarchical order of percent
+#' standard error of estimate (%SEE).
 #'
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
@@ -47,12 +49,108 @@
 #'   \insertRef{Ruff_2018b}{statuAAR}
 #'
 #' @examples
-#' # Read example dataset into a data frame
+#' # Read example dataset into a data frame.
+#' # Ruff et al 2012 cite Trotter & Gleser (White).
+#' x <- statuAAR::TrotterGleser1952
+#' x <- x[x$Race == "White", ]
+#'
+#' # Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+#' measures.concordance <- create.measures.concordance()
+#' measures.concordance[measures.concordance$own != "",]
+#'
+#' # Prepare statuaar_data_table
+#' dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+#'                            sex = "Sex", measures.names = "own", stats = FALSE)
+#'
+#' # Calculate stature estimation using a given formula.
+#' statuAAR::getStature(c("r12s"), dl.tgb)
+#' # ruff_etal_2012_s(dl.tgb) # The alternative.
 #'
 #'@export
 
 ###################################
-ruff_etal_2012_s <- function(df){
+ruff_etal_2012_s <- function(df) {
+
+#######################################################
+# Subfunction for male individuals
+
+  calc.stature.m <- function (df_bones) {
+
+    # get all optional needed measures
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+    Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
+
+    stature.m <- c()
+
+    stature.m <- ((Fem1 + Tib1) * 1.4) + 496.8
+    indice <- "Fem1+Tib1"
+    n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
+      df_bones$value.n[df_bones$variable == "Tib1"]
+    if (length(stature.m)==0){
+      stature.m <- (Tib1 * 2.78) + 607.6
+      indice <- "Tib1"
+      n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
+    }
+    # End of male stature estimation
+
+    return(list("stature"=stature.m, "indice"=indice, "n_measures"=n_measures))
+
+  } # End of Function calc.stature.m
+
+##############################################################
+# Subfunction for female individuals
+
+  calc.stature.f <- function (df_bones) {
+
+    # get all optional needed measures
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+    Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
+
+    stature.f <- c()
+
+    stature.f <- ((Fem1 + Tib1) * 1.47) + 429.6
+    indice <- "Fem1+Tib1"
+    n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
+      df_bones$value.n[df_bones$variable == "Tib1"]
+    if (length(stature.f)==0){
+      stature.f <- (Tib1 * 3.05) + 496.8
+      indice <- "Tib1"
+      n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
+    }
+    # End of female stature estimation
+
+    return(list("stature"=stature.f, "indice"=indice, "n_measures"=n_measures))
+
+  } # End of Function calc.stature.f
+
+##############################################################
+# Subfunction for indet. individuals
+
+  calc.stature.i <- function (df_bones) {
+
+    # get all optional needed measures
+    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
+    Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
+
+    stature.i <- c()
+
+    stature.i <- ((Fem1 + Tib1) * 1.48) + 430
+    indice <- "Fem1+Tib1"
+    n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
+      df_bones$value.n[df_bones$variable == "Tib1"]
+    if (length(stature.i)==0){
+      stature.i <- (Tib1 * 3.02) + 513.6
+      indice <- "Tib1"
+      n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
+    }
+    # End of indet. stature estimation
+
+    return(list("stature"=stature.i, "indice"=indice, "n_measures"=n_measures))
+
+  } # End of Function calc.stature.i
+
+#########################################################
+# Ruff et al data processing
 
   df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
   # check if needed measures are present
@@ -84,10 +182,10 @@ ruff_etal_2012_s <- function(df){
     stature.i <- calc.stature.i(df_bones)
 
     # vectors for stature estimations, indices and n_measures
-    statures <- c(stature.m[[1]], stature.f[[1]], stature.i)
+    statures <- c(stature.m[[1]], stature.f[[1]], stature.i[[1]])
     statures <- round(statures, 0)
-    indices <- c(stature.m[[2]], stature.f[[2]], indice.i)
-    n_measures <- c(stature.m[[3]], stature.f[[3]], n_measures.i)
+    indices <- c(stature.m[[2]], stature.f[[2]], stature.i[[2]])
+    n_measures <- c(stature.m[[3]], stature.f[[3]], stature.i[[3]])
 
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_bones$Sex)
@@ -102,82 +200,6 @@ ruff_etal_2012_s <- function(df){
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-
-  #######################################################
-
-calc.stature.m <- function (df_bones){
-
-  # get all optional needed measures
-  Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
-  Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
-
-  stature.m <- c()
-
-  stature.m <- ((Fem1 + Tib1) * 1.4) + 496.8
-  indice <- "Fem1+Tib1"
-  n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
-    df_bones$value.n[df_bones$variable == "Tib1"]
-  if (length(stature.m)==0){
-    stature.m <- (Tib1 * 2.78) + 607.6
-    indice <- "Tib1"
-    n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
-  }
-  # End of male stature estimation
-
-  return(list("stature"=stature.m, "indice"=indice, "n_measures"=n_measures))
-
-} # End of Function calc.stature.m
-
-##############################################################
-
-calc.stature.f <- function (df_bones){
-
-  # get all optional needed measures
-  Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
-  Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
-
-  stature.f <- c()
-
-  stature.f <- ((Fem1 + Tib1) * 1.47) + 429.6
-  indice <- "Fem1+Tib1"
-  n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
-    df_bones$value.n[df_bones$variable == "Tib1"]
-  if (length(stature.f)==0){
-    stature.f <- (Tib1 * 3.05) + 496.8
-    indice <- "Tib1"
-    n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
-  }
-  # End of female stature estimation
-
-  return(list("stature"=stature.f, "indice"=indice, "n_measures"=n_measures))
-
-} # End of Function calc.stature.f
-
-
-  ##############################################################
-
-  calc.stature.i <- function (df_bones){
-
-    # get all optional needed measures
-    Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
-    Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
-
-    stature.i <- c()
-
-    stature.i <- ((Fem1 + Tib1) * 1.48) + 430
-    indice <- "Fem1+Tib1"
-    n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
-      df_bones$value.n[df_bones$variable == "Tib1"]
-    if (length(stature.i)==0){
-      stature.i <- (Tib1 * 3.02) + 513.6
-      indice <- "Tib1"
-      n_measures <- df_bones$value.n[df_bones$variable == "Tib1"]
-    }
-    # End of indet. stature estimation
-
-    return(list("stature"=stature.i, "indice"=indice, "n_measures"=n_measures))
-
-  } # End of Function calc.stature.i
 
   return(val_indv)
 }
