@@ -14,10 +14,15 @@ data.frame with calculated stature and related information per individual.
 }
 \description{
 Stature estimation (mm) based on the hierarchy of different regression calculations,
-separated  by sex (Raxter el al 2008).
+separated  by sex, based on Egyptian skeletal sample consists of 63 adult males
+and 37 adult females (Raxter el al 2008).
+
 Bone measures used in hierarchical order of correlation (r):
-male: Fem1+Tib1a, Fem2+Tib1a, Tib1a, Tib1b, Fem1, Fem2, Hum1+Rad1, Hum1, Rad1
-female: Tib1b, Tib1a, Fem2+Tib1b, Fem1+Tib1a, Fem2, Fem1, Hum1, Hum1+Rad1, Rad1
+\itemize{
+\item{ male: Fem1+Tib1a, Fem2+Tib1a, Tib1a, Tib1b, Fem1, Fem2, Hum1+Rad1, Hum1, Rad1 }
+\item{ female: Tib1b, Tib1a, Fem2+Tib1b, Fem1+Tib1a, Fem2, Fem1, Hum1, Hum1+Rad1, Rad1 }
+}
+
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
 If sex is indet. the mean of male and female stature estimation is given.
@@ -33,18 +38,33 @@ mentioning all bone measures used and the sum of n_measures.
 Returns a data.frame with:
 \itemize{
 \item{ ind: individual identifyer (rownames), }
-\item{ sex: as provided for calculation: m, f, indet.}
+\item{ sex: as provided for calculation: m, f, indet. }
 \item{ stature: estimated on the provided sex and bone measures, }
 \item{ bone (measure(s)): bones used for calculation, }
 \item{ if_female (stature): columns with alternative stature for three sex classes, }
 \item{ if_male (stature), }
-\item{ if_indet. (stature) and}
+\item{ if_indet. (stature) and }
 \item{ n_measures: number of bone measures included:
-e.g. 2 Fem2 (left, right) + 1 Tib1}
+e.g. 2 Fem2 (left, right) + 1 Tib1 }
 }
 }
 \examples{
-# Read example dataset into a data frame
+# Read example dataset into a data frame.
+# Raxter et al. compare their data with Trotter & Gleser 1952 (Black)
+x <- statuAAR::TrotterGleser1952
+x <- x[x$Race == "Black", ]
+
+# Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+measures.concordance <- create.measures.concordance()
+measures.concordance[measures.concordance$own != "",]
+
+dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+                                       sex = "Sex", measures.names = "own", stats = FALSE)
+
+# Calculate stature estimation using a given formula.
+# (Present: Tib1, required: Tib1a)
+statuAAR::getStature(c("ra08"), dl.tgb)
+# raxter_etal_2008(dl.tgb) # The alternative.
 
 }
 \references{
@@ -57,7 +77,7 @@ e.g. 2 Fem2 (left, right) + 1 Tib1}
 \insertRef{Trotter_Gleser_1977}{statuAAR}
 }
 \author{
-Hendrik Raese \email{h.raese@ufg.uni-kiel.de}
-
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}
+
+Hendrik Raese \email{h.raese@ufg.uni-kiel.de}
 }
