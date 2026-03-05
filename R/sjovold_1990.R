@@ -5,18 +5,18 @@
 #' @description
 #' Stature estimation (mm) based on the mean of different regression calculations,
 #' not separated  by sex (Sjøvold 1990).
+#'
 #' Bone measures used: Hum1, Rad1 (alt. Rad1b), Uln1, Fem1 (alt. Fem2), Fib1.
-
+#'
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' The author discusses the correlation and disadvantages of the various regression
 #' calculations. Only the calculations based on the tibia are rejected by Sjøvold,
-#' while all other regressions appear equally valid to him. Ruff et al (2012)
-#' recognise a known trend towards geographical latitude for the tibia.
+#' while all other regressions appear equally valid to him (Sjøvold 1990, 444).
 #' Allthough not explained in the text estimated stature is derived from the mean
-#' of all calculations from the bone measures excluding Tibia (s.a.). To not multiply
-#' significance in the case of two measures per bone (e.g. Fem 1, Fem2) only one
-#' of both will be calculated.
+#' of all calculations from the bone measures excluding Tibia. To not multiply
+#' significance in the case of two measures per bone (e.g. Fem 1, Fem2) only
+#' one of both will be calculated.
 #'
 #' Returns a data.frame with:
 #' \itemize{
