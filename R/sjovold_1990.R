@@ -44,6 +44,17 @@
 #'
 #' @examples
 #' # Read example dataset into a data frame
+#' x <- statuAAR::Bach1965
+#'
+#' # Prepare tabled data into a long list (statuaar_data_table)
+#' dl.bach1965 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
+#'                        measures.names = "short", sex = "sex", stats = FALSE)
+#'
+#' # Calculate stature estimation using a given formula.
+#' sj90.estimates <- statuAAR::getStature(c("sj90"), dl.bach1965)
+#'
+#' # Extract the corresponding data frame from the returned list object.
+#' sj90.estimates[["sj90"]]
 #'
 #' @export
 
@@ -100,7 +111,7 @@ sjovold_1990 <- function(df){
       n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Rad1"]
     }else if (length(Rad1b)>0){
       measures <- append(measures, (4.80 * Rad1b) + 515.5)
-      bone <- append(bone, "Rad1")
+      bone <- append(bone, "Rad1b")
       n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Rad1b"]
     }
     if (length(Uln1)>0) {
