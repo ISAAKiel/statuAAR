@@ -251,9 +251,21 @@ prep.statuaar.data <- function (x, d.form='wide', ind = NA, sex = NA, measures.n
   newcolorder <- c(idcols, names(td)[-which(names(td) %in% idcols)])
   td <- td[newcolorder]
 
-  # for wide tabled data
+  # remove non numeric colums
   if (d.form=='wide'){
-    dl <- reshape2::melt(td, id = idcols, na.rm = TRUE)
+    if (!any(sapply(td[,-(1:2)], is.numeric))) {
+      td <- cbind(
+        td[, 1:2],
+        td[,-(1:2)][, sapply(td[,-(1:2)], is.numeric)]
+      )
+      warning("Non numeric columns have been been excluded.")
+    }
+    # wide tabled data pivot to long list
+    dl <- tidyr::pivot_longer(td,
+                              cols = where(is.numeric),
+                              names_to = "variable",
+                              values_to = "value",
+                              values_drop_na = TRUE)
   } else {
     dl <- td
   }
