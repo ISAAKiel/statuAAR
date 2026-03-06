@@ -14,7 +14,8 @@ getStature(shortnames, statuaar_data_table)
 
 - shortnames:
 
-  A vector of short names of the formula, e.g. c('bb65', 'tg01').
+  A vector of short names of the formula, e.g. c('bb65', 'tg01'), "all"
+  for all formulas.
 
 - statuaar_data_table:
 
