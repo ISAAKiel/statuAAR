@@ -101,50 +101,50 @@ trotter_gleser_1952_an <- function(df){
     # check for different combinations of measures
     # Fem1 & Tib1b
     if (length(Fem1)>0 & length(Tib1b)>0){
-      stature.m <- ((Fem1 + Tib1b) * 1.30) + 632.9
-      stature.f <- ((Fem1 + Tib1b) * 1.39) + 532.0
+      stature.m <- ((Fem1 + Tib1b) * 1.15) + 710.4
+      stature.f <- ((Fem1 + Tib1b) * 1.26) + 597.2
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "1. Fem1&Tib1b"
       n_measures <- df_bones$value.n[df_bones$variable == "Fem1"] +
                     df_bones$value.n[df_bones$variable == "Tib1b"]
     # Fib1
     } else if (length(Fib1)>0) {
-      stature.m <- (Fib1 * 2.68) + 717.8
-      stature.f <- (Fib1 * 2.93) + 596.1
+      stature.m <- (Fib1 * 2.19) + 856.5
+      stature.f <- (Fib1 * 2.49) + 709.0
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "2. Fib1"
       n_measures <- df_bones$value.n[df_bones$variable == "Fib1"]
     # Tib1b
     } else if (length(Tib1b)>0) {
-      stature.m <- (Tib1b * 2.52) + 786.2
-      stature.f <- (Tib1b * 2.90) + 615.3
+      stature.m <- (Tib1b * 2.19) + 860.2
+      stature.f <- (Tib1b * 2.45) + 725.5
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "3. Tib1b"
       n_measures <- df_bones$value.n[df_bones$variable == "Tib1b"]
     # Fem1
     } else if (length(Fem1)>0) {
-      stature.m <- (Fem1 * 2.38) + 614.1
-      stature.f <- (Fem1 * 2.47) + 541.0
+      stature.m <- (Fem1 * 2.11) + 703.5
+      stature.f <- (Fem1 * 2.28) + 597.6
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "4. Fem1"
       n_measures <- df_bones$value.n[df_bones$variable == "Fem1"]
     # Uln1
     } else if (length(Uln1)>0) {
-      stature.m <- (Uln1 * 3.70) + 740.5
-      stature.f <- (Uln1 * 4.27) + 577.6
+      stature.m <- (Uln1 * 3.26) + 792.9
+      stature.f <- (Uln1 * 3.31) + 753.8
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "5. Uln1"
       n_measures <- df_bones$value.n[df_bones$variable == "Uln1"]
     # Rad1
     } else if (length(Rad1)>0) {
-      stature.m <- (Rad1 * 3.78) + 790.1
-      stature.f <- (Rad1 * 4.74) + 549.3
+      stature.m <- (Rad1 * 3.42) + 815.6
+      stature.f <- (Rad1 * 2.75) + 945.1
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "6. Rad1"
       n_measures <- df_bones$value.n[df_bones$variable == "Rad1"]
     } else if (length(Hum1)>0) {
-      stature.m <- (Hum1 * 3.08) + 704.5
-      stature.f <- (Hum1 * 3.36) + 579.7
+      stature.m <- (Hum1 * 3.26) + 621.0
+      stature.f <- (Hum1 * 3.08) + 646.7
       statures <- c(stature.m, stature.f, mean(c(stature.m, stature.f)))
       indice <- "7. Hum1"
       n_measures <- df_bones$value.n[df_bones$variable == "Hum1"]
