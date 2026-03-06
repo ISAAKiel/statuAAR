@@ -13,7 +13,7 @@
 #' The calculation is based on Trotter & Gleser (1952) with corrections from
 #' Trotter & Gleser (1977). The regression formula are hierarchical from
 #' combinations of different bone measures to single bone measures. Only the
-#' first applicable measure will be used.
+#' first applicable measure will be used (Siegmund 2010, 112).
 #'
 #' Returns a data.frame with:
 #' \itemize{
@@ -40,8 +40,24 @@
 #'
 #'   \insertRef{Trotter_Gleser_1977}{statuAAR}
 #'
+#'   \insertRef{Siegmund_2010}{statuAAR}
+#'
 #' @examples
-#' # Read example dataset into a data frame
+#' # Read example dataset into a data frame.
+#' x <- statuAAR::TrotterGleser1952
+#' x <- x[x$Race == "Black", ]
+#' #'
+#' # Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+#' measures.concordance <- create.measures.concordance()
+#' measures.concordance[measures.concordance$own != "",]
+#' #'
+#' # Prepare statuaar_data_table
+#' dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+#'                                        sex = "Sex", measures.names = "own", stats = FALSE)
+#' #'
+#' # Calculate stature estimation using a given formula.
+#' statuAAR::getStature(c("tg01"), dl.tgb)
+#' # trotter_gleser_1952_an(dl.tgb) # The alternative.
 #'
 #'@export
 
@@ -154,8 +170,6 @@ trotter_gleser_1952_an <- function(df){
   if (dim(val_indv)[1] == 0) {
     print("There is no usable bone measurement / indice available for the chosen formula")
   }
-
-  #rm(i, vec_indv)
 
   return(val_indv)
 }
