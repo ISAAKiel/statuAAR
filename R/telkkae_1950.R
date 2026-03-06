@@ -36,7 +36,20 @@
 #'   \insertRef{Telkkã_1950}{statuAAR}
 #'
 #' @examples
-#' # Read example dataset into a data frame
+#' # Read example dataset into a data frame.
+#' x <- statuAAR::TrotterGleser1952
+#'
+#' # Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+#' measures.concordance <- create.measures.concordance()
+#' measures.concordance[measures.concordance$own != "",]
+#'
+#' # Prepare statuaar_data_table
+#' dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+#'                                        sex = "Sex", measures.names = "own", stats = FALSE)
+#'
+#' # Calculate stature estimation using a given formula.
+#' statuAAR::getStature(c("te50"), dl.tgb)
+#' # telkkae_1950(dl.tgb) # The alternative.
 #'
 #' @export
 
