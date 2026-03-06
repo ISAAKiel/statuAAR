@@ -14,7 +14,8 @@ data.frame with calculated stature and related information per individual.
 }
 \description{
 Stature estimation (mm) based on the hierarchy of different regression calculations,
-separated  by sex (Vercellotti et al. 2009).
+separated  by sex developed for 60 individuals from a medieval (XI-XII c)
+cemetery in Giecz, Poland (Vercellotti et al. 2009).
 Bone measures used: Fem2+Tib1, Fem2, Fem1, Tib1, Hum1+Rad1, Hum1, Rad1
 
 If bone measures for left and right are provided the mean value will be used,
@@ -36,18 +37,32 @@ e.g. 2 Fem2 (left, right) + 1 Tib1}
 }
 }
 \examples{
-# Read example dataset into a data frame
+# Read example dataset into a data frame.
+x <- statuAAR::TrotterGleser1952
+x <- x[x$Race == "White", ]
+#'
+# Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+measures.concordance <- create.measures.concordance()
+measures.concordance[measures.concordance$own != "",]
+#'
+# Prepare statuaar_data_table
+dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+                                       sex = "Sex", measures.names = "own", stats = FALSE)
+#'
+# Calculate stature estimation using a given formula.
+statuAAR::getStature(c("ve09"), dl.tgb)
+# vercellotti_etal_2009(dl.tgb) # The alternative.
 
 }
 \references{
 \insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR}
 }
 \author{
-Anna Loy \email{aloy@roots.uni-kiel.de}
-
-Nils Müller-Scheeßel \email{nils.mueller-scheessel@ufg.uni-kiel.de}
-
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}
 
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}
+
+Anna Loy \email{aloy@roots.uni-kiel.de}
+
+Nils Müller-Scheeßel \email{nils.mueller-scheessel@ufg.uni-kiel.de}
 }
