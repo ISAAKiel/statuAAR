@@ -7,7 +7,8 @@
 getStature(shortnames, statuaar_data_table)
 }
 \arguments{
-\item{shortnames}{A vector of short names of the formula, e.g. c('bb65', 'tg01').}
+\item{shortnames}{A vector of short names of the formula, e.g. c('bb65', 'tg01'),
+"all" for all formulas.}
 
 \item{statuaar_data_table}{A data.frame of class statuaar_data_table as provided
 by prep.statuaar.data().

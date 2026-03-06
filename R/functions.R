@@ -93,7 +93,7 @@ getFormulaDataframe <- function(){
   tmp_df <- do.call(rbind, tmp_list)
   tmp_df <- as.data.frame(tmp_df, stringsAsFactors = FALSE)
   colnames(tmp_df) <- c('short', 'long', 'measures')
-  print(tmp_df)
+  tmp_df
 }
 
 #' @name getStature
@@ -104,7 +104,8 @@ getFormulaDataframe <- function(){
 #' Returns a list with data.frames of stature estimations for each specified formula
 #'  and the data provided in a data.frame of class statuaar_data_table.
 #'
-#' @param shortnames A vector of short names of the formula, e.g. c('bb65', 'tg01').
+#' @param shortnames A vector of short names of the formula, e.g. c('bb65', 'tg01'),
+#'  "all" for all formulas.
 #'
 #' @param statuaar_data_table A data.frame of class statuaar_data_table as provided
 #' by prep.statuaar.data().
@@ -141,6 +142,16 @@ getFormulaDataframe <- function(){
 #'
 getStature <- function(shortnames, statuaar_data_table) {
   # List for the data.frames with stature estimations per formula.
+
+  if (any(!(shortnames %in%
+                   append(statuAAR::getFormulaDataframe()[[1]], "all")))) {
+    stop("Not all abbreviations are valid. To get all available
+         formulas: statuAAR::getFormulaDataframe()")
+  }
+  if (length(shortnames) == 1 && (shortnames == "all")) {
+    shortnames <- statuAAR::getFormulaDataframe()[[1]]
+  }
+
   stature_list <- list()
 
   for (shortname in shortnames) {
@@ -150,11 +161,11 @@ getStature <- function(shortnames, statuaar_data_table) {
     # If item (function) is present add df of stature estimates
     if (length(item) > 0) {
       func_name <- item[[1]]$name
-      func <- get(func_name)  # Holt die Funktion anhand des Namens
-      df_result <- func(statuaar_data_table)  # Führt die Funktion aus und erhält den Data Frame
-      stature_list[[shortname]] <- df_result  # Speichert den Data Frame in der Liste
+      func <- get(func_name)  # Get function by short name
+      df_result <- func(statuaar_data_table)  # Run function and return data.frame
+      stature_list[[shortname]] <- df_result  # Write data.frame to the list
     } else {
-      stature_list[[shortname]] <- NULL  # Falls kein Treffer, NULL speichern
+      stature_list[[shortname]] <- NULL  # If return is empty
     }
   }
 
