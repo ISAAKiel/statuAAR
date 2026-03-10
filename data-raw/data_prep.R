@@ -38,6 +38,16 @@ TrotterGleser1952 <- read.csv(
 )
 usethis::use_data(TrotterGleser1952, overwrite = TRUE)
 
+SchmidtEtAl2007 <- read.csv(
+  "data-raw/SchmidtEtAl2007.csv",
+  sep = ",",
+  header = TRUE,
+  skip=3,
+  stringsAsFactors = FALSE,
+  check.names = FALSE
+)
+usethis::use_data(SchmidtEtAl2007, overwrite = TRUE)
+
 # concordance of measure names
 measures.concordance <- read.csv(
   "data-raw/measures.concordance.tab",
