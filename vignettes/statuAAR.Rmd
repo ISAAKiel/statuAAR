@@ -1,6 +1,7 @@
 ---
 title: "Introduction to statuAAR"
 output: rmarkdown::html_vignette
+bibliography: ../inst/REFERENCES.bib
 vignette: >
   %\VignetteIndexEntry{Introduction to statuAAR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -8,46 +9,106 @@ vignette: >
 ---
 ```{r setup, include=FALSE}
 library(statuAAR)
+#library(tibble)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Get started
+## Qickstart with a general workflow.
 
-Get a df of the available formula and measures.
+Obtain a data frame of the available formulas and measurements and decide on 
+one or more formulas later.
 
 ```{r get formulas}
-statuAAR::getFormulaDataframe()
+knitr::kable(statuAAR::getFormulaDataframe())
 ```
 
-Check Breitinger & Bach 1965 documentation.
+You may check the corresponding documentation, e.g. for breitinger_bach_1965 [@Bach_1965].
 
 ```{r check B & B}
 ?statuAAR::breitinger_bach_1965
 ```
 
-Load some data, e.g. Bach1965, into a data.frame.
+Load some data into a data frame [e.g. from @Bach_1965] .
 
 ```{r read B & B}
 Bach1965 <- statuAAR::Bach1965
-head(Bach1965)
+knitr::kable(head(Bach1965))
 ```
 
 
-Prepare tabled data into a long list (statuaar_data_table).
+Prepare tabled data into a long list (statuaar_data_table) and accept the warning 
+about the missing ID for each individual.
 
 ```{r prep B & B}
 dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
                    measures.names = "short", sex = "sex", stats = FALSE)
 ```
 
-Check the measurements using general statistics.
+Check the measurements using the function provided for general statistics.
 
-```{r check mesaurements}
+```{r check mesaurements B & B}
 statuAAR::measures.statistics(dl.bach1965)
 ```
 
-Get the stature estimations of the provided measurements. The function returns a list with a data frame for each formula.
+Get the stature estimations of the provided measurements. The function returns a 
+list with a data frame for each formula. You can address each data frame with the 
+short name of the corresponding formula. 
 
-```{r get estimates}
-head(statuAAR::getStature(c('bb65'), dl.bach1965)$bb65)
+```{r get estimates B & B}
+knitr::kable(head(statuAAR::getStature(c('bb65'), dl.bach1965)$bb65))
 ```
+
+## Basic minimal workflow
+
+Create a data frame with measures for one individual per row. If you do not provide
+an individual identifier or a sex assignment,  row count and indet. will be added 
+in the subsequent data preparation. We create a minimal data frame with data for 
+a Neanderthal Man taken from @Pearson_1899[p. 205].
+
+```{r minimal workflow data entry}
+x <- data.frame(Fem1 = 445.2, Hum1 = 312, Rad1 = 240)
+knitr::kable(x)
+```
+
+The column names correspond to the abbreviations used for the bone measurements, 
+so no concordance for the names is required (create.measures.concordance()). The 
+data can be transfered the wide table into the long format with only one measure 
+per row (prep.statuaar.data()).
+Furthermore, we do not opt for a general statistic to check for possible errors 
+in the data provided.
+
+```{r minimal worflow data preparation}
+dl.Neanderthal <- statuAAR::prep.statuaar.data(x, d.form = "wide", stat = FALSE)
+knitr::kable(dl.Neanderthal)
+```
+
+We now can calculate the estimated stature in various ways.
+
+1. Just use a specific function and get a data frame with the estimated stature, 
+the bone measurements used and the alternatives:
+
+```{r minimal worflow stature pearson_1899}
+pearson_1899(dl.Neanderthal)
+```
+
+2. You can use the function getStature() and provide a vector of formula short 
+names and the prepared data frame to get a list containing the corresponding 
+data frames. You can convert the list into a single data frame with an additional 
+column for the formula. 
+
+```{r minimal worflow staure from vector}
+res.Neanderthal <- getStature(c('bo84','bb65','mn09'), dl.Neanderthal)
+knitr::kable(getStatureDataframe(res.Neanderthal))
+```
+
+If you want to get all possible stature estimations use "all" instead of the 
+vector with specific abbreviations. 
+
+```{r minimal worflow staure for all}
+res.Neanderthal <- getStature('all', dl.Neanderthal)
+knitr::kable(getStatureDataframe(res.Neanderthal))
+```
+
+
+## References
+
