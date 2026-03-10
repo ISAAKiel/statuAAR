@@ -6,7 +6,7 @@
 #' Stature estimation (mm) based on the mean of regression calculations,
 #' separated  by sex (Boldsen 1984).
 #' Bone measures used: Fem1, Tib1
-#' #'
+#'
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
 #' If sex is indet. the mean of male and female stature estimation is given.
@@ -15,16 +15,13 @@
 #' burial ground of Lille Sct. Mikkelsgade in Viborg, the stature of 65
 #' very well-preserved adult skeletons (31 male, 34 female) were determined
 #' (Boldsen 1984, Appendix 1).
-#' ######## Hier satz zu den primären Regressionsgleichungen#######
-#' The correlation coefficients (r) given for
-#' Fem1 and Tib1 differ (Table 1). Men: 0.874 (Fem1), 0.837 (Tib1),
-#' women: 0.741 (Fem1), 0.804 (Tib1). As the calculated covariance matrices are
-#' insignificantly different the regression lines deviate insignificantly from
-#' parallel and the common regression formulae are given as:
-#'
-#'
-#' Since he does not provide formulas for individuals of indeterminate sex,
-#' the results for female and male are averaged here.
+#' Based on these stature estimates, four regression functions are presented:
+#' separated by gender for Fem1 and Tib1. Due to almost identical slopes,
+#' these functions are aggregated according to bone type and separated only
+#' by the intercept for modern populations (Danes, Finns) and the White
+#' Americans data from Trotter & Gleser (1958).
+#' Here, we use the formulas obtained from the primary archaeological data,
+#' the results of which are averaged when both bone measurements are available.
 #'
 #' Returns a data.frame with:
 #' \itemize{
@@ -50,16 +47,30 @@
 #'   \insertRef{boldsen_statistical_1984}{statuAAR}
 #'
 #' @examples
-#' # Read example dataset.
+#' # Read example dataset into a data frame.
+#' x <- statuAAR::TrotterGleser1952
+#' x <- x[x$Race == "White", ]
+#' #'
+#' # Create & check the data frame of mesures concordance for Trotter & Gleser 1952
+#' measures.concordance <- create.measures.concordance()
+#' measures.concordance[measures.concordance$own != "",]
+#' #'
+#' # Prepare statuaar_data_table
+#' dl.tgw <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+#'                              sex = "Sex", measures.names = "own", stats = FALSE)
+#' #'
+#' # Calculate stature estimation using a given formula.
+#' statuAAR::getStature(c("bo84"), dl.tgw)
+#' # boldsen_1984(dl.tgw) # The alternative.
 #'
 #'@export
 
-pearson_1899 <- function(df){
+boldsen_1984 <- function(df){
 
   df$variable <- gsub("([rl]$)", "", df$variable) # laterality not needed
 
   # check if needed measures are present
-  needed <- getFormulaMeasures('pe99')
+  needed <- getFormulaMeasures('bo84')
   if (!any(df$variable %in% needed)){
     return("There is no usable bone measurement / indice available for the chosen formula.")
   }
@@ -81,82 +92,30 @@ pearson_1899 <- function(df){
   for (i in seq_along(vec_indv)){
     df_bones <- subset(df, subset = df$Ind == vec_indv[i])
     # Get measure values needed
-    Hum1 <- df_bones$value.mean[df_bones$variable == "Hum1"]
-    Rad1 <- df_bones$value.mean[df_bones$variable == "Rad1"]
     Fem1 <- df_bones$value.mean[df_bones$variable == "Fem1"]
-    Fem2 <- df_bones$value.mean[df_bones$variable == "Fem2"]
-    Tib1b <- df_bones$value.mean[df_bones$variable == "Tib1b"]
-    Tib1a <- df_bones$value.mean[df_bones$variable == "Tib1a"]
+    Tib1 <- df_bones$value.mean[df_bones$variable == "Tib1"]
 
     # document bone measures and number used for calculation
     bone <- c()
     n_measures <- 0
-    if (length(Hum1)>0) {
-      bone <- append(bone, "Hum1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Hum1"]
-    }
-    if (length(Rad1)>0) {
-      bone <- append(bone, "Rad1")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Rad1"]
-    }
     if (length(Fem1)>0) {
       bone <- append(bone, "Fem1")
       n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Fem1"]
-    } else if (length(Fem2)>0){
-      bone <- append(bone, "Fem2.corr")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Fem2"]
     }
-    if (length(Tib1b)>0) {
-      bone <- append(bone, "Tib1b")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Tib1b"]
-    } else if (length(Tib1a)>0){
-      bone <- append(bone, "Tib1a.corr")
-      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Tib1a"]
+    if (length(Tib1)>0) {
+      bone <- append(bone, "Tib1")
+      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Tib1"]
     }
 
     # Calculate the different indices for male
-    Tib1ba <- Tib1b
-    if(length(Tib1b)==0 & length(Tib1a)>0){
-      Tib1ba <- Tib1a - 9.6
-    }
-    Fem12 <- Fem1
-    if (length(Fem1)==0 & length(Fem2)>0){
-      Fem12 <- Fem2 + 3.2
-    }
-
     measures.m <- c()
-    measures.m <- append(measures.m, Fem12 * 1.880 + 813.06)
-    measures.m <- append(measures.m, Hum1 * 2.894 + 706.41)
-    measures.m <- append(measures.m, Tib1ba * 2.376 + 786.64)
-    measures.m <- append(measures.m, Rad1 * 3.271+ 859.25)
-    measures.m <- append(measures.m, (Fem12 + Tib1ba) * 1.159 + 712.72)
-    measures.m <- append(measures.m, (Fem12 * 1.220) + (Tib1ba * 1.080) + 714.43)
-    measures.m <- append(measures.m, (Hum1 + Rad1) * 1.730 + 668.55)
-    measures.m <- append(measures.m, (Hum1 * 2.769) + (Rad1 * 0.195) + 697.88)
-    measures.m <- append(measures.m, (Hum1 * 1.557) + (Fem12 * 1.030) + 683.97)
-    measures.m <- append(measures.m, (Fem12 * 0.913) + (Tib1ba * 0.600) +(Hum1 * 1.225) - (Rad1 * 0.187) + 670.49)
+    measures.m <- append(measures.m, Fem1 * 2.519 + 528.5)
+    measures.m <- append(measures.m, Tib1 * 2.406 + 823.7)
 
     # Calculate the different indices for female
-    Tib1ba <- Tib1b
-    if(length(Tib1b)==0 & length(Tib1a)>0){
-      Tib1ba <- Tib1a - 8.7
-    }
-    Fem12 <- Fem1
-    if (length(Fem1)==0 & length(Fem2)>0){
-      Fem12 <- Fem2 + 3.3
-    }
-
     measures.f <- c()
-    measures.f <- append(measures.f, Fem12 * 1.945 + 728.44)
-    measures.f <- append(measures.f, Hum1 * 2.754 + 714.75)
-    measures.f <- append(measures.f, Tib1ba * 2.352 + 747.74)
-    measures.f <- append(measures.f, Rad1 * 3.343 + 812.24)
-    measures.f <- append(measures.f, (Fem12 + Tib1ba) * 1.126 + 691.54)
-    measures.f <- append(measures.f, (Fem12 * 1.117) + (Tib1ba * 1.125) + 695.61)
-    measures.f <- append(measures.f, (Hum1 + Rad1) * 1.628 + 699.11)
-    measures.f <- append(measures.f, (Hum1 * 2.582) + (Rad1 * 0.281) + 705.42)
-    measures.f <- append(measures.f, (Hum1 * 1.027) + (Fem12 * 1.339) + 674.35)
-    measures.f <- append(measures.f, (Fem12 * 0.782) + (Tib1ba * 1.120) +(Hum1 * 1.059) - (Rad1 * 0.711) + 674.69)
+    measures.f <- append(measures.f, Fem1 * 2.528 + 507.6)
+    measures.f <- append(measures.f, Tib1 * 2.869 + 608.5)
 
     # Calculate the different indices for indet.
     measures.i <-(measures.m + measures.f)/2

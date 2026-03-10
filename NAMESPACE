@@ -2,6 +2,7 @@
 
 export(as.statuaar_data_table)
 export(as.statuaar_statistics)
+export(boldsen_1984)
 export(breitinger_bach_1965)
 export(byers_etal_1989)
 export(create.measures.concordance)
