@@ -11,6 +11,7 @@ reference:
   - getStatureDataframe
 - title: Formulas
   contents:
+  - boldsen_1984
   - breitinger_bach_1965
   - byers_etal_1989
   - feldesman_etal_1990
@@ -41,5 +42,6 @@ reference:
   - Bach1965
   - Feldesman1990
   - Rollet1888
+  - SchmidtEtAl2007
   - TrotterGleser1952
 
