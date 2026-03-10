@@ -1,4 +1,12 @@
-url: https://isaakiel.github.io/statuAAR/
+url: "https://isaakiel.github.io/statuAAR/"
+vignettes:
+  - name: "statuAAR"
+    title: "Quick start: general and basic workflow"
+    description: "A quick introduction with a general procedure and a minimal
+    basic procedure for use."
+    output:
+      html_document:
+        df_print: "tidy"
 template:
   bootstrap: 5
   light-switch: yes
