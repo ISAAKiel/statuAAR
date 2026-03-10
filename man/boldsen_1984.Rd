@@ -62,7 +62,7 @@ dl.tgw <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
 #'
 # Calculate stature estimation using a given formula.
 statuAAR::getStature(c("bo84"), dl.tgw)
-# trotter_gleser_1952_aw(dl.tgw) # The alternative.
+# boldsen_1984(dl.tgw) # The alternative.
 
 }
 \references{
