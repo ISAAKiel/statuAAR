@@ -206,7 +206,7 @@ olivier_etal_1978 <- function(df) {
           stature.m <- (Fib1 * 2.6559) + 721.0
           indice <-"Fib1.r"
         } else {
-          stature.m <- (Fib1l * 2.6841) + 709.6
+          stature.m <- (Fib1 * 2.6841) + 709.6
           indice <-"Fib1.l"
         }
       }
@@ -216,10 +216,10 @@ olivier_etal_1978 <- function(df) {
           stature.m <- (Tib1b * 2.6061) + 716.90
           indice <- "Tib1b.rl"
         } else if (df_bones$right[df_bones$variable == "Tib1b"]==TRUE){
-          stature.m <- (Tib1br * 2.6202) + 713.2
+          stature.m <- (Tib1b * 2.6202) + 713.2
           indice <- "Tib1b.r"
         } else {
-          stature.m <- (Tib1bl * 2.5919) + 720.6
+          stature.m <- (Tib1b * 2.5919) + 720.6
           indice <- "Tib1b.l"
         }
       }
@@ -229,10 +229,10 @@ olivier_etal_1978 <- function(df) {
           stature.m <- (Fem2 * 2.4184) + 585.05
           indice <- "Fem2.rl"
         } else if (df_bones$right[df_bones$variable == "Fem2"]==TRUE){
-          stature.m <- (Fem2r * 2.4165) + 586.8
+          stature.m <- (Fem2 * 2.4165) + 586.8
           indice <- "Fem2.r"
         } else {
-          stature.m <- (Fem2l * 2.4202) + 583.3
+          stature.m <- (Fem2 * 2.4202) + 583.3
           indice <- "Fem2.l"
         }
       }
@@ -242,10 +242,10 @@ olivier_etal_1978 <- function(df) {
           stature.m <- (Hum1 * 3.1735) + 644.15
           indice <- "Hum1.rl"
         } else if (df_bones$right[df_bones$variable == "Hum1"]==TRUE){
-          stature.m <- (Hum1r * 3.1564) + 646.4
+          stature.m <- (Hum1 * 3.1564) + 646.4
           indice <- "Hum1.r"
         } else {
-          stature.m <- (Hum1l * 3.1906) + 641.9
+          stature.m <- (Hum1 * 3.1906) + 641.9
           indice <- "Hum1.l"
         }
       }
@@ -255,10 +255,10 @@ olivier_etal_1978 <- function(df) {
           stature.m <- (Rad1b * 4.2323) + 664.90
           indice <- "Rad1b.rl"
         } else if (df_bones$right[df_bones$variable == "Rad1b"]==TRUE){
-          stature.m <- (Rad1br * 4.2865) + 648.5
+          stature.m <- (Rad1b * 4.2865) + 648.5
           indice <- "Rad1b.r"
         } else {
-          stature.m <- (Rad1bl * 4.1780) + 681.3
+          stature.m <- (Rad1b * 4.1780) + 681.3
           indice <- "Rad1b.l"
         }
       }
@@ -268,10 +268,10 @@ olivier_etal_1978 <- function(df) {
           stature.m <- (Uln1* 3.9119) + 674.75
           indice <- "Uln1.rl"
         } else if (df_bones$right[df_bones$variable == "Uln1"]==TRUE){
-          stature.m <- (Uln1l * 3.9582) + 667.1
+          stature.m <- (Uln1 * 3.9582) + 667.1
           indice <- "Uln1.r"
         } else {
-          stature.m <- (Uln1r * 3.8656) + 682.4
+          stature.m <- (Uln1 * 3.8656) + 682.4
           indice <- "Uln1.l"
         }
       }
@@ -421,7 +421,8 @@ olivier_etal_1978 <- function(df) {
 
   } # End of Function calc.stature.f
 
-    # create variable side for laterality and delete corresponding info from measure
+  # General data processing
+  # create variable side for laterality and delete corresponding info from measure
   # n = 2: both measures used, n = 1 & right = T: right side, n = 1 & right = F: left side
   df$right <- rep(FALSE, nrow(df))
   df$right[grepl(".r", df$variable)]<- TRUE
