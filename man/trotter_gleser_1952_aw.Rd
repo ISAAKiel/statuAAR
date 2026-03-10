@@ -47,12 +47,12 @@ measures.concordance <- create.measures.concordance()
 measures.concordance[measures.concordance$own != "",]
 #'
 # Prepare statuaar_data_table
-dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
-                                       sex = "Sex", measures.names = "own", stats = FALSE)
+dl.tgw <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
+                             sex = "Sex", measures.names = "own", stats = FALSE)
 #'
 # Calculate stature estimation using a given formula.
-statuAAR::getStature(c("tg02"), dl.tgb)
-# trotter_gleser_1952_aw(dl.tgb) # The alternative.
+statuAAR::getStature(c("tg02"), dl.tgw)
+# trotter_gleser_1952_aw(dl.tgw) # The alternative.
 
 }
 \references{
