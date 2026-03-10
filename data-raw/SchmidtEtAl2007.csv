@@ -1,14 +1,14 @@
 # Source: K. Schmidt/H. Bruchhaus/R. Bindl, Körperhöhenschätzung an ausgewählten neolithischen und bronzezeitlichen Skeletten. Archäologische Informationen 30,1, 2007, 51–69.
 # Original headings: Skelett, Zeitstellung, Geschlecht, Körperhöhe Fully & Pineau (1960) [cm], Fenur (M1), Tibia (M1a), Humerus (M1)
-# The original measures are given in centimetres and have been converted to millimeters here to avoid decimal separators. 
+# The stature is given in centimetres and has been converted to millimeters here for consistency. 
 skeleton,period,sex,stature,Fem1,Tib1a,Hum1
-01,Schnurkeramik,weiblich,1528,4155,3460,2985
-02,Schnurkeramik,weiblich,1609,4150,3340,3055
-03,Schnurkeramik,weiblich,1607,4360,371,3170
-04,Schnurkeramik,männlich,1795,50000,4230,3590
-05,Glockenbecherkultur,weiblich,1599,4465,3490,3050
-06,Glockenbecherkultur,männlich,1641,4390,3640,2960
-07,Bandkeramik,männlich,1656,4490,3585,3200
-08,Bandkeramik,männlich,1622,4370,3500,3085
-09,Aunjetitzkultur,weiblich,1588,4340,3610,3095
-10,Aunjetitzkultur,weiblich,1523,4100,331,296
+01,"Schnurkeramik","weiblich",1528,415.5,346,298.5
+02,"Schnurkeramik","weiblich",1609,415,334,305.5
+03,"Schnurkeramik","weiblich",1607,436,371.5,317
+04,"Schnurkeramik","männlich",1795,500,423,359
+05,"Glockenbecherkultur","weiblich",1599,446.5,349,305
+06,"Glockenbecherkultur","männlich",1641,439,364,296
+07,"Bandkeramik,"männlich"",1656,449,358.5,320
+08,"Bandkeramik,"männlich"",1622,437,350,308.5
+09,"Aunjetitzkultur","weiblich",1588,434,361,309.5
+10,"Aunjetitzkultur","weiblich",1523,410,331,296
