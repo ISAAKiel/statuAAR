@@ -31,14 +31,14 @@ knitr::kable(statuAAR::getFormulaDataframe())
 | bo84 | boldsen_1984 | Fem1, Tib1 |
 
 You may check the corresponding documentation, e.g. for
-breitinger_bach_1965 (Bach 1965).
+breitinger_bach_1965 (Bach, 1965).
 
 ``` r
 
 ?statuAAR::breitinger_bach_1965
 ```
 
-Load some data into a data frame (e.g. from Bach 1965) .
+Load some data into a data frame (e.g. from Bach, 1965) .
 
 ``` r
 
@@ -109,7 +109,7 @@ Create a data frame with measures for one individual per row. If you do
 not provide an individual identifier or a sex assignment, row count and
 indet. will be added in the subsequent data preparation. We create a
 minimal data frame with data for a Neanderthal Man taken from Pearson
-(1899, 205).
+(1899, p. 205).
 
 ``` r
 
@@ -208,12 +208,12 @@ knitr::kable(getStatureDataframe(res.Neanderthal))
 
 ## References
 
-Bach, H. 1965. “Zur Berechnung Der Körperhöhe Aus Den Langen
-Gliedmaßenknochen Weiblicher Skelette.” *Anthropologischer Anzeiger* 29:
+Bach, H., 1965. Zur berechnung der körperhöhe aus den langen
+gliedmaßenknochen weiblicher skelette. Anthropologischer Anzeiger 29,
 12–21.
 
-Pearson, Karl. 1899. “IV. Mathematical Contributions to the Theory of
-Evolution.—v. On the Reconstruction of the Stature of Prehistoric
-Races.” *Philosophical Transactions of the Royal Society of London.
-Series A, Containing Papers of a Mathematical or Physical Character*
-192: 169–244. <https://doi.org/10.1098/rsta.1899.0004>.
+Pearson, K., 1899. IV. Mathematical contributions to the theory of
+evolution.—v. On the reconstruction of the stature of prehistoric races.
+Philosophical Transactions of the Royal Society of London. Series A,
+Containing Papers of a Mathematical or Physical Character 192, 169–244.
+<https://doi.org/10.1098/rsta.1899.0004>
