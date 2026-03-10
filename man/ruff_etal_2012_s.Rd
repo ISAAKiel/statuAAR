@@ -65,7 +65,7 @@ statuAAR::getStature(c("r12s"), dl.tgb)
 
 }
 \references{
-\insertRef{Ruff_Holt_Niskanen_Sladék_Berner_Garofalo_Garvin_Hora_Maijanen_Niinimäki_et al._2012}{statuAAR}
+\insertRef{Ruff_etal_2012}{statuAAR}
 
 \insertRef{Ruff_2018a}{statuAAR}
 

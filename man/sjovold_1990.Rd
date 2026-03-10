@@ -59,7 +59,7 @@ sj90.estimates[["sj90"]]
 \references{
 \insertRef{Sjøvold_1990}{statuAAR}
 
-\insertRef{Ruff_Holt_Niskanen_Sladék_Berner_Garofalo_Garvin_Hora_Maijanen_Niinimäki_et al._2012}{statuAAR}
+\insertRef{Ruff_etal_2012}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}
