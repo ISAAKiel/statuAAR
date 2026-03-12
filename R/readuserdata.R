@@ -1,4 +1,4 @@
-#' @importFrom Rdpack reprompt tidyr
+#' @importFrom Rdpack reprompt
 
 #' @name readuserdata
 #'
@@ -261,8 +261,9 @@ prep.statuaar.data <- function (x, d.form='wide', ind = NA, sex = NA, measures.n
       warning("Non numeric columns have been been excluded.")
     }
     # wide tabled data pivot to long list
+    numcols <- colnames(td)[sapply(td, is.numeric)]
     dl <- tidyr::pivot_longer(td,
-                              cols = where(is.numeric),
+                              cols = numcols,
                               names_to = "variable",
                               values_to = "value",
                               values_drop_na = TRUE)
