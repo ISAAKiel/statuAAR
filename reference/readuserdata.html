@@ -206,14 +206,13 @@ G. Fischer, Jena.
 <span class="r-in"><span><span class="co"># get a dataframe with measures to process</span></span></span>
 <span class="r-in"><span><span class="va">dl.trotter.gleser</span> <span class="op">&lt;-</span> <span class="fu">prep.statuaar.data</span><span class="op">(</span><span class="va">x</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
 <span class="r-in"><span>   ind <span class="op">=</span> <span class="st">"Appendix_row"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span>, measures.names <span class="op">=</span> <span class="st">"own"</span>, stats <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘tidyr’</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dl.trotter.gleser</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 920 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Ind   Sex   variable value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1_1   m     Fem1       381</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 1_2   m     Fem1       385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 1_3   m     Fem1       389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1_3   m     Fem1       389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2_2   m     Fem1       391</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 1_4   m     Fem1       393</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 917 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># See basic statistics to check for errors</span></span></span>
@@ -256,7 +255,10 @@ G. Fischer, Jena.
 <span class="r-in"><span><span class="co"># 3. Transform data into a statuaar_data_table and basic statistics</span></span></span>
 <span class="r-in"><span><span class="va">dl.rollet1888</span> <span class="op">&lt;-</span> <span class="fu">prep.statuaar.data</span><span class="op">(</span><span class="va">rollet1888</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
 <span class="r-in"><span>      ind<span class="op">=</span><span class="st">"id"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span>, measures.names <span class="op">=</span> <span class="st">"own"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘tidyr’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   measure     n  MinM Quart1 MedianM MeanM Quart3  MaxM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="color: #BB0000;">NA</span>          0    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NaN</span>     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

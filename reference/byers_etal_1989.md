@@ -78,13 +78,14 @@ x <- as.data.frame(list(sex = c("f", "m", "i"), MtI1 = c(49, 50, 51)))
 dl.by89 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
                        measures.names = "short", sex = "sex", stats = FALSE)
 #> Warning: No individual identifier provided, each record (row) will be counted as one individual.
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
 
 # Calculate stature estimation using a given formula.
 by89.estimates <- statuAAR::getStature(c("by89"), dl.by89)
-#> Error: object 'dl.by89' not found
 
 # Extract the corresponding data frame from the returned list object.
 by89.estimates[["by89"]]
-#> Error: object 'by89.estimates' not found
+#>     sex stature bone if_female if_male if_indet n_measures
+#> 2     m    1530 MtI1      1478    1530     1474          1
+#> 1     f    1464 MtI1      1464    1516     1457          1
+#> 3 indet    1491 MtI1      1492    1544     1491          1
 ```

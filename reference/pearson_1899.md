@@ -111,9 +111,9 @@ Christoph Rinne <crinne@ufg.uni-kiel.de>
 x <- data.frame(Fem1 = 445.2, Hum1 = 312, Rad1 = 240)
 dl <- statuAAR::prep.statuaar.data(x, d.form = "wide", stat = FALSE)
 #> Warning: No individual identifier provided, each record (row) will be counted as one individual.
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
 pearson_1899(dl)
-#> Error: object 'dl' not found
+#>     sex stature             bone if_female if_male if_indet n_measures
+#> 1 indet    1610 Hum1, Rad1, Fem1      1592    1627     1610          3
 # The result differs from Pearson's: 162.96 cm. He uses the formulas for men,
 # does not calculate his formula (g), even though it is applicable, and the
 # results for formulas (d), (h) and (i) differ by up to 19 mm from the

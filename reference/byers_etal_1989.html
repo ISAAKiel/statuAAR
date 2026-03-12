@@ -150,15 +150,16 @@ ISSN 1096-8644, <a href="https://doi.org/10.1002/ajpa.1330790303" class="externa
 <span class="r-in"><span><span class="va">dl.by89</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="fu"><a href="readuserdata.html">prep.statuaar.data</a></span><span class="op">(</span><span class="va">x</span>, d.form <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
 <span class="r-in"><span>                       measures.names <span class="op">=</span> <span class="st">"short"</span>, sex <span class="op">=</span> <span class="st">"sex"</span>, stats <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No individual identifier provided, each record (row) will be counted as one individual.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘tidyr’</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate stature estimation using a given formula.</span></span></span>
 <span class="r-in"><span><span class="va">by89.estimates</span> <span class="op">&lt;-</span> <span class="fu">statuAAR</span><span class="fu">::</span><span class="fu"><a href="getStature.html">getStature</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"by89"</span><span class="op">)</span>, <span class="va">dl.by89</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'dl.by89' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract the corresponding data frame from the returned list object.</span></span></span>
 <span class="r-in"><span><span class="va">by89.estimates</span><span class="op">[[</span><span class="st">"by89"</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'by89.estimates' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sex stature bone if_female if_male if_indet n_measures</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     m    1530 MtI1      1478    1530     1474          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     f    1464 MtI1      1464    1516     1457          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 indet    1491 MtI1      1492    1544     1491          1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

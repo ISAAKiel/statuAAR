@@ -126,14 +126,12 @@ measures.concordance[measures.concordance$own != "",]
 # Prepare tabled data into a long list (statuaar_data_table)
 dl.rollet <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "id",
                 measures.names = "own", sex = "Sex", stats = FALSE)
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
 
 # Calculate stature estimation using a given formula.
 mn09.estimates <- statuAAR::getStature(c("mn09"), dl.rollet)
-#> Error: object 'dl.rollet' not found
 
 # Extract the corresponding data frame from the returned list object.
 # Please note, not in all cases left and right measures are available.
 mn09.estimates[["mn09"]]
-#> Error: object 'mn09.estimates' not found
+#> [1] "There is no usable bone measurement / indice available for the chosen formula."
 ```

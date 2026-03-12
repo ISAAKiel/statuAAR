@@ -143,14 +143,13 @@ x <- TrotterGleser1952
 # get a dataframe with measures to process
 dl.trotter.gleser <- prep.statuaar.data(x, d.form = "wide",
    ind = "Appendix_row", sex = "Sex", measures.names = "own", stats = FALSE)
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
 print(dl.trotter.gleser, n = 3)
 #> # A tibble: 920 × 4
 #>   Ind   Sex   variable value
 #>   <chr> <fct> <chr>    <dbl>
-#> 1 1_1   m     Fem1       381
-#> 2 1_2   m     Fem1       385
-#> 3 1_3   m     Fem1       389
+#> 1 1_3   m     Fem1       389
+#> 2 2_2   m     Fem1       391
+#> 3 1_4   m     Fem1       393
 #> # ℹ 917 more rows
 
 # See basic statistics to check for errors
@@ -193,5 +192,8 @@ measures.concordance[measures.concordance$own != "",]
 # 3. Transform data into a statuaar_data_table and basic statistics
 dl.rollet1888 <- prep.statuaar.data(rollet1888, d.form = "wide",
       ind="id", sex = "Sex", measures.names = "own")
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
+#> # A tibble: 1 × 8
+#>   measure     n  MinM Quart1 MedianM MeanM Quart3  MaxM
+#>   <chr>   <dbl> <dbl>  <dbl>   <dbl> <dbl>  <dbl> <dbl>
+#> 1 NA          0    NA     NA      NA   NaN     NA    NA
 ```

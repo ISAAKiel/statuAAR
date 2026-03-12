@@ -85,13 +85,11 @@ measures.concordance$own[measures.concordance$short == "Fem1"] <- "Femur.length"
 # Prepare tabled data into a long list (statuaar_data_table)
 dl.fe90 <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Site",
               measures.names = "own", sex = "Probable.gender", stats = FALSE)
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
 
 # Calculate stature estimation using this formula.
 fe90.estimates <- statuAAR::getStature(c("fe90"), dl.fe90)
-#> Error: object 'dl.fe90' not found
 
 # Extract the corresponding data frame from the returned list object.
 fe90.estimates[["fe90"]]
-#> Error: object 'fe90.estimates' not found
+#> [1] "There is no usable bone measurement / indice available for the chosen formula."
 ```
