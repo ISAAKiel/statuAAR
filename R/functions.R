@@ -216,5 +216,6 @@ getStatureDataframe <- function(StatureList) {
                   StatureList[[short]])) -> StatureDataFrame
     }
   }
+  rownames(StatureDataFrame) <- NULL
   return(StatureDataFrame)
 }
