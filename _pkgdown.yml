@@ -1,4 +1,12 @@
-url: https://isaakiel.github.io/statuAAR/
+url: "https://isaakiel.github.io/statuAAR/"
+vignettes:
+  - name: "statuAAR"
+    title: "Quick start: general and basic workflow"
+    description: "A quick introduction with a general procedure and a minimal
+    basic procedure for use."
+    output:
+      html_document:
+        df_print: "tidy"
 template:
   bootstrap: 5
   light-switch: yes
@@ -11,6 +19,7 @@ reference:
   - getStatureDataframe
 - title: Formulas
   contents:
+  - boldsen_1984
   - breitinger_bach_1965
   - byers_etal_1989
   - feldesman_etal_1990
@@ -41,5 +50,6 @@ reference:
   - Bach1965
   - Feldesman1990
   - Rollet1888
+  - SchmidtEtAl2007
   - TrotterGleser1952
 

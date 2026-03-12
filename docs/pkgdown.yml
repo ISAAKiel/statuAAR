@@ -1,0 +1,9 @@
+pandoc: '3.9'
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  statuAAR: statuAAR.html
+last_built: 2026-03-10T19:24Z
+urls:
+  reference: https://isaakiel.github.io/statuAAR/reference
+  article: https://isaakiel.github.io/statuAAR/articles

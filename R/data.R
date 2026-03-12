@@ -184,3 +184,28 @@ NULL
 #'
 #' @name TrotterGleser1952
 NULL
+
+#' SchmidtEtAl2007: statuaar table example
+#'
+#' A measurements table from \emph{Schmidt et al. 2007}.
+#' Raw data, stature estimates and bone measures from European Neolithic and
+#' Early Bronce Age archaeological context.
+#'
+#' @references
+#' \insertRef{schmidt_korperhohenschatzung_2007}{statuAAR}
+#'
+#' @format A data frame with 10 rows and 7 variables.
+#' \itemize{
+#'   \item \bold{skeleton} ID count.
+#'   \item \bold{period: } German: Schnurkeramik (corded ware), Glockenbecherkultur
+#'    (Bellbeaker Culture), Bandkeramik (Linear Pottery Culture), Aunjetitzkultur
+#'    (Unetice Culture).
+#'   \item \bold{sex: } weiblich (female), männlich (male)
+#'   \item \bold{stature: } stature, Fully & Pineau (1960) (mm)
+#'   \item \bold{Fem1: } Femur M1 measures (mm)
+#'   \item \bold{Tib1a: }  Tibia M1a measures (mm)
+#'   \item \bold{Hum1: }  Humerus M1 measures (mm)
+#' }
+#'
+#' @name SchmidtEtAl2007
+NULL

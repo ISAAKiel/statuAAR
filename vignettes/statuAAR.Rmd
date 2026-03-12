@@ -2,6 +2,7 @@
 title: "Introduction to statuAAR"
 output: rmarkdown::html_vignette
 bibliography: ../inst/REFERENCES.bib
+csl: ../inst/journal-of-archaeological-science.csl
 vignette: >
   %\VignetteIndexEntry{Introduction to statuAAR}
   %\VignetteEngine{knitr::rmarkdown}
