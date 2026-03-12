@@ -1,4 +1,4 @@
-#' @importFrom Rdpack reprompt
+#' @importFrom Rdpack reprompt tidyr
 
 #' @name readuserdata
 #'

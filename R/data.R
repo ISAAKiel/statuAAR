@@ -164,7 +164,7 @@ NULL
 #'   \item \bold{value} measures mm
 #'  }
 #'
-#' @name Rollet1888
+#' @name dl.rollet1888
 NULL
 
 #' dl.trotter.gleser: statuaar data table
@@ -182,7 +182,7 @@ NULL
 #'   \item \bold{value} measures mm
 #'  }
 #'
-#' @name TrotterGleser1952
+#' @name  dl.trotter.gleser
 NULL
 
 #' SchmidtEtAl2007: statuaar table example
