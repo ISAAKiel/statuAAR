@@ -23,7 +23,8 @@
 #' using the major axis of the correlation plane are applied (1996, 83, 86 Tab. 3).
 #' Due to this, the order used differs slightly from Siegmund (2010, 116 (12.8)).
 #'
-#' Bone measures used: Fem2 + Tib1 (both present), Tib1, Fem1, Hum1, Rad1 (or Rad1a)
+#' Bone measures used: Fem2 + Tib1 (both present), Tib1, Fem1, Hum1, Rad1 (or Rad1a).
+#' The addition of individual bone measurements is performed during the calculation.
 #'
 #' Returns a data.frame with:
 #' \itemize{

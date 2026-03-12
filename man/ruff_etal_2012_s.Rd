@@ -26,8 +26,9 @@ but the repeated emphasis on \%SEE as a quality characteristic suggests this.
 In addition, averaging the results of both formulas for the respective regional group
 would inadmissibly include the length of the tibia multiple times.
 
-Bone measures (Fem1, Tib1, Hum1, Rad1) used in hierarchical order of percent
-standard error of estimate (\%SEE).
+Bone measures (Fem1+Tib1, Tib1) used in hierarchical order
+of percent standard error of estimate (\%SEE). The addition of individual bone
+measurements is performed during the calculation.
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).

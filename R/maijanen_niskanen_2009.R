@@ -6,6 +6,7 @@
 #' Stature estimation (mm) based on the hierarchy of different regression calculations,
 #' separated  by sex (Maijanen, Niskanen 2009).
 #' Bone measures used: Fem2+Tib1, Fem1+Tib1, Fem2, Fem1, Tib1, Hum1, Rad1, Fib1, Uln1
+#' The addition of individual bone measurements is performed during the calculation.
 #'
 #' If bone measures for left and right are provided the mean value will be used,
 #' but for statistic information 2 bones will be counted (n_measures).
@@ -18,9 +19,9 @@
 #' order derived from these S.E. differs for the first foure bone measures:
 #'
 #' \itemize{
-#' \item{ combined: Fem2Tib1, Fem2, Fem1Tib1, Fem1 }
-#' \item{ males: Fem2, Fem2Tib1, Fem1, Fem1Tib1 }
-#' \item{ females: Fem1Tib1, Fem2Tib1, Fem1, Fem2 }
+#' \item{ combined: Fem2+Tib1, Fem2, Fem1+Tib1, Fem1 }
+#' \item{ males: Fem2, Fem2+Tib1, Fem1, Fem1+Tib1 }
+#' \item{ females: Fem1+Tib1, Fem2+Tib1, Fem1, Fem2 }
 #' \item{ subsequent identical order: Fib1, Tib1, Hum1, Rad1, Uln1 }
 #' }
 #'

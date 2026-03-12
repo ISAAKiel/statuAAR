@@ -23,6 +23,7 @@ Bone measures used in hierarchical order of correlation (r):
 \item{ female: Tib1b, Tib1a, Fem2+Tib1b, Fem1+Tib1a, Fem2, Fem1, Hum1, Hum1+Rad1, Rad1 }
 }
 
+The addition of individual bone measurements is performed during the calculation.
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
 If sex is indet. the mean of male and female stature estimation is given.

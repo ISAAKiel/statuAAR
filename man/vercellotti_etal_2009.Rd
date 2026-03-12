@@ -17,6 +17,7 @@ Stature estimation (mm) based on the hierarchy of different regression calculati
 separated  by sex developed for 60 individuals from a medieval (XI-XII c)
 cemetery in Giecz, Poland (Vercellotti et al. 2009).
 Bone measures used: Fem2+Tib1, Fem2, Fem1, Tib1, Hum1+Rad1, Hum1, Rad1
+The addition of individual bone measurements is performed during the calculation.
 
 If bone measures for left and right are provided the mean value will be used,
 but for statistic information 2 bones will be counted (n_measures).
