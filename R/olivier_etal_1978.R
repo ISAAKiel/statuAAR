@@ -454,7 +454,8 @@ olivier_etal_1978 <- function(df) {
 
   # call the lacal defined functions for female and male calculation on subset
   for (i in seq_along(vec_indv)){
-    df_bones <- subset(df, subset = Ind == vec_indv[i])
+
+    df_bones <- df[df$Ind == vec_indv[i],]
 
     stature.m <- calc.stature.m(df_bones)
     stature.f <- calc.stature.f(df_bones)

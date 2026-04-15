@@ -239,7 +239,8 @@ raxter_etal_2008 <- function(df){
 
   # check available values for different variables needed for
   for (i in seq_along(vec_indv)){
-    df_bones <- subset(df, subset = Ind == vec_indv[i])
+
+    df_bones <- df[df$Ind == vec_indv[i],]
 
     stature.m <- calc.stature.m(df_bones)
     stature.f <- calc.stature.f(df_bones)
