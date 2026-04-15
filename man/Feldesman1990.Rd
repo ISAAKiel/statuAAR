@@ -27,3 +27,11 @@ for sample of mid-to late-pleistocene fossil hominids.
 \references{
 \insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
 }
+\seealso{
+Other datasets: 
+\code{\link{Bach1965}},
+\code{\link{Rollet1888}},
+\code{\link{SchmidtEtAl2007}},
+\code{\link{TrotterGleser1952}}
+}
+\concept{datasets}

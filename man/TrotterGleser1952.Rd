@@ -26,3 +26,11 @@ and stature in millimeters.
 \references{
 \insertRef{Trotter_Gleser_1952}{statuAAR}
 }
+\seealso{
+Other datasets: 
+\code{\link{Bach1965}},
+\code{\link{Feldesman1990}},
+\code{\link{Rollet1888}},
+\code{\link{SchmidtEtAl2007}}
+}
+\concept{datasets}

@@ -23,3 +23,11 @@ Sex added according to table subscription.
 \references{
 \insertRef{Bach_1965}{statuAAR}
 }
+\seealso{
+Other datasets: 
+\code{\link{Feldesman1990}},
+\code{\link{Rollet1888}},
+\code{\link{SchmidtEtAl2007}},
+\code{\link{TrotterGleser1952}}
+}
+\concept{datasets}

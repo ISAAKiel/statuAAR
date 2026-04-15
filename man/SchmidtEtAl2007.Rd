@@ -20,8 +20,16 @@ A data frame with 10 rows and 7 variables.
 \description{
 A measurements table from \emph{Schmidt et al. 2007}.
 Raw data, stature estimates and bone measures from European Neolithic and
-Early Bronce Age archaeological context.
+Early Bronze Age archaeological context.
 }
 \references{
 \insertRef{schmidt_korperhohenschatzung_2007}{statuAAR}
 }
+\seealso{
+Other datasets: 
+\code{\link{Bach1965}},
+\code{\link{Feldesman1990}},
+\code{\link{Rollet1888}},
+\code{\link{TrotterGleser1952}}
+}
+\concept{datasets}

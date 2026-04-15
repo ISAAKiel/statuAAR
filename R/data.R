@@ -195,7 +195,7 @@ NULL
 #'
 #' A measurements table from \emph{Schmidt et al. 2007}.
 #' Raw data, stature estimates and bone measures from European Neolithic and
-#' Early Bronce Age archaeological context.
+#' Early Bronze Age archaeological context.
 #'
 #' @references
 #' \insertRef{schmidt_korperhohenschatzung_2007}{statuAAR}
