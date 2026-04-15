@@ -124,7 +124,7 @@ boldsen_1984 <- function(df){
     statures <- round(c(mean(measures.m), mean(measures.f), mean(measures.i)), 0)
 
     # write values into data frame of results
-    val_indv$sex[i] <- unique(df_bones$Sex)
+    val_indv$sex[i] <- c("m", "f", "indet")[unique(df_bones$Sex)]
     val_indv$stature[i] <- statures[as.integer(unique(df_bones$Sex))]
     val_indv$bone[i] <- paste(bone, collapse = ", ")
     val_indv$if_female[i] <- statures[2]
