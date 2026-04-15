@@ -53,7 +53,7 @@ knitr::kable(head(Bach1965))
 | f   |  243 |  238 |   172 |    1500 |  330 |   310 |
 
 Prepare tabled data into a long list (statuaar_data_table) and accept
-the warning about the missing ID for each individual.
+the warning about the missing ID for each individual in this case.
 
 ``` r
 dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
