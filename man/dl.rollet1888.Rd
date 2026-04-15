@@ -21,3 +21,4 @@ A measures data table (list form) from \emph{Rollet 1888, pp. 16-23}.
 \references{
 \insertRef{Rollet_1888}{statuAAR}
 }
+\keyword{internal}

@@ -165,6 +165,7 @@ NULL
 #'  }
 #'
 #' @name dl.rollet1888
+#' @keywords internal
 NULL
 
 #' dl.trotter.gleser: statuaar data table
@@ -183,6 +184,7 @@ NULL
 #'  }
 #'
 #' @name  dl.trotter.gleser
+#' @keywords internal
 NULL
 
 #' SchmidtEtAl2007: statuaar table example

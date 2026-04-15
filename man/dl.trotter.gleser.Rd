@@ -18,3 +18,4 @@ A measures data table (list form) from \emph{Trotter & Gleser 1952, Appendix 1-4
 \references{
 \insertRef{Trotter_Gleser_1952}{statuAAR}
 }
+\keyword{internal}
