@@ -138,7 +138,7 @@ sjovold_1990 <- function(df){
 #      n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Tib1b"]
 #    }
     if (length(Fib1)>0) {
-      measures <- append(measures, (3.59 * Fib2) + 363.1)
+      measures <- append(measures, (3.59 * Fib1) + 363.1)
       bone <- append(bone, "Fib1")
       n_measures <- n_measures + df_bones$value.n[df_bones$variable == "Fib1"]
     }

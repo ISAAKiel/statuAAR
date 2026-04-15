@@ -19,7 +19,7 @@
 #'@export
 #'
 getFormulaNames <- function (shortnames){
-  names <- sapply(statuaar_formula, function(item){
+  names <- sapply(statuAAR::statuaar_formula, function(item){
     if (item$short %in% shortnames) {
       return(item$name)
     }
