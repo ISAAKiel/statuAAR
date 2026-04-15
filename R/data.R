@@ -19,6 +19,7 @@
 #' }
 #'
 #' @name Bach1965
+#' @family datasets
 NULL
 
 #' Feldesman1990: statuaar table example
@@ -46,6 +47,7 @@ NULL
 #' }
 #'
 #' @name Feldesman1990
+#' @family datasets
 NULL
 
 #' Rollet1888: statuaar table example
@@ -84,6 +86,7 @@ NULL
 #'  }
 #'
 #' @name Rollet1888
+#' @family datasets
 NULL
 
 #' TrotterGleser1952: statuaar table example
@@ -110,6 +113,7 @@ NULL
 #' }
 #'
 #' @name TrotterGleser1952
+#' @family datasets
 NULL
 
 #' measures.concordance: concordance for user measure names to
@@ -210,4 +214,5 @@ NULL
 #' }
 #'
 #' @name SchmidtEtAl2007
+#' @family datasets
 NULL

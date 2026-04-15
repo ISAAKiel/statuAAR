@@ -1,5 +1,3 @@
-library(testthat)
-
 test_that("Daten korrekt geladen", {
   measures.concordance <- read.table(system.file("extdata","measures.concordance.rollet1888.tab",
                                                package = "statuAAR"))
