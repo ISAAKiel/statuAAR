@@ -47,6 +47,7 @@
 #' x$Probable.gender <- tolower(gsub("^(\\w).*", "\\1", x$Probable.gender))
 # Replace missing Gender or everything else with i(ndet.).
 #' x$Probable.gender[nchar(x$Probable.gender) == 0] <- "i"
+#' x$Femur.length <- x$Femur.length * 10
 #'
 #' # If not yet existent create a list of measure names to be used
 #' measures.concordance <- create.measures.concordance()
