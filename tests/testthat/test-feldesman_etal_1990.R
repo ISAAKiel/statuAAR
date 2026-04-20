@@ -1,7 +1,7 @@
 test_that("feldesman_etal_1990 aggregates left/right values and computes stature correctly", {
   df <- data.frame(
     Ind = c("OH28", "OH28", "OH28"),
-    Sex = factor('m', 'm', 'm'), # 1 = m, 2 = f, 3 = indet
+    Sex = factor(c("m","m","m"), levels = c("m","f","indet")),
     variable = c("Fem1l", "Fem1r", "Tib1"),
     value = c(456, 456, 380)
   )
@@ -30,8 +30,8 @@ test_that("feldesman_etal_1990 aggregates left/right values and computes stature
 
 test_that("feldesman_etal_1990 returns message when no usable measures are present", {
   df <- data.frame(
-    Ind = "OH28",
-    Sex = 1,
+    Ind = "ind1",
+    Sex = factor(c("m"), levels = c("m","f","indet")),
     variable = "Hum1",
     value = 320
   )

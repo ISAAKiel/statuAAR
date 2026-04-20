@@ -1,7 +1,7 @@
 test_that("byers_etal_1984 aggregates left/right values and computes stature correctly", {
   df <- data.frame(
     Ind = c("ind1", "ind1", "ind1"),
-    Sex = factor('m', 'm', 'm'), # 1 = m, 2 = f, 3 = indet
+    Sex = factor(c("m","m","m"), levels = c("m","f","indet")),
     variable = c("MtI1l", "MtI1r", "Tib1"),
     value = c(49, 51, 380)
   )
