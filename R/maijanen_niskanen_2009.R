@@ -126,9 +126,9 @@ maijanen_niskanen_2009 <- function(df) {
       stature.f <- ((Fem2 + Tib1) * 1.53) + 416.3
       stature.i <- ((Fem2 + Tib1) * 1.64) + 338.2
       statures <- c(stature.m, stature.f, stature.i)
-      indice <- "1. Fem2+Tib1b"
+      indice <- "1. Fem2+Tib1"
       n_measures <- df_bones$value.n[df_bones$variable == "Fem2"] +
-        df_bones$value.n[df_bones$variable == "Tib1b"]
+        df_bones$value.n[df_bones$variable == "Tib1"]
     } else if (length(Fem1) > 0 & length(Tib1) > 0) {
       stature.m <- ((Fem1 + Tib1) * 1.63) + 341.3
       stature.f <- ((Fem1 + Tib1) * 1.49) + 442.7
