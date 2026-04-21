@@ -12,14 +12,14 @@ test_that("raxter_etal_2008 aggregates left/right values and computes stature co
   expect_s3_class(res, "data.frame")
   expect_equal(rownames(res), "ind1")
 
-  # laterality removed, Fem1 averaged, Tib1 excluded
+  # laterality removed, Fem1 averaged, others excluded
   expect_equal(res["ind1", "bone"], "Fem1")
 
   # n_measures counts both Fem1
   expect_equal(res["ind1", "n_measures"], 2)
 
   # expected values:
-  # Stature is caclutaed by the mean of all possible regression culculations.
+  # Stature is caclutaed by a sequence of possible regression culculations.
   # No individual listing here.
   tol <- 1
   expect_true(res["ind1", "if_male"] - 1644 <= tol)
