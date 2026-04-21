@@ -15,7 +15,7 @@ data.frame with calculated stature and related information per individual.
 \description{
 Stature estimation (mm) based on the hierarchy of different regression calculations,
 separated  by sex (Olivier et al 1978).
-Bone measures used: Hum2, Hum1, Rad1b, Fem2, Tib1b
+Bone measures used: Hum1, Rad1b, Fem2, Tib1b
 
 The bone measures used are clearly specified only for the side specific
 formulas, e.g. "Femur (2)". In all other cases and in the text only the bone,

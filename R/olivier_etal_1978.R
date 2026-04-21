@@ -5,7 +5,7 @@
 #' @description
 #' Stature estimation (mm) based on the hierarchy of different regression calculations,
 #' separated  by sex (Olivier et al 1978).
-#' Bone measures used: Hum2, Hum1, Rad1b, Fem2, Tib1b
+#' Bone measures used: Hum1, Rad1b, Fem2, Tib1b
 #'
 #' The bone measures used are clearly specified only for the side specific
 #' formulas, e.g. "Femur (2)". In all other cases and in the text only the bone,
@@ -278,8 +278,11 @@ olivier_etal_1978 <- function(df) {
     } # End of else for 1 measure
     # End of male stature estimation
 
-    return(list("stature"=stature.m, "indice"=indice, "n_measures"=n_measures))
-
+    if(length(stature.m) > 0){
+      return(list("stature"=stature.m,
+                  "indice"=indice,
+                  "n_measures"=n_measures))
+    }
   } # End of Function calc.stature.m
 
   ##############################################################
@@ -417,8 +420,11 @@ olivier_etal_1978 <- function(df) {
     } # End of else for 1 measure
     # End of female stature estimation
 
-    return(list("stature"=stature.f, "indice"=indice.f, "n_measures"=n_measures.f))
-
+    if(length(stature.f) > 0){
+      return(list("stature" = stature.f,
+                  "indice" = indice.f,
+                  "n_measures" = n_measures.f))
+    }
   } # End of Function calc.stature.f
 
   # General data processing
@@ -452,7 +458,7 @@ olivier_etal_1978 <- function(df) {
   val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
 
 
-  # call the lacal defined functions for female and male calculation on subset
+  # call the local defined functions for female and male calculation on subset
   for (i in seq_along(vec_indv)){
 
     df_bones <- df[df$Ind == vec_indv[i],]
@@ -462,7 +468,7 @@ olivier_etal_1978 <- function(df) {
 
     #  mean for indet. sex,  all bone labels and sum of n_measures
 
-    stature.i <- mean(c(stature.m[[1]], stature.f[[1]]))
+    stature.i <- mean(c(stature.m[[1]], stature.f[[1]]), na.rm = TRUE)
     indice.i <- paste(stature.m[[2]], stature.f[[2]], sep = ", ")
     n_measures.i <- stature.m[[3]] + stature.f[[3]]
 
