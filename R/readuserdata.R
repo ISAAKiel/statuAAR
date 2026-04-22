@@ -263,7 +263,7 @@ prep.statuaar.data <- function (x, d.form='wide', ind = NA, sex = NA, measures.n
     # wide tabled data pivot to long list
     numcols <- colnames(td)[sapply(td, is.numeric)]
     dl <- tidyr::pivot_longer(td,
-                              cols = all_of(numcols),
+                              cols = tidyr::all_of(numcols),
                               names_to = "variable",
                               values_to = "value",
                               values_drop_na = TRUE)
