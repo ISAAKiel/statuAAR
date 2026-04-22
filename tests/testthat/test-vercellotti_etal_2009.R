@@ -13,22 +13,22 @@ test_that("vercellotti_etal_2009 aggregates left/right values and computes statu
   expect_equal(rownames(res), "ind1")
 
   # laterality removed, Fem1 averaged, others excluded
-  expect_equal(res["ind1", "bone"], "4. Fem1")
+  expect_equal(res["ind1", "bone"], "Fem1")
 
   # n_measures counts both Fem1
   expect_equal(res["ind1", "n_measures"], 2)
 
   # expected values:
-  # if_male: (445.2 * 2.38) + 614.1 = 1673.676
-  # if_female: (445.2 * 2.47) + 541.0 = 1640.644
-  # if_indet: (1673.676 + 1640.644) / 2 = 1657.16
+  # if_male: (445.2 * 2.61) + 515 = 1676.972
+  # if_female: (445.2 * 2.89) + 353 = 1639.628
+  # if_indet: (445.2 * 3.10) + 281 = 1661.12
   tol <- 1
-  expect_true(res["ind1", "if_male"] - 1673.676 <= tol)
-  expect_true(res["ind1", "if_female"] - 1640.644 <= tol)
-  expect_true(res["ind1", "if_indet"] - 1657.16 <= tol)
+  expect_true(res["ind1", "if_male"] - 1676.972 <= tol)
+  expect_true(res["ind1", "if_female"] - 1639.628 <= tol)
+  expect_true(res["ind1", "if_indet"] - 1661.12 <= tol)
 
   # stature should follow the provided sex
-  expect_true(res["ind1", "stature"] - 1673.676 <= tol)
+  expect_true(res["ind1", "stature"] - 1676.972 <= tol)
 })
 
 test_that("vercellotti_etal_2009 returns message when no usable measures are present", {
