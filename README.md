@@ -45,26 +45,19 @@ Installation
 Quick start
 ------------
 
-Get a df of the available formula and measures 
+Get a df of the available formula and measures. 
 
     statuAAR::getFormulaDataframe()
 
-Check Breitinger & Bach 1965 documentation
+Check Breitinger & Bach 1965 documentation.
 
     ?statuAAR::breitinger_bach_1965
 
-Read csv data, e.g. Bach1965.csv into data.frame
+Read data, e.g. Bach1965 into a data.frame.
 
-    statuAAR::Bach1965 <- read.csv(
-        "data-raw/Bach1965.csv",
-        sep = ",",
-        header = TRUE,
-        skip=3,
-        stringsAsFactors = FALSE,
-        check.names = FALSE
-      )
+    Bach1965 <- statuAAR::Bach1965
 
-Prepare tabled data into a long list (statuaar_data_table)
+Prepare tabled data into a long list (statuaar_data_table).
 
     dl.bach1965 <- statuAAR::prep.statuaar.data(Bach1965, d.form = "wide",
                    measures.names = "short", sex = "sex", stats = FALSE)
