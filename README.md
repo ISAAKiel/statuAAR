@@ -9,9 +9,9 @@
 
 # statuAAR
 
-A R package to calculate human stature estimation from bone measurements.
+Calculates human stature estimation from bone measurements.
 
-With `statuAAR` you can calculate human stature estimations according to several well established formula based on measured bone length. All you need is a table with individuals in rows and measurements in columns, or a repeated individual ID and one measurement per row. Different formulas can be selected for each data set, e.g. Breitinge & Bach 1965, Pearson 1899 or Ruff et al. 2012, and the correspondig results will be provided as a list with one data frame for each formula.
+With `statuAAR` you can get human stature estimations according to several well established formula based on measured bone length. All you need is a table with individuals in rows and measurements in columns, or a repeated individual ID and one measurement per row. Different formulas can be selected for each data set, e.g. Breitinge & Bach 1965, Pearson 1899 or Ruff et al. 2012, and the correspondig results will be provided as a list with one data frame for each formula.
 
 To date, a large number of formulas have been developed for various bone measurements and reference populations, yielding a wide range of possible results. The quality of the result depends mainly on the representativeness of the original sample used in the formula in relation to the data collection at hand. A straightforward and quick calculation using different formulas allows for easy comparison of the different results.
 
