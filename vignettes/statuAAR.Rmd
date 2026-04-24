@@ -14,7 +14,7 @@ library(statuAAR)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Quickstart with a general workflow.
+## Quickstart with a general workflow
 
 Obtain a data frame of the available formulas and measurements and decide on 
 one or more formulas later.

@@ -13,8 +13,8 @@ Authors@R: c(
      comment = c(ORCID = "0000-0001-9370-1188"))
     )
 Maintainer: Christoph Rinne <crinne@ufg.uni-kiel.de>
-Description: The package provides multiple formulas for human stature estimation to be 
-    applied to a data set provided. The package reads tabled data with one individual 
+Description: Provides multiple formulas for human stature estimation to be 
+    applied to a given data set. The package reads tabled data with one individual 
     per line or listed data with multiple measures per individual in subsequent lines. 
     The input function returns a data frame with basic statistic of the measures to 
     check the data and statuAAR input object. The estimation function estimates stature 
