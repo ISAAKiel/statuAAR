@@ -10,7 +10,7 @@ Authors@R: c(
     person("Nils", "Mueller-Scheessel", email = "nils.mueller-scheessel@ufg.uni-kiel.de", 
      role = c("aut"), comment = c(ORCID = "0000-0001-7992-8722")),
     person("Hendrik", "Raese", email = "h.raese@roots.uni-kiel.de", role = c("aut"),
-     comment = (ORCID = "0000-0001-9370-1188"))
+     comment = c(ORCID = "0000-0001-9370-1188"))
     )
 Maintainer: Christoph Rinne <crinne@ufg.uni-kiel.de>
 Description: The package provides multiple formulas for human stature estimation to be 
