@@ -42,11 +42,11 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Auerbach_Ruff_2010}{statuAAR}
+#'   \insertRef{Auerbach_Ruff_2010}{statuAAR} \cr
 #'
-#'   \insertRef{Ruff_etal_2012}{statuAAR}
+#'   \insertRef{Ruff_etal_2012}{statuAAR} \cr
 #'
-#'   \insertRef{Ruff_2018}{statuAAR}
+#'   \insertRef{Ruff_2018}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame.

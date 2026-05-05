@@ -55,7 +55,7 @@ statuAAR::getStature(c("te50"), dl.tgb)[[1]] |> head(6)
 
 }
 \references{
-\insertRef{Telkkã_1950}{statuAAR}
+\insertRef{Telkkã_1950}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

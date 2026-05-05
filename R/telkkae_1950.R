@@ -33,7 +33,7 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Telkkã_1950}{statuAAR}
+#'   \insertRef{Telkkã_1950}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame.

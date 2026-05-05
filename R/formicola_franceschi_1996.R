@@ -45,11 +45,11 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Formicola_Franceschi_1996}{statuAAR}
+#'   \insertRef{Formicola_Franceschi_1996}{statuAAR} \cr
 #'
-#'   \insertRef{Formicola_1993}{statuAAR}
+#'   \insertRef{Formicola_1993}{statuAAR} \cr
 #'
-#'   \insertRef{Siegmund_2010}{statuAAR}
+#'   \insertRef{Siegmund_2010}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame

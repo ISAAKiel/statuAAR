@@ -62,15 +62,15 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Pearson_1899}{statuAAR}
+#'   \insertRef{Pearson_1899}{statuAAR} \cr
 #'
-#'   \insertRef{Rollet_1888}{statuAAR}
+#'   \insertRef{Rollet_1888}{statuAAR} \cr
 #'
-#'   \insertRef{Guichet_Spivak_Trouilloud_Grammont_1991}{statuAAR}
+#'   \insertRef{Guichet_Spivak_Trouilloud_Grammont_1991}{statuAAR} \cr
 #'
-#'   \insertRef{Holliday_Ruff_2001}{statuAAR}
+#'   \insertRef{Holliday_Ruff_2001}{statuAAR} \cr
 #'
-#'   \insertRef{Knutson_2005}{statuAAR}
+#'   \insertRef{Knutson_2005}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset Neanderthal Man (Pearson 1899, p. 205).

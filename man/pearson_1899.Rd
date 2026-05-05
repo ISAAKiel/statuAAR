@@ -77,11 +77,15 @@ pearson_1899(dl)
 
 }
 \references{
-\insertRef{Pearson_1899}{statuAAR}
-\insertRef{Rollet_1888}{statuAAR}
-\insertRef{Guichet_Spivak_Trouilloud_Grammont_1991}{statuAAR}
-\insertRef{Holliday_Ruff_2001}{statuAAR}
-\insertRef{Knutson_2005}{statuAAR}
+\insertRef{Pearson_1899}{statuAAR} \cr
+
+\insertRef{Rollet_1888}{statuAAR} \cr
+
+\insertRef{Guichet_Spivak_Trouilloud_Grammont_1991}{statuAAR} \cr
+
+\insertRef{Holliday_Ruff_2001}{statuAAR} \cr
+
+\insertRef{Knutson_2005}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

@@ -57,7 +57,7 @@ statuAAR::getStature(c("ve09"), dl.tgb)[[1]] |> head(6)
 
 }
 \references{
-\insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR}
+\insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR} \cr
 }
 \author{
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}

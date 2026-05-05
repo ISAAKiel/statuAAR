@@ -67,9 +67,11 @@ statuAAR::getStature(c("r12n"), dl.tgb)[[1]] |> head(6)
 
 }
 \references{
-\insertRef{Auerbach_Ruff_2010}{statuAAR}
-\insertRef{Ruff_etal_2012}{statuAAR}
-\insertRef{Ruff_2018}{statuAAR}
+\insertRef{Auerbach_Ruff_2010}{statuAAR} \cr
+
+\insertRef{Ruff_etal_2012}{statuAAR} \cr
+
+\insertRef{Ruff_2018}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

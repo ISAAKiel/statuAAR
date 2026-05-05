@@ -58,7 +58,7 @@ by89.estimates[["by89"]]
 
 }
 \references{
-\insertRef{Byers_Akoshima_Curran_1989}{statuAAR}
+\insertRef{Byers_Akoshima_Curran_1989}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

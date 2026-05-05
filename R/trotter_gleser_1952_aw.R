@@ -36,11 +36,11 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Trotter_Gleser_1952}{statuAAR}
+#'   \insertRef{Trotter_Gleser_1952}{statuAAR} \cr
 #'
-#'   \insertRef{Trotter_Gleser_1977}{statuAAR}
+#'   \insertRef{Trotter_Gleser_1977}{statuAAR} \cr
 #'
-#'   \insertRef{Siegmund_2010}{statuAAR}
+#'   \insertRef{Siegmund_2010}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame.

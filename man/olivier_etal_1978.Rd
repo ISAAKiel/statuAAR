@@ -76,9 +76,9 @@ ol78.estimates[["ol78"]] |> head(6)
 
 }
 \references{
-\insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR}
+\insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR} \cr
 
-\insertRef{Olivier_Tissier_1975}{statuAAR}
+\insertRef{Olivier_Tissier_1975}{statuAAR} \cr
 }
 \author{
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}

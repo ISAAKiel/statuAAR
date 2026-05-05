@@ -66,8 +66,8 @@ statuAAR::getStature(c("bo84"), dl.tgw)[[1]] |> head(6)
 
 }
 \references{
-\insertRef{boldsen_statistical_1984}{statuAAR}
-\insertRef{boldsenBodyProportionsMedieval1998}{statuAAR}
+\insertRef{boldsen_statistical_1984}{statuAAR} \cr
+\insertRef{boldsenBodyProportionsMedieval1998}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

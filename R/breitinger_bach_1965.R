@@ -37,11 +37,9 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Bach_1965}{statuAAR}
-#'
-#'   \insertRef{Breitinger_1937}{statuAAR}
-#'
-#'   \insertRef{Siegmund_2010}{statuAAR}
+#'   \insertRef{Bach_1965}{statuAAR} \cr
+#'   \insertRef{Breitinger_1937}{statuAAR} \cr
+#'   \insertRef{Siegmund_2010}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame

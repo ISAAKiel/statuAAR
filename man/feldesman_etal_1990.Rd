@@ -65,7 +65,7 @@ fe90.estimates[["fe90"]] |> head(6)
 
 }
 \references{
-\insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
+\insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

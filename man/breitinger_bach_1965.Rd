@@ -56,11 +56,9 @@ bb65.estimates[["bb65"]] |> head(6)
 
 }
 \references{
-\insertRef{Bach_1965}{statuAAR}
-
-\insertRef{Breitinger_1937}{statuAAR}
-
-\insertRef{Siegmund_2010}{statuAAR}
+\insertRef{Bach_1965}{statuAAR} \cr
+\insertRef{Breitinger_1937}{statuAAR} \cr
+\insertRef{Siegmund_2010}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

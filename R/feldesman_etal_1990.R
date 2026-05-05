@@ -35,7 +35,7 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR}
+#'   \insertRef{Feldesman_Kleckner_Lundy_1990}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame

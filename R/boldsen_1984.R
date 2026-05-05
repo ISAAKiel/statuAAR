@@ -44,9 +44,8 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{boldsen_statistical_1984}{statuAAR}
-#'
-#'   \insertRef{boldsenBodyProportionsMedieval1998}{statuAAR}
+#'   \insertRef{boldsen_statistical_1984}{statuAAR} \cr
+#'   \insertRef{boldsenBodyProportionsMedieval1998}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame.

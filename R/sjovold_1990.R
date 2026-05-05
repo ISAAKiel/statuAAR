@@ -38,9 +38,9 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Sjøvold_1990}{statuAAR}
+#'   \insertRef{Sjøvold_1990}{statuAAR} \cr
 #'
-#'   \insertRef{Ruff_etal_2012}{statuAAR}
+#'   \insertRef{Ruff_etal_2012}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame

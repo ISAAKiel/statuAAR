@@ -37,7 +37,7 @@
 #' @author Nils Müller-Scheeßel \email{nils.mueller-scheessel@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR}
+#'   \insertRef{Vercellotti_Agnew_Justus_Sciulli_2009}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame.

@@ -78,7 +78,7 @@ mn09.estimates[["mn09"]] |> head(6)
 
 }
 \references{
-\insertRef{Maijanen_Niskanen_2010}{statuAAR}
+\insertRef{Maijanen_Niskanen_2010}{statuAAR} \cr
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

@@ -57,11 +57,11 @@ statuAAR::getStature(c("tg01"), dl.tgb)[[1]] |> head(6)
 
 }
 \references{
-\insertRef{Trotter_Gleser_1952}{statuAAR}
+\insertRef{Trotter_Gleser_1952}{statuAAR} \cr
 
-\insertRef{Trotter_Gleser_1977}{statuAAR}
+\insertRef{Trotter_Gleser_1977}{statuAAR} \cr
 
-\insertRef{Siegmund_2010}{statuAAR}
+\insertRef{Siegmund_2010}{statuAAR} \cr
 }
 \author{
 Hendrik Raese \email{h.raese@ufg.uni-kiel.de}

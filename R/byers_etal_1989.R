@@ -39,7 +39,7 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Byers_Akoshima_Curran_1989}{statuAAR}
+#'   \insertRef{Byers_Akoshima_Curran_1989}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame

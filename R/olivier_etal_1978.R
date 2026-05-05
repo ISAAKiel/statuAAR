@@ -51,9 +51,9 @@
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR}
+#'   \insertRef{Olivier_Aaron_Fully_Tissier_1978}{statuAAR} \cr
 #'
-#'   \insertRef{Olivier_Tissier_1975}{statuAAR}
+#'   \insertRef{Olivier_Tissier_1975}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame

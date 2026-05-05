@@ -53,7 +53,7 @@
 #' @author Anna Loy \email{aloy@@roots.uni-kiel.de}
 #'
 #' @references
-#'   \insertRef{Maijanen_Niskanen_2010}{statuAAR}
+#'   \insertRef{Maijanen_Niskanen_2010}{statuAAR} \cr
 #'
 #' @examples
 #' # Read example dataset into a data frame and check the columnames
