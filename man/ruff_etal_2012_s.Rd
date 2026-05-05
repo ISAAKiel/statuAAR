@@ -68,9 +68,7 @@ statuAAR::getStature(c("r12s"), dl.tgb)
 \references{
 \insertRef{Ruff_etal_2012}{statuAAR}
 
-\insertRef{Ruff_2018a}{statuAAR}
-
-\insertRef{Ruff_2018b}{statuAAR}
+\insertRef{Ruff_2018}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

@@ -11,7 +11,8 @@ pearson_1899(df)
 individual, bone and measurement.}
 }
 \value{
-data.frame with calculated stature and related information per individual.
+data.frame with calculated stature and related information
+per individual.
 }
 \description{
 Stature estimation (mm) based on the mean of several multiple and single
@@ -31,8 +32,8 @@ Tib1b = Tib1a - 8.7 mm = Tib1a.corr}
 }
 
 Pearson's work is based on the bones from the right side. According to
-measurements from Rollet (1888) he provides correction values for the bones of
-the left side. These values vary for male within +/- .4 to 4.2 mm and for
+measurements from Rollet (1888) he provides correction values for the bones
+of the left side. These values vary for male within +/- .4 to 4.2 mm and for
 female within +/- 0.4 to 5.1 mm. Leg length discrepancy (LLD) is a complex
 process due to multiple causes with environmental and genetic factors and
 increasing with age. Based on French data minor LLD is often, but if treated
@@ -56,7 +57,8 @@ Returns a data.frame with:
 \item{ sex: as provided for calculation: m, f, indet.}
 \item{ stature: estimated on the provided sex and bone measures, }
 \item{ bone (measure(s)): bones used for calculation, }
-\item{ if_female (stature): columns with alternative stature for three sex classes, }
+\item{ if_female (stature): columns with alternative stature
+for three sex classes, }
 \item{ if_male (stature), }
 \item{ if_indet. (stature) and}
 \item{ n_measures: number of bone measures included:

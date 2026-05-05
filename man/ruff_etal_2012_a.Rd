@@ -29,8 +29,8 @@ would inadmissibly include the length of the tibia multiple times.
 Bone measures (Fem1, Tib1, Hum1, Rad1) used in hierarchical order of percent
 standard error of estimate (\%SEE).
 
-If bone measures for left and right are provided the mean value will be used,
-but for statistic information 2 bones will be counted (n_measures).
+If bone measures for left and right are provided the mean value will be used #' (s. Auerbach/Ruff 2010), but for statistic information 2 bones will be
+counted (n_measures).
 
 Returns a data.frame with:
 \itemize{
@@ -65,11 +65,9 @@ statuAAR::getStature(c("r12a"), dl.tgb)
 
 }
 \references{
+\insertRef{Auerbach_Ruff_2010}{statuAAR}
 \insertRef{Ruff_etal_2012}{statuAAR}
-
-\insertRef{Ruff_2018a}{statuAAR}
-
-\insertRef{Ruff_2018b}{statuAAR}
+\insertRef{Ruff_2018}{statuAAR}
 }
 \author{
 Christoph Rinne \email{crinne@ufg.uni-kiel.de}

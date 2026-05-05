@@ -20,8 +20,8 @@
 #' }
 #'
 #' Pearson's work is based on the bones from the right side. According to
-#' measurements from Rollet (1888) he provides correction values for the bones of
-#' the left side. These values vary for male within +/- .4 to 4.2 mm and for
+#' measurements from Rollet (1888) he provides correction values for the bones
+#' of the left side. These values vary for male within +/- .4 to 4.2 mm and for
 #' female within +/- 0.4 to 5.1 mm. Leg length discrepancy (LLD) is a complex
 #' process due to multiple causes with environmental and genetic factors and
 #' increasing with age. Based on French data minor LLD is often, but if treated
@@ -45,7 +45,8 @@
 #' \item{ sex: as provided for calculation: m, f, indet.}
 #' \item{ stature: estimated on the provided sex and bone measures, }
 #' \item{ bone (measure(s)): bones used for calculation, }
-#' \item{ if_female (stature): columns with alternative stature for three sex classes, }
+#' \item{ if_female (stature): columns with alternative stature
+#'                            for three sex classes, }
 #' \item{ if_male (stature), }
 #' \item{ if_indet. (stature) and}
 #' \item{ n_measures: number of bone measures included:
@@ -55,7 +56,8 @@
 #' @param df data.frame of type statuaar_data_table, containing informations on
 #' individual, bone and measurement.
 #'
-#' @return data.frame with calculated stature and related information per individual.
+#' @return data.frame with calculated stature and related information
+#'          per individual.
 #'
 #' @author Christoph Rinne \email{crinne@@ufg.uni-kiel.de}
 #'
@@ -85,7 +87,8 @@ pearson_1899 <- function(df){
   # check if needed measures are present
   needed <- getFormulaMeasures('pe99')
   if (!any(df$variable %in% needed)){
-    return("There is no usable bone measurement / indice available for the chosen formula.")
+    return("There is no usable bone measurement / indice available for the
+           chosen formula.")
   }
 
   # aggregate values for each measure and individual
@@ -97,9 +100,12 @@ pearson_1899 <- function(df){
   vec_indv <- unique(df$Ind) # extract names and quantity of unique individuals
 
   # Initialize data frame for later storage of different mean body heights
-  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)), row.names = vec_indv)
-  colnames(val_indv) <- c("sex", "stature", "bone", "if_female", "if_male", "if_indet", "n_measures")
-  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"), levels = c(1, 2, 3))
+  val_indv <- as.data.frame(matrix(ncol = 7, nrow = length(vec_indv)),
+                            row.names = vec_indv)
+  colnames(val_indv) <- c("sex", "stature", "bone", "if_female",
+                          "if_male", "if_indet", "n_measures")
+  val_indv$sex <- factor(val_indv$sex, labels = c("m", "f", "indet"),
+                         levels = c(1, 2, 3))
 
   # check available values for different variables needed for
   for (i in seq_along(vec_indv)){
@@ -154,11 +160,13 @@ pearson_1899 <- function(df){
     measures.m <- append(measures.m, Tib1ba * 2.376 + 786.64)
     measures.m <- append(measures.m, Rad1 * 3.271+ 859.25)
     measures.m <- append(measures.m, (Fem12 + Tib1ba) * 1.159 + 712.72)
-    measures.m <- append(measures.m, (Fem12 * 1.220) + (Tib1ba * 1.080) + 714.43)
+    measures.m <- append(measures.m, (Fem12 * 1.220) + (Tib1ba * 1.080)
+                         + 714.43)
     measures.m <- append(measures.m, (Hum1 + Rad1) * 1.730 + 668.55)
     measures.m <- append(measures.m, (Hum1 * 2.769) + (Rad1 * 0.195) + 697.88)
     measures.m <- append(measures.m, (Hum1 * 1.557) + (Fem12 * 1.030) + 683.97)
-    measures.m <- append(measures.m, (Fem12 * 0.913) + (Tib1ba * 0.600) +(Hum1 * 1.225) - (Rad1 * 0.187) + 670.49)
+    measures.m <- append(measures.m, (Fem12 * 0.913) + (Tib1ba * 0.600)
+                         + (Hum1 * 1.225) - (Rad1 * 0.187) + 670.49)
 
     # Calculate the different indices for female
     Tib1ba <- Tib1b
@@ -176,17 +184,20 @@ pearson_1899 <- function(df){
     measures.f <- append(measures.f, Tib1ba * 2.352 + 747.74)
     measures.f <- append(measures.f, Rad1 * 3.343 + 812.24)
     measures.f <- append(measures.f, (Fem12 + Tib1ba) * 1.126 + 691.54)
-    measures.f <- append(measures.f, (Fem12 * 1.117) + (Tib1ba * 1.125) + 695.61)
+    measures.f <- append(measures.f, (Fem12 * 1.117) + (Tib1ba * 1.125)
+                         + 695.61)
     measures.f <- append(measures.f, (Hum1 + Rad1) * 1.628 + 699.11)
     measures.f <- append(measures.f, (Hum1 * 2.582) + (Rad1 * 0.281) + 705.42)
     measures.f <- append(measures.f, (Hum1 * 1.027) + (Fem12 * 1.339) + 674.35)
-    measures.f <- append(measures.f, (Fem12 * 0.782) + (Tib1ba * 1.120) +(Hum1 * 1.059) - (Rad1 * 0.711) + 674.69)
+    measures.f <- append(measures.f, (Fem12 * 0.782) + (Tib1ba * 1.120)
+                         + (Hum1 * 1.059) - (Rad1 * 0.711) + 674.69)
 
     # Calculate the different indices for indet.
     measures.i <-(measures.m + measures.f)/2
 
     # calculate mean of each measures group for statures
-    statures <- round(c(mean(measures.m), mean(measures.f), mean(measures.i)), 0)
+    statures <- round(c(mean(measures.m),
+                        mean(measures.f), mean(measures.i)), 0)
 
     # write values into data frame of results
     val_indv$sex[i] <- unique(df_bones$Sex)
@@ -199,7 +210,8 @@ pearson_1899 <- function(df){
   }
 
   if (dim(val_indv)[1] == 0) {
-    print("There is no usable bone measurement / indice available for the chosen formula")
+    print("There is no usable bone measurement / indice available for the
+          chosen formula")
   }
 
   return(val_indv)

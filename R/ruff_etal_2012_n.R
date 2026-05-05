@@ -45,9 +45,7 @@
 #' @references
 #'   \insertRef{Ruff_etal_2012}{statuAAR}
 #'
-#'   \insertRef{Ruff_2018a}{statuAAR}
-#'
-#'   \insertRef{Ruff_2018b}{statuAAR}
+#'   \insertRef{Ruff_2018}{statuAAR}
 #'
 #' @examples
 #' # Read example dataset into a data frame.
