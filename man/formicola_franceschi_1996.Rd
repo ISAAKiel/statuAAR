@@ -60,7 +60,7 @@ dl.bach1965 <- statuAAR::prep.statuaar.data(x, d.form = "wide",
 ff96.estimates <- statuAAR::getStature(c("ff96"), dl.bach1965)
 
 # Extract the corresponding data frame from the returned list object.
-ff96.estimates[["ff96"]]
+ff96.estimates[["ff96"]] |> head(6)
 
 }
 \references{

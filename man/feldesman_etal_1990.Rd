@@ -41,12 +41,11 @@ e.g. 2 Fem1 (left, right)}
 \examples{
 # Read example dataset into a data frame
 x <- statuAAR::Feldesman1990
-# Check for one individual per site
-table(table(x$Site))
 
 # Reduce gender, e.g. M(a), information to m, f.
 x$Probable.gender <- tolower(gsub("^(\\\\w).*", "\\\\1", x$Probable.gender))
 x$Probable.gender[nchar(x$Probable.gender) == 0] <- "i"
+# Convert cm to mm
 x$Femur.length <- x$Femur.length * 10
 
 # If not yet existent create a list of measure names to be used
@@ -62,7 +61,7 @@ dl.fe90 <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Site",
 fe90.estimates <- statuAAR::getStature(c("fe90"), dl.fe90)
 
 # Extract the corresponding data frame from the returned list object.
-fe90.estimates[["fe90"]]
+fe90.estimates[["fe90"]] |> head(6)
 
 }
 \references{

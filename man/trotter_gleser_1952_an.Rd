@@ -51,7 +51,8 @@ dl.tgb <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "Appendix_row",
                                        sex = "Sex", measures.names = "own", stats = FALSE)
 #'
 # Calculate stature estimation using a given formula.
-statuAAR::getStature(c("tg01"), dl.tgb)
+# Retrieve the first element of the list and display the first 6 lines.
+statuAAR::getStature(c("tg01"), dl.tgb)[[1]] |> head(6)
 # trotter_gleser_1952_an(dl.tgb) # The alternative.
 
 }

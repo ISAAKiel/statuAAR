@@ -72,7 +72,7 @@ dl.rollet <- statuAAR::prep.statuaar.data(x, d.form = "wide", ind = "id",
 ol78.estimates <- statuAAR::getStature(c("ol78"), dl.rollet)
 
 # Extract the corresponding data frame from the returned list object.
-ol78.estimates[["ol78"]]
+ol78.estimates[["ol78"]] |> head(6)
 
 }
 \references{
