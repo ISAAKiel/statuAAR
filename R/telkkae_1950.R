@@ -48,7 +48,8 @@
 #'                                        sex = "Sex", measures.names = "own", stats = FALSE)
 #'
 #' # Calculate stature estimation using a given formula.
-#' statuAAR::getStature(c("te50"), dl.tgb)
+#' # Retrieve the first element of the list and display the first 6 lines.
+#' statuAAR::getStature(c("te50"), dl.tgb)[[1]] |> head(6)
 #' # telkkae_1950(dl.tgb) # The alternative.
 #'
 #' @export

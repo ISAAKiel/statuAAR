@@ -71,7 +71,8 @@
 #'
 #' # Calculate stature estimation using a given formula.
 #' # (Present: Tib1, required: Tib1a)
-#' statuAAR::getStature(c("ra08"), dl.tgb)
+#' # Retrieve the first element of the list and display the first 6 lines.
+#' statuAAR::getStature(c("ra08"), dl.tgb)[[1]] |> head(6)
 #' # raxter_etal_2008(dl.tgb) # The alternative.
 #'
 #'@export

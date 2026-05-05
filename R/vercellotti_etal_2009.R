@@ -53,7 +53,8 @@
 #'                                        sex = "Sex", measures.names = "own", stats = FALSE)
 #' #'
 #' # Calculate stature estimation using a given formula.
-#' statuAAR::getStature(c("ve09"), dl.tgb)
+#' # Retrieve the first element of the list and display the first 6 lines.
+#' statuAAR::getStature(c("ve09"), dl.tgb)[[1]] |> head(6)
 #' # vercellotti_etal_2009(dl.tgb) # The alternative.
 #'
 #'@export

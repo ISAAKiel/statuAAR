@@ -54,7 +54,7 @@
 #' sj90.estimates <- statuAAR::getStature(c("sj90"), dl.bach1965)
 #'
 #' # Extract the corresponding data frame from the returned list object.
-#' sj90.estimates[["sj90"]]
+#' sj90.estimates[["sj90"]] |> head(6)
 #'
 #' @export
 

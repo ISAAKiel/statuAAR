@@ -61,7 +61,8 @@
 #'                            sex = "Sex", measures.names = "own", stats = FALSE)
 #'
 #' # Calculate stature estimation using a given formula.
-#' statuAAR::getStature(c("r12a"), dl.tgb)
+#' # Retrieve the first element of the list and display the first 6 lines.
+#' statuAAR::getStature(c("r12a"), dl.tgb)[[1]] |> head(6)
 #' # ruff_etal_2012_a(dl.tgb) # The alternative.
 #'
 #'@export

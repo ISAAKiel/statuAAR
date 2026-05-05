@@ -76,7 +76,7 @@
 #'
 #' # Extract the corresponding data frame from the returned list object.
 #' # Please note, not in all cases left and right measures are available.
-#' mn09.estimates[["mn09"]]
+#' mn09.estimates[["mn09"]] |> head(6)
 #'
 #'@export
 
