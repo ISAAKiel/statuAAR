@@ -45,6 +45,7 @@
 #'
 #' @references
 #'   \insertRef{boldsen_statistical_1984}{statuAAR}
+#'   \insertRef{boldsenBodyProportionsMedieval1998}{statuAAR}
 #'
 #' @examples
 #' # Read example dataset into a data frame.

@@ -74,6 +74,7 @@
 #'
 #' @references
 #'  \insertRef{Martin_1928}{statuAAR}
+#'  \insertRef{Martin_Saller_1957}{statuAAR}
 #'
 #' @examples
 #' # Read example dataset into a data frame
