@@ -24,7 +24,7 @@ Sex added according to table subscription.
 \insertRef{Bach_1965}{statuAAR}
 }
 \seealso{
-Other datasets: 
+Other datasets:
 \code{\link{Feldesman1990}},
 \code{\link{Rollet1888}},
 \code{\link{SchmidtEtAl2007}},

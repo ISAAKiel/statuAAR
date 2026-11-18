@@ -11,7 +11,7 @@
 
 Calculates human stature estimation from bone measurements.
 
-With `statuAAR` you can get human stature estimations according to several well established formula based on measured bone length. All you need is a table with individuals in rows and measurements in columns, or a repeated individual ID and one measurement per row. Different formulas can be selected for each data set, e.g. Breitinge & Bach 1965, Pearson 1899 or Ruff et al. 2012, and the correspondig results will be provided as a list with one data frame for each formula.
+With `statuAAR` you can get human stature estimations according to several well established formula based on measured bone length. All you need is a table with individuals in rows and measurements in columns, or a repeated individual ID and one measurement per row. Different formulas can be selected for each data set, e.g. Breitinger & Bach 1965, Pearson 1899 or Ruff et al. 2012, and the correspondig results will be provided as a list with one data frame for each formula.
 
 To date, a large number of formulas have been developed for various bone measurements and reference populations, yielding a wide range of possible results. The quality of the result depends mainly on the representativeness of the original sample used in the formula in relation to the data collection at hand. A straightforward and quick calculation using different formulas allows for easy comparison of the different results.
 
@@ -21,7 +21,7 @@ A general introduction to human stature estimation based on bone measurements ca
 
 - **Siegmund, F. (2019).** Die Körpergröße der Menschen in der Ur- und Frühgeschichte Mitteleuropas und ein Vergleich ihrer anthropologischen Schätzmethoden. (Beiträge zur Archäologie des Lebensstandards, 1). Norderstedt: BoD.
 
-We provide a description for each formula, including required or possible bone measurements and citations (s. bibliography file [BibTeX](./inst/REFERENCES.bib)). Bone measurements are designated according to:
+We provide a description for each formula, including required or possible bone measurements and citations (s. bibliography file [BibTeX]({{!pkgdown:::pkgdown_url("REFERENCES.bib")}}). Bone measurements are designated according to:
 
 - **Martin, R. (1928).** Lehrbuch der Anthropologie in systematischer Darstellung: mit besonderer Berücksichtigung der anthropologischen Methoden / für Studierende, Ärzte und Forschungsreisende. 3 vols. Fischer: Jena.
 

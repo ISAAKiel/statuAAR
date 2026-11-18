@@ -40,7 +40,7 @@ This differentiation is shown in the tables for the femora only. (Rollet 1888 p.
 \insertRef{Rollet_1888}{statuAAR}
 }
 \seealso{
-Other datasets: 
+Other datasets:
 \code{\link{Bach1965}},
 \code{\link{Feldesman1990}},
 \code{\link{SchmidtEtAl2007}},

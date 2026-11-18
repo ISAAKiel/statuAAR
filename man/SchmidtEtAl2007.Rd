@@ -26,7 +26,7 @@ Early Bronze Age archaeological context.
 \insertRef{schmidt_korperhohenschatzung_2007}{statuAAR}
 }
 \seealso{
-Other datasets: 
+Other datasets:
 \code{\link{Bach1965}},
 \code{\link{Feldesman1990}},
 \code{\link{Rollet1888}},

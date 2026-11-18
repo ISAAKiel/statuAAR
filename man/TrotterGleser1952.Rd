@@ -27,7 +27,7 @@ and stature in millimeters.
 \insertRef{Trotter_Gleser_1952}{statuAAR}
 }
 \seealso{
-Other datasets: 
+Other datasets:
 \code{\link{Bach1965}},
 \code{\link{Feldesman1990}},
 \code{\link{Rollet1888}},
