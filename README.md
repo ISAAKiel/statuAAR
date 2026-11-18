@@ -21,7 +21,7 @@ A general introduction to human stature estimation based on bone measurements ca
 
 - **Siegmund, F. (2019).** Die Körpergröße der Menschen in der Ur- und Frühgeschichte Mitteleuropas und ein Vergleich ihrer anthropologischen Schätzmethoden. (Beiträge zur Archäologie des Lebensstandards, 1). Norderstedt: BoD.
 
-We provide a description for each formula, including required or possible bone measurements and citations (s. bibliography file [BibTeX]({{!pkgdown:::pkgdown_url("REFERENCES.bib")}}). Bone measurements are designated according to:
+We provide a description for each formula, including required or possible bone measurements and citations (s. bibliography file [BibTeX](https://raw.githubusercontent.com/ISAAKiel/statuAAR/refs/heads/master/inst/REFERENCES.bib)). Bone measurements are designated according to:
 
 - **Martin, R. (1928).** Lehrbuch der Anthropologie in systematischer Darstellung: mit besonderer Berücksichtigung der anthropologischen Methoden / für Studierende, Ärzte und Forschungsreisende. 3 vols. Fischer: Jena.
 
