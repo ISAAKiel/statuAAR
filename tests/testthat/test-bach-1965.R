@@ -8,12 +8,15 @@ test_that("Bach1965 stature estimates reproduce published statures", {
     check.names = FALSE
   )
 
-  dl.bach1965 <- statuAAR::prep.statuaar.data(
-    Bach1965,
-    d.form = "wide",
-    measures.names = "short",
-    sex = "sex",
-    stats = FALSE
+  dl.bach1965 <- expect_warning(
+    statuAAR::prep.statuaar.data(
+      Bach1965,
+      d.form = "wide",
+      measures.names = "short",
+      sex = "sex",
+      stats = FALSE
+    ),
+    regexp = "No individual identifier provided"
   )
 
   bb65.estimates <- statuAAR::getStature("bb65", dl.bach1965)
