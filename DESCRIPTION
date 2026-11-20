@@ -14,12 +14,15 @@ Authors@R: c(
     )
 Maintainer: Christoph Rinne <crinne@ufg.uni-kiel.de>
 Description: Provides multiple formulas for human stature estimation to be 
-    applied to a given data set. The package reads tabled data with one individual 
-    per line or listed data with multiple measures per individual in subsequent lines. 
-    The input function returns a data frame with basic statistic of the measures to 
-    check the data and statuAAR input object. The estimation function estimates stature 
-    based on the selected formulas and returns a statuAAR output object with the 
-    corresponding results.
+    applied to a given data set. The package reads tabled data with one 
+    individual (wide [list]) per line or listed data with multiple measures per 
+    individual in subsequent lines (long [list]). The input function returns a 
+    data frame with basic statistic (measure, n, Min, Quart1 ,Median, Mean,
+    Quart3, Max) of the measures to check the data and the statuAAR input object
+    (long [list]). The estimation function estimates stature based on the 
+    selected formulas and returns a statuAAR output object, a list with a data 
+    frame per formula, with the corresponding results (id, sex, stature, bone, 
+    if_female, if_male, if_indet, n_measures).
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
