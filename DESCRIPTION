@@ -34,5 +34,5 @@ RdMacros: Rdpack
 URL: https://github.com/ISAAKiel/statuAAR, https://isaakiel.github.io/statuAAR/
 BugReports: https://github.com/ISAAKiel/statuAAR/issues
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1.0)
 Config/roxygen2/version: 8.1.1
