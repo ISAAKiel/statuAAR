@@ -1,6 +1,6 @@
 Package: statuAAR
 Type: Package
-Title: Human stature estimation from bone measures based on multiple formula
+Title: Human Stature Estimation from Bone Measures Based on Multiple Formula
 Version: 0.0.0.9000
 Authors@R: c(
     person("Christoph", "Rinne", email = "crinne@ufg.uni-kiel.de", role = c("aut", "cre"), 
