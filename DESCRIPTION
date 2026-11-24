@@ -13,16 +13,11 @@ Authors@R: c(
      comment = c(ORCID = "0000-0001-9370-1188"))
     )
 Maintainer: Christoph Rinne <crinne@ufg.uni-kiel.de>
-Description: Provides multiple formulas for human stature estimation to be 
-    applied to a given data set. The package reads tabled data with one 
-    individual (wide [list]) per line or listed data with multiple measures per 
-    individual in subsequent lines (long [list]). The input function returns a 
-    data frame with basic statistic (measure, n, Min, Quart1 ,Median, Mean,
-    Quart3, Max) of the measures to check the data and the statuAAR input object
-    (long [list]). The estimation function estimates stature based on the 
-    selected formulas and returns a statuAAR output object, a list with a data 
-    frame per formula, with the corresponding results (id, sex, stature, bone, 
-    if_female, if_male, if_indet, n_measures).
+Description:  Provides multiple formulae for human stature estimation to be 
+    applied to a given data set. The package reads tabled data of bone
+    measurements of each individual. The input function returns the statuAAR
+    input object as well as basic statistic for checking the data. The 
+    estimation function returns the stature based on the selected formulae.
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
